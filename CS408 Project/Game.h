@@ -4,6 +4,8 @@ class Game
 public:
     Game(int level_);
 
+    bool gameActive();
+
     void updatePlayer();
     void updateObjects();
     void checkCollisions();
@@ -13,5 +15,6 @@ public:
 
 private:
     int level;
+    bool gameState;
 };
 

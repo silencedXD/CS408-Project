@@ -13,34 +13,115 @@ void startLevel(int level_);
 
 int main()
 {
-    //Code Layout
+    sf::RenderWindow window(sf::VideoMode(600, 800), "SFML works!");
 
-    while (true) {
+    sf::Vector2u windowSize = window.getSize();
+    sf::Vector2f standardSize((float)windowSize.x, (float)windowSize.y / 4);
+    std::vector<sf::RectangleShape> rectangles;
+    std::vector<sf::Text> messages;
+    sf::Font font;
+    int fontSize = 36;
+
+    if (!font.loadFromFile("arial.ttf")) {
+        std::cout << "Error font not loaded";
+        return -1;
+    }
     
-        std::cout << "Please Select from the menu\n";
-        std::cout << "Options\n";
-        std::cout << "Level Editor\n";
-        std::cout << "Level Select\n";
-        std::cout << "Quit\n";
-        int selection;
-        std::cin >> selection;
 
-        switch (selection)
+    sf::RectangleShape optionsRect(standardSize);
+    optionsRect.setFillColor(sf::Color::Yellow);
+    sf::Text optionsLabel("Options", font, fontSize);
+    rectangles.push_back(optionsRect);
+    messages.push_back(optionsLabel);
+
+
+    sf::RectangleShape levelEditorRect(standardSize);
+    levelEditorRect.setPosition(sf::Vector2f(0, windowSize.y * 1 / 4));
+    levelEditorRect.setFillColor(sf::Color::Green);
+    sf::Text levelEditorLabel("Level Editor", font, fontSize);
+    levelEditorLabel.setPosition(sf::Vector2f(0, windowSize.y * 1 / 4));
+    rectangles.push_back(levelEditorRect);
+    messages.push_back(levelEditorLabel);
+    
+
+    sf::RectangleShape levelSelectRect(standardSize);
+    levelSelectRect.setPosition(sf::Vector2f(0, windowSize.y * 2 / 4));
+    levelSelectRect.setFillColor(sf::Color::Blue);
+    sf::Text levelSelectLabel("Level Select", font, fontSize);
+    levelSelectLabel.setPosition(sf::Vector2f(0, windowSize.y * 2 / 4));
+    rectangles.push_back(levelSelectRect);
+    messages.push_back(levelSelectLabel);
+
+    sf::RectangleShape quitRect(standardSize);
+    quitRect.setPosition(sf::Vector2f(0, windowSize.y * 3 / 4));
+    quitRect.setFillColor(sf::Color::Red);
+    sf::Text quitLabel("Quit", font, fontSize);
+    quitLabel.setPosition(sf::Vector2f(0, windowSize.y * 3 / 4));
+    rectangles.push_back(quitRect);
+    messages.push_back(quitLabel);
+
+
+    sf::Texture arrowTexture;
+    if (arrowTexture.loadFromFile("SelectionArrow.png")) {
+        std::cout << "Arrow image not loaded";
+        return -1;
+    }
+    sf::Sprite arrow(arrowTexture);
+    arrow.setPosition((float)windowSize.x / 2, (float)windowSize.y / 5);
+
+    while (window.isOpen()) {
+             
+
+
+        sf::Event event;
+        while (window.pollEvent(event))
         {
-        case 1:
-            goToOptions();
-            break;
-        case 2:
-            goToLevelEditor();
-            break;
-        case 3:
-            goToLevelSelect();
-            break;
-        case 4:
-            return 0;
-        default:
-            break;
+            if (event.type == sf::Event::Closed)
+            {
+                window.close();
+            }
+        
         }
+
+
+
+        window.clear();
+
+        for (int i = 0; i < rectangles.size(); i++) {
+            window.draw(rectangles.at(i));
+        }
+
+        for (int i = 0; i < messages.size(); i++) {
+            window.draw(messages.at(i));
+        }
+        window.draw(arrow);
+
+        window.display();
+    
+        //std::cout << "Please Select from the menu\n";
+        //std::cout << "Options\n";
+        //std::cout << "Level Editor\n";
+        //std::cout << "Level Select\n";
+        //std::cout << "Quit\n";
+        //int selection;
+        //std::cin >> selection;
+
+        //switch (selection)
+        //{
+        //case 1:
+        //    goToOptions();
+        //    break;
+        //case 2:
+        //    goToLevelEditor();
+        //    break;
+        //case 3:
+        //    goToLevelSelect();
+        //    break;
+        //case 4:
+        //    return 0;
+        //default:
+        //    break;
+        //}
     }
 
     
@@ -116,12 +197,9 @@ void startLevel(int level_) {
     if (loadFail) {
         retryLoad();
     }*/
-    int currentLevel = level_;
-    Game game(currentLevel);
+    Game game(level_);
 
-    bool gameLoop = true;
-
-    while (gameLoop) {
+    while (game.gameActive()) {
 
         game.updatePlayer();
         game.updateObjects();
@@ -129,7 +207,7 @@ void startLevel(int level_) {
         game.updateSound();
         game.updateView();
         game.garbageCollection();
-        std::cout << "Level " << currentLevel << "\n";
-        gameLoop = false;
+        std::cout << "Level " << level_ << "\n";
+
     }
 }
