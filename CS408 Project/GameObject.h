@@ -4,9 +4,10 @@
 class GameObject
 {
 public:
-	GameObject(int x_, int y_);
-	int x;
-	int y;
-	sf::CircleShape image;
+	virtual sf::Sprite* getSprite() = 0;
+	virtual sf::Vector2f getPos() = 0;
+	virtual void setPos(float x_, float y_) = 0;
+	std::string id;
+	bool deleteFlag;
 };
 

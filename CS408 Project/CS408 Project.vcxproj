@@ -135,11 +135,28 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="GraphicsUnit.cpp" />
+    <ClCompile Include="InputHandler.cpp" />
+    <ClCompile Include="LevelSelectHandler.cpp" />
+    <ClCompile Include="LoopManager.cpp" />
+    <ClCompile Include="MainMenuHandler.cpp" />
+    <ClCompile Include="ObjectFactory.cpp" />
+    <ClCompile Include="SettingsMenuHandler.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="SpriteObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameObject.h" />
+    <ClInclude Include="GraphicsUnit.h" />
+    <ClInclude Include="InputHandler.h" />
+    <ClInclude Include="LevelSelectHandler.h" />
+    <ClInclude Include="LoopManager.h" />
+    <ClInclude Include="MenuCode.h" />
+    <ClInclude Include="MainMenuHandler.h" />
+    <ClInclude Include="ObjectFactory.h" />
+    <ClInclude Include="SettingsMenuHandler.h" />
+    <ClInclude Include="SpriteObject.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SelectionArrow.png" />

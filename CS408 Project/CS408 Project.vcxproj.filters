@@ -13,24 +13,87 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\inputHandlers">
+      <UniqueIdentifier>{d030c43d-285e-45d3-8d32-656c744ebec9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Objects">
+      <UniqueIdentifier>{0360d987-f4b9-4339-8271-72b90bbeb051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ObjectsH">
+      <UniqueIdentifier>{6060c195-0ee9-4551-9a34-012e5ae43e2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\inputHandlersH">
+      <UniqueIdentifier>{d40f3b70-8e40-44fe-9f1e-4a02f12f53c3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="LoopManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="InputHandler.cpp">
+      <Filter>Source Files\inputHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenuHandler.cpp">
+      <Filter>Source Files\inputHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="SettingsMenuHandler.cpp">
+      <Filter>Source Files\inputHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelSelectHandler.cpp">
+      <Filter>Source Files\inputHandlers</Filter>
+    </ClCompile>
     <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="GraphicsUnit.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectFactory.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteObject.cpp">
+      <Filter>Source Files\Objects</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h">
+    <ClInclude Include="LoopManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MenuCode.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenuHandler.h">
+      <Filter>Header Files\inputHandlersH</Filter>
+    </ClInclude>
+    <ClInclude Include="InputHandler.h">
+      <Filter>Header Files\inputHandlersH</Filter>
+    </ClInclude>
+    <ClInclude Include="SettingsMenuHandler.h">
+      <Filter>Header Files\inputHandlersH</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Header Files\ObjectsH</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelSelectHandler.h">
+      <Filter>Header Files\inputHandlersH</Filter>
+    </ClInclude>
     <ClInclude Include="Game.h">
+      <Filter>Header Files\ObjectsH</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphicsUnit.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectFactory.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteObject.h">
+      <Filter>Header Files\ObjectsH</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
