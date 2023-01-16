@@ -6,6 +6,7 @@ GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_, std::string fontName, int 
     window = window_;
     loadFont(fontName);
     changeFontSize(fontSize);
+    textureLocations["arrow"] = "SelectionArrow.png";
 }
 
 bool GraphicsUnit::loadFont(std::string fontName) {
@@ -33,6 +34,27 @@ void GraphicsUnit::clearWindow() {
 
 void GraphicsUnit::clearText() {
     messages.clear();
+}
+
+sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
+    sf::Texture* temp;
+    try {
+        if (!textures.count(objectName)) {
+            sf::Texture objectTexture;
+            objectTexture.loadFromFile(textureLocations.at(objectName));	//If this is the first object of its kind the texture will first be loaded
+            textures[objectName] = objectTexture;
+            temp = &objectTexture;
+            return temp;
+        }
+        else {
+            temp = &textures[objectName];	//If object has already been created the texture will be stored in the map
+            return temp;
+        }
+    }
+    catch (...) {
+        std::cout << objectName + " texture either failed to load or location is missing";	//If the texture fails to load the program exits
+        window->close();
+    }
 }
 
 void GraphicsUnit::update(std::vector<GameObject*> objects) {

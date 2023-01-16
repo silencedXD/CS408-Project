@@ -15,8 +15,6 @@ public:
 
 private:
 	GraphicsUnit* graphics;
-	std::map<std::string, sf::Texture> textures;
-	std::map<std::string, std::string> textureLocations;
 	std::map<std::string, int> objectCount;
 };
 
