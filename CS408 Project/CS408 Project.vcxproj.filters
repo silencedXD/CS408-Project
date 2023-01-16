@@ -66,6 +66,9 @@
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="AudioUnit.cpp">
+      <Filter>Source Files\Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MenuCode.h">
@@ -99,6 +102,9 @@
       <Filter>Header Files\ManagersH</Filter>
     </ClInclude>
     <ClInclude Include="ObjectFactory.h">
+      <Filter>Header Files\ManagersH</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioUnit.h">
       <Filter>Header Files\ManagersH</Filter>
     </ClInclude>
   </ItemGroup>
