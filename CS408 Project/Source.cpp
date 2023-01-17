@@ -16,7 +16,7 @@ void startLevel(int level_);
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(600, 800), "SFML works!");
-    GraphicsUnit graphics(&window, "arial.ttf", 36);
+    GraphicsUnit graphics(&window, "Misc/arial.ttf", 36);
     AudioUnit audio;
     LoopManager loopManager(&window, &graphics, &audio);
 

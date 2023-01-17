@@ -6,7 +6,7 @@ GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_, std::string fontName, int 
     window = window_;
     loadFont(fontName);
     changeFontSize(fontSize);
-    textureLocations["arrow"] = "SelectionArrow.png";
+    textureLocations["arrow"] = "Images/SelectionArrow.png";
 }
 
 bool GraphicsUnit::loadFont(std::string fontName) {

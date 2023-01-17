@@ -19,8 +19,10 @@ MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactor
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Options", 0, 0);
     graphics->makeLabel("Level Editor", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Level Select", 0, windowSize.y * 0.5);
+    graphics->makeLabel("Select Level", 0, windowSize.y * 0.5);
     graphics->makeLabel("Quit", 0, windowSize.y * 0.75);
+    audio->playSound("main_menu");
+    sf::sleep(sf::seconds(0.3));
 }
 
 MenuCode MainMenuHandler::updateState() {
@@ -34,16 +36,32 @@ MenuCode MainMenuHandler::updateState() {
     }
 
     switch (selector) {
+    case 10:
+        audio->playSound("options");
+        break;
+
     case 15:
         return settings;
+        break;
+
+    case 20:
+        audio->playSound("level_editor");
         break;
 
     case 25:
         return levelEditor;
         break;
 
+    case 30:
+        audio->playSound("select_level");
+        break;
+
     case 35:
         return levelSelect;
+        break;
+
+    case 40:
+        audio->playSound("quit");
         break;
 
     case 45:
