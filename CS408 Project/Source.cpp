@@ -6,14 +6,19 @@
 #include "MainMenuHandler.h"
 #include "MenuCode.h"
 #include "GraphicsUnit.h"
+#include "AudioUnit.h"
+#pragma comment(lib, "openal32.lib")
+
+
 
 void startLevel(int level_);
 
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(600, 800), "SFML works!");
-    GraphicsUnit unit(&window, "arial.ttf", 36);
-    LoopManager loopManager(&window, &unit);
+    GraphicsUnit graphics(&window, "arial.ttf", 36);
+    AudioUnit audio;
+    LoopManager loopManager(&window, &graphics, &audio);
 
     while (window.isOpen()) {
         loopManager.updateLoop();

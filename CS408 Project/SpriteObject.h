@@ -11,5 +11,6 @@ public:
 	virtual void setPos(float x_, float y_);
 private:
 	sf::Sprite sprite;
+	std::vector<std::string> sounds;
 };
 

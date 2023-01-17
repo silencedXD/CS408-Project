@@ -31,6 +31,12 @@
     <Filter Include="Source Files\Managers">
       <UniqueIdentifier>{59da3d5b-931c-46bd-b26b-60991d89847f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Images">
+      <UniqueIdentifier>{a6cdb277-5a79-49f5-a044-a5ea88af10d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Sound Buffers">
+      <UniqueIdentifier>{9271f92f-6c9f-4ffc-9ff0-428bf041f6b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source.cpp">
@@ -110,7 +116,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SelectionArrow.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\Images</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\pianoSound.wav">
+      <Filter>Resource Files\Sound Buffers</Filter>
+    </Media>
   </ItemGroup>
 </Project>

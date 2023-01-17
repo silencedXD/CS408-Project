@@ -1,7 +1,7 @@
 #include "SettingsMenuHandler.h"
 #include <iostream>
 
-SettingsMenuHandler::SettingsMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_) : InputHandler(graphics_, oFactory_) {
+SettingsMenuHandler::SettingsMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 	totalMenuItems = 1;
 }
 

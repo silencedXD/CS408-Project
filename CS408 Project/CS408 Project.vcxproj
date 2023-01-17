@@ -163,6 +163,9 @@
   <ItemGroup>
     <Image Include="..\..\..\SelectionArrow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="..\..\..\pianoSound.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

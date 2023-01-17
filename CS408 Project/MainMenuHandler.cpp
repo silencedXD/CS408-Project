@@ -3,7 +3,7 @@
 #include <SFML/System/Vector2.hpp>
 
 
-MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_) : InputHandler(graphics_, oFactory_) {
+MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 
 
     for (int i = 0; i < oFactory->objects.size(); i++) {

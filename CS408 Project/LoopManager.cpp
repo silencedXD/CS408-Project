@@ -6,13 +6,13 @@
 #include "LevelSelectHandler.h"
 #include "ObjectFactory.h"
 
-LoopManager::LoopManager(sf::RenderWindow* window_, GraphicsUnit* unit) {
+LoopManager::LoopManager(sf::RenderWindow* window_, GraphicsUnit* graphics_, AudioUnit* audio_) {
 	window = window_;
-	audio = 0;
+	audio = audio_;
     handler = nullptr;
 
     //TODO: font name and size should be loaded from config, not hard coded
-    graphics = unit;
+    graphics = graphics_;
 
     oFactory = new ObjectFactory(graphics);
     oFactory->makeObject("arrow", window->getSize().x / 2.0, 0);
@@ -44,10 +44,6 @@ void LoopManager::updateLoop() {
 
     graphics->update(oFactory->objects);
 
-
-    //TODO: Implement audio
-    audio++;
-
     if (tempState != state) {
         changeState(tempState);
     }
@@ -58,13 +54,13 @@ void LoopManager::changeState(MenuCode state_) {
     case mainMenu:
         delete handler;
         graphics->clearText();
-        handler = new MainMenuHandler(graphics, oFactory);
+        handler = new MainMenuHandler(graphics, oFactory, audio);
         state = state_;
         break;
     case settings:
         delete handler;
         graphics->clearText();
-        handler = new SettingsMenuHandler(graphics, oFactory);
+        handler = new SettingsMenuHandler(graphics, oFactory, audio);
         state = state_;
         break;
     case levelEditor:
@@ -72,7 +68,7 @@ void LoopManager::changeState(MenuCode state_) {
     case levelSelect:
         delete handler;
         graphics->clearText();
-        handler = new LevelSelectHandler(graphics, oFactory);
+        handler = new LevelSelectHandler(graphics, oFactory, audio);
         state = state_;
         break;
     case quit:
