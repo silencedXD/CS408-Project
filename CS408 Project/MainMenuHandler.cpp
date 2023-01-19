@@ -17,12 +17,12 @@ MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactor
 
 
     sf::Vector2u windowSize = graphics->getWindowSize();
-    graphics->makeLabel("Options", 0, 0);
-    graphics->makeLabel("Level Editor", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Select Level", 0, windowSize.y * 0.5);
-    graphics->makeLabel("Quit", 0, windowSize.y * 0.75);
+    graphics->makeLabel("Options", 0, windowSize.y * 0.25);
+    graphics->makeLabel("Level Editor", 0, windowSize.y * 0.45);
+    graphics->makeLabel("Select Level", 0, windowSize.y * 0.65);
+    graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
     audio->playSound("main_menu");
-    sf::sleep(sf::seconds(0.3));
+    sf::sleep(sf::seconds(0.2));
 }
 
 MenuCode MainMenuHandler::updateState() {
@@ -30,46 +30,60 @@ MenuCode MainMenuHandler::updateState() {
         if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
             sf::Vector2u windowSize = graphics->getWindowSize();
 
-            oFactory->objects[i]->setPos(windowSize.x / 2.0, (windowSize.y / 40.0 * selector) - windowSize.y / 4.0);
+            oFactory->objects[i]->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
             break;
         }
     }
 
     switch (selector) {
-    case 10:
-        audio->playSound("options");
-        break;
 
     case 15:
+        selector = 0;
         return settings;
+        break;
+
+    case 25:
+        selector = 0;
+        return levelEditor;
+        break;
+
+    case 35:
+        selector = 0;
+        return levelSelect;
+        break;
+
+    case 45:
+        selector = 0;
+        return quit;
+        break;
+
+    default:
+        return empty;
+        break;
+    }
+}
+
+void MainMenuHandler::playTextPrompt() {
+    std::cout << "Selector: " << selector << "\n";
+    switch (selector) {
+    case 10:
+        audio->playSound("options");
         break;
 
     case 20:
         audio->playSound("level_editor");
         break;
 
-    case 25:
-        return levelEditor;
-        break;
-
     case 30:
         audio->playSound("select_level");
-        break;
-
-    case 35:
-        return levelSelect;
         break;
 
     case 40:
         audio->playSound("quit");
         break;
 
-    case 45:
-        return quit;
-        break;
-
     default:
-        return mainMenu;
+        std::cout << "Error tried to play text prompt when selector is out of bounds\n";
         break;
     }
 }

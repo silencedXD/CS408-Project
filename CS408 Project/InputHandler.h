@@ -12,8 +12,8 @@ class InputHandler
 public:
 	InputHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
 	void keyPressed(sf::Event event);
-	virtual MenuCode updateState();
-
+	virtual MenuCode updateState() = 0;
+	virtual void playTextPrompt() = 0;
 protected:
 	GraphicsUnit* graphics;
 	ObjectFactory* oFactory;

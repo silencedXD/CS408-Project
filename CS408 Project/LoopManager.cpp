@@ -19,6 +19,7 @@ LoopManager::LoopManager(sf::RenderWindow* window_, GraphicsUnit* graphics_, Aud
     oFactory->clearObjects();
     oFactory->makeObject("arrow", window->getSize().x / 2.0, 0);
     changeState(mainMenu);
+    //TODO: Tell player to use arrow keys to navigate menu
 }
 
 void LoopManager::updateLoop() {
@@ -75,6 +76,7 @@ void LoopManager::changeState(MenuCode state_) {
         window->close();    //If the user exits using the quit button in a menu
         return;
         break;
+    case empty:
     default:
         break;
     }

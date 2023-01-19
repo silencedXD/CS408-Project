@@ -5,10 +5,10 @@ LevelSelectHandler::LevelSelectHandler(GraphicsUnit* graphics_, ObjectFactory* o
 
     sf::Vector2u windowSize = graphics->getWindowSize();
 
-    graphics->makeLabel("Level One", 0, 0);
-    graphics->makeLabel("Level Two", 0 , windowSize.y * 0.25);
-    graphics->makeLabel("Level Three", 0, windowSize.y * 0.5);
-    graphics->makeLabel("Go Back", 0, windowSize.y * 0.75);
+    graphics->makeLabel("Level One", 0, windowSize.y * 0.25);
+    graphics->makeLabel("Level Two", 0 , windowSize.y * 0.45);
+    graphics->makeLabel("Level Three", 0, windowSize.y * 0.65);
+    graphics->makeLabel("Go Back", 0, windowSize.y * 0.85);
 }
 
 
@@ -17,7 +17,7 @@ MenuCode LevelSelectHandler::updateState() {
         if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
             sf::Vector2u windowSize = graphics->getWindowSize();
 
-            oFactory->objects[i]->setPos(windowSize.x / 2.0, (windowSize.y / 40.0 * selector) - windowSize.y / 4.0);
+            oFactory->objects[i]->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
             break;
         }
     }
@@ -48,3 +48,28 @@ MenuCode LevelSelectHandler::updateState() {
     }
 
 }
+
+void LevelSelectHandler::playTextPrompt() {
+    std::cout << "Selector: " << selector << "\n";
+    switch (selector) {
+    case 10:
+        audio->playSound("level_one");
+        break;
+
+    case 20:
+        audio->playSound("level_two");
+        break;
+
+    case 30:
+        audio->playSound("level_three");
+        break;
+
+    case 40:
+        audio->playSound("quit");
+        break;
+
+    default:
+        std::cout << "Error tried to play text prompt when selector is out of bounds\n";
+        break;
+    }
+};

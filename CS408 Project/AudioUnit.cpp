@@ -10,6 +10,9 @@ AudioUnit::AudioUnit() {
     soundLocations["select_level"] = "Text_To_Speech/select_level.ogg";
     soundLocations["level_editor"] = "Text_To_Speech/level_editor.ogg";
     soundLocations["quit"] = "Text_To_Speech/quit.ogg";
+    soundLocations["level_one"] = "Text_To_Speech/level_one.ogg";
+    soundLocations["level_two"] = "Text_To_Speech/level_two.ogg";
+    soundLocations["level_three"] = "Text_To_Speech/level_three.ogg";
     bufferCount = 0;
 }
 

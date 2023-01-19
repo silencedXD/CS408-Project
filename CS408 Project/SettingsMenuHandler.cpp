@@ -11,3 +11,13 @@ MenuCode SettingsMenuHandler::updateState() {
 	std::cout << "Options selected\n";
 	return mainMenu;
 }
+
+void SettingsMenuHandler::playTextPrompt() {
+	switch (selector) {
+		case 10:
+			std::cout << "Add text prompts";
+			break;
+		default:
+			break;
+	}
+}
