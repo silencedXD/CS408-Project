@@ -14,7 +14,12 @@ AudioUnit::AudioUnit() {
     soundLocations["level_two"] = "Text_To_Speech/level_two.ogg";
     soundLocations["level_three"] = "Text_To_Speech/level_three.ogg";
     soundLocations["go_back"] = "Text_To_Speech/go_back.ogg";
+    soundLocations["menu_controls"] = "Text_To_Speech/menu_controls.ogg";
     bufferCount = 0;
+    loadSound("main_menu");
+    previousSound = &sounds["main_menu"];
+    playSound("menu_controls");
+    sf::sleep(sf::seconds(4.2));
 }
 
 void AudioUnit::loadSound(std::string soundName) {
@@ -37,10 +42,14 @@ void AudioUnit::loadSound(std::string soundName) {
 void AudioUnit::playSound(std::string soundName) {
     if (sounds.count(soundName))
     {
+        previousSound->stop();
         sounds[soundName].play();
+        previousSound = &sounds[soundName];
     }
     else {
         loadSound(soundName);
+        previousSound->stop();
         sounds[soundName].play();
+        previousSound = &sounds[soundName];
     }
 }

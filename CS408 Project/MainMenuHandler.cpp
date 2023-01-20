@@ -22,7 +22,6 @@ MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactor
     graphics->makeLabel("Select Level", 0, windowSize.y * 0.65);
     graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
     audio->playSound("main_menu");
-    sf::sleep(sf::seconds(0.2));
 }
 
 MenuCode MainMenuHandler::updateState() {
@@ -66,6 +65,9 @@ MenuCode MainMenuHandler::updateState() {
 void MainMenuHandler::playTextPrompt() {
     std::cout << "Selector: " << selector << "\n";
     switch (selector) {
+    case 0:
+        audio->playSound("main_menu");
+        break;
     case 10:
         audio->playSound("options");
         break;

@@ -37,7 +37,6 @@ void InputHandler::keyPressed(sf::Event event) {
             selector = selector + 5;
             std::cout << "Enter Press\n";
         }
-        audio->playSound("medium_piano_note");
     }
     std::cout << "Selector after:  " << selector << "\n";
 }

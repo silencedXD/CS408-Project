@@ -52,6 +52,9 @@ MenuCode LevelSelectHandler::updateState() {
 void LevelSelectHandler::playTextPrompt() {
     std::cout << "Selector: " << selector << "\n";
     switch (selector) {
+    case 0:
+        audio->playSound("select_level");
+        break;
     case 10:
         audio->playSound("level_one");
         break;

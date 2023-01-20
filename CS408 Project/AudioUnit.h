@@ -13,4 +13,5 @@ private:
 	std::map<std::string, std::string> soundLocations;
 	std::vector<sf::SoundBuffer*> buffers;
 	int bufferCount;
+	sf::Sound* previousSound;
 };
