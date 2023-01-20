@@ -2,7 +2,7 @@
 #include <iostream>
 #include "MenuCode.h"
 #include "MainMenuHandler.h"
-#include "SettingsMenuHandler.h"
+#include "OptionsMenuHandler.h"
 #include "LevelSelectHandler.h"
 #include "ObjectFactory.h"
 
@@ -10,16 +10,19 @@ LoopManager::LoopManager(sf::RenderWindow* window_, GraphicsUnit* graphics_, Aud
 	window = window_;
 	audio = audio_;
     handler = nullptr;
-
-    //TODO: font name and size should be loaded from config, not hard coded
     graphics = graphics_;
 
-    oFactory = new ObjectFactory(graphics);
+    oFactory = new ObjectFactory(graphics); //For some reason the arrow doesn't display on the first load
     oFactory->makeObject("arrow", window->getSize().x / 2.0, 0);
     oFactory->clearObjects();
     oFactory->makeObject("arrow", window->getSize().x / 2.0, 0);
+    for (int i = 0; i < oFactory->objects.size(); i++) {
+        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
+            oFactory->objects[i]->getSprite()->setScale(0.5, 0.5);  //Otherwise the arrow would be massive
+            break;
+        }
+    }
     changeState(mainMenu);
-    //TODO: Tell player to use arrow keys to navigate menu
 }
 
 void LoopManager::updateLoop() {
@@ -58,10 +61,10 @@ void LoopManager::changeState(MenuCode state_) {
         handler = new MainMenuHandler(graphics, oFactory, audio);
         state = state_;
         break;
-    case settings:
+    case options:
         delete handler;
         graphics->clearText();
-        handler = new SettingsMenuHandler(graphics, oFactory, audio);
+        handler = new OptionsMenuHandler(graphics, oFactory, audio);
         state = state_;
         break;
     case levelEditor:

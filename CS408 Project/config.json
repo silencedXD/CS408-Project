@@ -3,5 +3,7 @@
 	"font" : "Misc/arial.ttf",
 	"font_size" : 36,
 	"window_width" : 800,
-	"window_height" : 600
+	"window_height" : 600,
+	"window_style" : "close",
+	"bpp" : 32
 }

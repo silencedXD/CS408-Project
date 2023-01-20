@@ -19,7 +19,7 @@ AudioUnit::AudioUnit() {
     loadSound("main_menu");
     previousSound = &sounds["main_menu"];
     playSound("menu_controls");
-    sf::sleep(sf::seconds(4.2));
+    //sf::sleep(sf::seconds(4.2));
 }
 
 void AudioUnit::loadSound(std::string soundName) {

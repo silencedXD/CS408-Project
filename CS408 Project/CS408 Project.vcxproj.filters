@@ -54,7 +54,7 @@
     <ClCompile Include="MainMenuHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
-    <ClCompile Include="SettingsMenuHandler.cpp">
+    <ClCompile Include="OptionsMenuHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -95,7 +95,7 @@
     <ClInclude Include="InputHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
-    <ClInclude Include="SettingsMenuHandler.h">
+    <ClInclude Include="OptionsMenuHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">

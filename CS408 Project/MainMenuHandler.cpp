@@ -5,22 +5,12 @@
 
 MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 
-
-    for (int i = 0; i < oFactory->objects.size(); i++) {
-        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
-            sf::Vector2u windowSize = graphics->getWindowSize();
-
-            oFactory->objects[i]->getSprite()->setScale(0.5, 0.5);
-            break;
-        }
-    }
-
-
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Options", 0, windowSize.y * 0.25);
     graphics->makeLabel("Level Editor", 0, windowSize.y * 0.45);
     graphics->makeLabel("Select Level", 0, windowSize.y * 0.65);
     graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
+
     audio->playSound("main_menu");
 }
 
@@ -38,7 +28,7 @@ MenuCode MainMenuHandler::updateState() {
 
     case 15:
         selector = 0;
-        return settings;
+        return options;
         break;
 
     case 25:

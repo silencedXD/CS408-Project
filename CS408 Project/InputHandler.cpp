@@ -11,7 +11,6 @@ InputHandler::InputHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Au
 }
 
 void InputHandler::keyPressed(sf::Event event) {
-    std::cout << "Selector before:  " << selector << "\n";
     if (event.key.code == sf::Keyboard::Down) {
         if (selector < (totalMenuItems - 1) * 10) {
             selector = selector + 10;
@@ -20,7 +19,6 @@ void InputHandler::keyPressed(sf::Event event) {
         else {
             selector = (totalMenuItems - 1) * 10;
         }
-        std::cout << "Down Press\n";
         //audio->playSound("low_piano_note");
     }
     if (event.key.code == sf::Keyboard::Up) {
@@ -28,15 +26,12 @@ void InputHandler::keyPressed(sf::Event event) {
             selector = selector - 10;
             playTextPrompt();
         }
-        std::cout << "Up Press\n";
         //audio->playSound("high_piano_note");
     }
     if (event.key.code == sf::Keyboard::Right) {
         if (selector % 10 == 0 && selector > 0)
         {
             selector = selector + 5;
-            std::cout << "Enter Press\n";
         }
     }
-    std::cout << "Selector after:  " << selector << "\n";
 }
