@@ -65,7 +65,7 @@ void LevelSelectHandler::playTextPrompt() {
         break;
 
     case 40:
-        audio->playSound("quit");
+        audio->playSound("go_back");
         break;
 
     default:

@@ -37,11 +37,17 @@
     <Filter Include="Resource Files\Sound Buffers">
       <UniqueIdentifier>{9271f92f-6c9f-4ffc-9ff0-428bf041f6b9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Extrenal LibrariesH">
+      <UniqueIdentifier>{a2fc4eff-ad6a-4642-87d6-9204ea7ba397}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\External Libraries">
+      <UniqueIdentifier>{542c4a43-5626-4d1c-b272-6810f9ba1688}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Misc">
+      <UniqueIdentifier>{4805221e-73dd-41fb-959d-5d8785356223}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
@@ -75,11 +81,14 @@
     <ClCompile Include="AudioUnit.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
+    <ClCompile Include="jsoncpp\dist\jsoncpp.cpp">
+      <Filter>Source Files\External Libraries</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MenuCode.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="MainMenuHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
@@ -113,6 +122,15 @@
     <ClInclude Include="AudioUnit.h">
       <Filter>Header Files\ManagersH</Filter>
     </ClInclude>
+    <ClInclude Include="jsoncpp\dist\json\json.h">
+      <Filter>Header Files\Extrenal LibrariesH</Filter>
+    </ClInclude>
+    <ClInclude Include="jsoncpp\dist\json\json-forwards.h">
+      <Filter>Header Files\Extrenal LibrariesH</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuCode.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SelectionArrow.png">
@@ -123,5 +141,10 @@
     <Media Include="..\..\..\pianoSound.wav">
       <Filter>Resource Files\Sound Buffers</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="config.json">
+      <Filter>Source Files\Misc</Filter>
+    </None>
   </ItemGroup>
 </Project>

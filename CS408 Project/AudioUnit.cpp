@@ -13,6 +13,7 @@ AudioUnit::AudioUnit() {
     soundLocations["level_one"] = "Text_To_Speech/level_one.ogg";
     soundLocations["level_two"] = "Text_To_Speech/level_two.ogg";
     soundLocations["level_three"] = "Text_To_Speech/level_three.ogg";
+    soundLocations["go_back"] = "Text_To_Speech/go_back.ogg";
     bufferCount = 0;
 }
 

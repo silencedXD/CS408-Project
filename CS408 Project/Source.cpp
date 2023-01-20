@@ -7,17 +7,26 @@
 #include "MenuCode.h"
 #include "GraphicsUnit.h"
 #include "AudioUnit.h"
+#include "jsoncpp\dist\json\json.h"
+#include <fstream>
 #pragma comment(lib, "openal32.lib")
 
-
+Json::Value loadConfig();
 
 void startLevel(int level_);
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(600, 800), "SFML works!");
-    GraphicsUnit graphics(&window, "Misc/arial.ttf", 36);
+//First load the config file
+
+    Json::Value config = loadConfig();
+
+    sf::RenderWindow window(sf::VideoMode(config["window_width"].asInt(), config["window_height"].asInt()), "Game");
+    
+    GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt());
+    
     AudioUnit audio;
+    
     LoopManager loopManager(&window, &graphics, &audio);
 
     while (window.isOpen()) {
@@ -28,6 +37,13 @@ int main()
 }
 
 
+Json::Value loadConfig() {
+    std::ifstream file("config.json");
+    Json::Value file_contents;
+    Json::Reader jsonReader;
+    jsonReader.parse(file, file_contents);
+    return file_contents;
+}
 
 void startLevel(int level_) {
     /*Level currentLevel = loadLevel(level_);

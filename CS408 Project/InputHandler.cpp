@@ -31,7 +31,7 @@ void InputHandler::keyPressed(sf::Event event) {
         std::cout << "Up Press\n";
         //audio->playSound("high_piano_note");
     }
-    if (event.key.code == sf::Keyboard::Enter) {
+    if (event.key.code == sf::Keyboard::Right) {
         if (selector % 10 == 0 && selector > 0)
         {
             selector = selector + 5;
