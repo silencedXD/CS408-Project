@@ -14,6 +14,7 @@ public:
 	void keyPressed(sf::Event event);
 	virtual MenuCode updateState() = 0;
 	virtual void playTextPrompt() = 0;
+	void updateArrow();
 protected:
 	GraphicsUnit* graphics;
 	ObjectFactory* oFactory;

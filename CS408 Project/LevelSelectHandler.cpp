@@ -4,7 +4,7 @@
 LevelSelectHandler::LevelSelectHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 
     sf::Vector2u windowSize = graphics->getWindowSize();
-
+    graphics->makeLabel("Select level", 0, 0);
     graphics->makeLabel("Level One", 0, windowSize.y * 0.25);
     graphics->makeLabel("Level Two", 0 , windowSize.y * 0.45);
     graphics->makeLabel("Level Three", 0, windowSize.y * 0.65);
@@ -13,15 +13,7 @@ LevelSelectHandler::LevelSelectHandler(GraphicsUnit* graphics_, ObjectFactory* o
 
 
 MenuCode LevelSelectHandler::updateState() {
-    for (int i = 0; i < oFactory->objects.size(); i++) {
-        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
-            sf::Vector2u windowSize = graphics->getWindowSize();
-
-            oFactory->objects[i]->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
-            break;
-        }
-    }
-
+    updateArrow();
 
     switch (selector) {
     case 15:

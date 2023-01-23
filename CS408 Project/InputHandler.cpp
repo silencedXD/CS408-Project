@@ -19,19 +19,28 @@ void InputHandler::keyPressed(sf::Event event) {
         else {
             selector = (totalMenuItems - 1) * 10;
         }
-        //audio->playSound("low_piano_note");
     }
     if (event.key.code == sf::Keyboard::Up) {
         if (selector >= 10) {
             selector = selector - 10;
             playTextPrompt();
         }
-        //audio->playSound("high_piano_note");
     }
     if (event.key.code == sf::Keyboard::Right) {
         if (selector % 10 == 0 && selector > 0)
         {
             selector = selector + 5;
+        }
+    }
+}
+
+void InputHandler::updateArrow() {
+    for (int i = 0; i < oFactory->objects.size(); i++) {
+        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
+            sf::Vector2u windowSize = graphics->getWindowSize();
+
+            oFactory->objects[i]->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
+            break;
         }
     }
 }

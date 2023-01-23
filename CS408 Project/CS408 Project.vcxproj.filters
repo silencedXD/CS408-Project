@@ -46,15 +46,18 @@
     <Filter Include="Source Files\Misc">
       <UniqueIdentifier>{4805221e-73dd-41fb-959d-5d8785356223}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\inputHandlers\OptionsHandlers">
+      <UniqueIdentifier>{b080dcf4-918c-4d9d-abb0-2ad76fe9575d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\inputHandlersH\OptionsHandlerH">
+      <UniqueIdentifier>{992082ad-67cb-48e8-b80b-57ce1cf720fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
     <ClCompile Include="MainMenuHandler.cpp">
-      <Filter>Source Files\inputHandlers</Filter>
-    </ClCompile>
-    <ClCompile Include="OptionsMenuHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
     <ClCompile Include="GameObject.cpp">
@@ -87,15 +90,24 @@
     <ClCompile Include="Source.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioOptionsHandler.cpp">
+      <Filter>Source Files\inputHandlers\OptionsHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoOptionsHandler.cpp">
+      <Filter>Source Files\inputHandlers\OptionsHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlsOptionsHandler.cpp">
+      <Filter>Source Files\inputHandlers\OptionsHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="OptionsMenuHandler.cpp">
+      <Filter>Source Files\inputHandlers\OptionsHandlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenuHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
     <ClInclude Include="InputHandler.h">
-      <Filter>Header Files\inputHandlersH</Filter>
-    </ClInclude>
-    <ClInclude Include="OptionsMenuHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
     <ClInclude Include="GameObject.h">
@@ -130,6 +142,18 @@
     </ClInclude>
     <ClInclude Include="MenuCode.h">
       <Filter>Source Files\Misc</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlsOptionsHandler.h">
+      <Filter>Header Files\inputHandlersH\OptionsHandlerH</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioOptionsHandler.h">
+      <Filter>Header Files\inputHandlersH\OptionsHandlerH</Filter>
+    </ClInclude>
+    <ClInclude Include="OptionsMenuHandler.h">
+      <Filter>Header Files\inputHandlersH\OptionsHandlerH</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoOptionsHandler.h">
+      <Filter>Header Files\inputHandlersH\OptionsHandlerH</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

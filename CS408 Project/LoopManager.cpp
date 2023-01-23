@@ -5,6 +5,9 @@
 #include "OptionsMenuHandler.h"
 #include "LevelSelectHandler.h"
 #include "ObjectFactory.h"
+#include "VideoOptionsHandler.h"
+#include "AudioOptionsHandler.h"
+#include "ControlsOptionsHandler.h"
 
 LoopManager::LoopManager(sf::RenderWindow* window_, GraphicsUnit* graphics_, AudioUnit* audio_) {
 	window = window_;
@@ -61,12 +64,14 @@ void LoopManager::changeState(MenuCode state_) {
         handler = new MainMenuHandler(graphics, oFactory, audio);
         state = state_;
         break;
+
     case options:
         delete handler;
         graphics->clearText();
         handler = new OptionsMenuHandler(graphics, oFactory, audio);
         state = state_;
         break;
+
     case levelEditor:
         std::cout << "Level Editor Selected\n";
     case levelSelect:
@@ -75,10 +80,18 @@ void LoopManager::changeState(MenuCode state_) {
         handler = new LevelSelectHandler(graphics, oFactory, audio);
         state = state_;
         break;
+
     case quit:
         window->close();    //If the user exits using the quit button in a menu
         return;
         break;
+
+    case videoOptions:
+        delete handler;
+        graphics->clearText();
+        handler = new VideoOptionsHandler(graphics, oFactory, audio);
+        break;
+
     case empty:
     default:
         break;

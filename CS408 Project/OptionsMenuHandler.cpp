@@ -2,25 +2,46 @@
 #include <iostream>
 
 OptionsMenuHandler::OptionsMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
-	totalMenuItems = 1;
+	sf::Vector2u windowSize = graphics->getWindowSize();
+	graphics->makeLabel("Options", 0, 0);
+	graphics->makeLabel("Video", 0, windowSize.y * 0.25);
+	graphics->makeLabel("Audio", 0, windowSize.y * 0.45);
+	graphics->makeLabel("Controls", 0, windowSize.y * 0.65);
+	graphics->makeLabel("Go back", 0, windowSize.y * 0.85);
 }
 
 void OptionsMenuHandler::keyPressed(sf::Event event) {}
 
 MenuCode OptionsMenuHandler::updateState() {
-	std::cout << "Options selected\n";
-	return mainMenu;
+	updateArrow();
+
+	switch (selector) {
+		case 15:
+			return videoOptions;
+
+		case 25:
+			return audioOptions;
+
+		case 35:
+			return controlsOptions;
+
+		case 45:
+			return mainMenu;
+
+		default:
+			return options;
+
+	}
 }
 
 void OptionsMenuHandler::playTextPrompt() {
-	switch (selector) {//TODO CREATE SOUND FILES AND ADD THEM
-		/*
-	case 0:
+	switch (selector) {
+		case 0:
 			audio->playSound("options");
 			break;
 
 		case 10:
-			audio->playSound("display");
+			audio->playSound("video");
 			break;
 
 		case 20:
@@ -32,10 +53,11 @@ void OptionsMenuHandler::playTextPrompt() {
 			break;
 
 		case 40:
-			audio->playSound("quit");
+			audio->playSound("go_back");
 			break;
-			*/
+			
 		default:
+			std::cout << "Error tried to play text prompt when selector is out of bounds\n";
 			break;
 	}
 }
