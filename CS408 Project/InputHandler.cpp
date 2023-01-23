@@ -1,5 +1,4 @@
 #include "InputHandler.h"
-#include <iostream>
 
 InputHandler::InputHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) {
     selector = 0;

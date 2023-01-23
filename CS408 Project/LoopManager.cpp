@@ -90,6 +90,7 @@ void LoopManager::changeState(MenuCode state_) {
         delete handler;
         graphics->clearText();
         handler = new VideoOptionsHandler(graphics, oFactory, audio);
+        state = state_;
         break;
 
     case empty:

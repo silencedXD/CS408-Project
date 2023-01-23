@@ -1,5 +1,4 @@
 #include "LevelSelectHandler.h"
-#include <iostream>
 
 LevelSelectHandler::LevelSelectHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 

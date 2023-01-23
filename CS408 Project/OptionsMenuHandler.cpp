@@ -16,48 +16,47 @@ MenuCode OptionsMenuHandler::updateState() {
 	updateArrow();
 
 	switch (selector) {
-		case 15:
-			return videoOptions;
+	case 15:
+		return videoOptions;
 
-		case 25:
-			return audioOptions;
+	case 25:
+		return audioOptions;
 
-		case 35:
-			return controlsOptions;
+	case 35:
+		return controlsOptions;
 
-		case 45:
-			return mainMenu;
+	case 45:
+		return mainMenu;
 
-		default:
-			return options;
-
+	default:
+		return options;
 	}
 }
 
 void OptionsMenuHandler::playTextPrompt() {
 	switch (selector) {
-		case 0:
-			audio->playSound("options");
-			break;
+	case 0:
+		audio->playSound("options");
+		break;
 
-		case 10:
-			audio->playSound("video");
-			break;
+	case 10:
+		audio->playSound("video");
+		break;
 
-		case 20:
-			audio->playSound("audio");
-			break;
+	case 20:
+		audio->playSound("audio");
+		break;
 
-		case 30:
-			audio->playSound("controls");
-			break;
+	case 30:
+		audio->playSound("controls");
+		break;
 
-		case 40:
-			audio->playSound("go_back");
-			break;
+	case 40:
+		audio->playSound("go_back");
+		break;
 			
-		default:
-			std::cout << "Error tried to play text prompt when selector is out of bounds\n";
-			break;
+	default:
+		std::cout << "Error tried to play text prompt when selector is out of bounds\n";
+		break;
 	}
 }

@@ -1,5 +1,4 @@
 #include "MainMenuHandler.h"
-#include <iostream>
 #include <SFML/System/Vector2.hpp>
 
 
@@ -38,7 +37,6 @@ MenuCode MainMenuHandler::updateState() {
 }
 
 void MainMenuHandler::playTextPrompt() {
-    std::cout << "Selector: " << selector << "\n";
     switch (selector) {
     case 0:
         audio->playSound("main_menu");

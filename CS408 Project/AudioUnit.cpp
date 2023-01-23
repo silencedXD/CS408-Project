@@ -18,6 +18,9 @@ AudioUnit::AudioUnit() {
     soundLocations["video"] = "Text_To_Speech/video.ogg";
     soundLocations["audio"] = "Text_To_Speech/audio.ogg";
     soundLocations["controls"] = "Text_To_Speech/controls.ogg";
+    soundLocations["display_size"] = "Text_To_Speech/display_size.ogg";
+    soundLocations["font_type"] = "Text_To_Speech/font_type.ogg";
+    soundLocations["font_size"] = "Text_To_Speech/font_size.ogg";
 
     bufferCount = 0;
     loadSound("main_menu");

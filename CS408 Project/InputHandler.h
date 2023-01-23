@@ -6,6 +6,7 @@
 #include "ObjectFactory.h"
 #include "GameObject.h"
 #include "AudioUnit.h"
+#include <iostream>
 
 class InputHandler
 {
