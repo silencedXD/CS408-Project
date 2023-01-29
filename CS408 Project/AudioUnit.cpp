@@ -21,6 +21,23 @@ AudioUnit::AudioUnit() {
     soundLocations["display_size"] = "Text_To_Speech/display_size.ogg";
     soundLocations["font_type"] = "Text_To_Speech/font_type.ogg";
     soundLocations["font_size"] = "Text_To_Speech/font_size.ogg";
+    soundLocations["1920_1080"] = "Text_To_Speech/1920_1080.ogg";
+    soundLocations["1680_1050"] = "Text_To_Speech/1680_1050.ogg";
+    soundLocations["1600_900"] = "Text_To_Speech/1600_900.ogg";
+    soundLocations["1280_1024"] = "Text_To_Speech/1280_1024.ogg";
+    soundLocations["1280_720"] = "Text_To_Speech/1280_720.ogg";
+    soundLocations["1024_768"] = "Text_To_Speech/1024_768.ogg";
+    soundLocations["800_600"] = "Text_To_Speech/800_600.ogg";
+    soundLocations["640_480"] = "Text_To_Speech/640_480.ogg";
+    soundLocations["arial"] = "Text_To_Speech/arial.ogg";
+    soundLocations["open-dyslexic"] = "Text_To_Speech/open_dyslexic.ogg";
+    soundLocations["comic"] = "Text_To_Speech/comic_sans.ogg";
+    soundLocations["60"] = "Text_To_Speech/60.ogg";
+    soundLocations["48"] = "Text_To_Speech/48.ogg";
+    soundLocations["36"] = "Text_To_Speech/36.ogg";
+    soundLocations["30"] = "Text_To_Speech/30.ogg";
+    soundLocations["24"] = "Text_To_Speech/24.ogg";
+    soundLocations["20"] = "Text_To_Speech/20.ogg";
 
     bufferCount = 0;
     loadSound("main_menu");

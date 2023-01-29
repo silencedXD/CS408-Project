@@ -2,18 +2,19 @@
 #include <iostream>
 
 
-GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_, std::string fontName, int fontSize) {
+GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_, std::string fontName_, int fontSize) {
     window = window_;
-    loadFont(fontName);
+    loadFont(fontName_);
+    fontName = fontName_;
     changeFontSize(fontSize);
     textureLocations["arrow"] = "Images/SelectionArrow.png";
 }
 
 bool GraphicsUnit::loadFont(std::string fontName) {
+    fontName = "Misc/" + fontName + ".ttf";
     if (!font.loadFromFile(fontName)) {
         std::cout << "Error font not loaded";
         return false;
-
     }
     else {
         return true;
@@ -75,5 +76,12 @@ void GraphicsUnit::makeLabel(std::string message_, float x_, float y_) {
     messages.push_back(temp);
 }
 
+void GraphicsUnit::removeLastLabel() {
+    messages.pop_back();
+}
 
-sf::Vector2u GraphicsUnit::getWindowSize() { return window->getSize(); }
+sf::Vector2u GraphicsUnit::getWindowSize() { return window->getSize();}
+
+std::string GraphicsUnit::getFontType() { return fontName;}
+
+int GraphicsUnit::getFontSize() { return fontSize;}

@@ -43,3 +43,15 @@ void InputHandler::updateArrow() {
         }
     }
 }
+
+sf::Vector2f InputHandler::setArrowPos(sf::Vector2f newPos_)    //Sets the position of arrow while returning old value
+{                                                               //Used to move arrow out of display to make it invisible
+    for (int i = 0; i < oFactory->objects.size(); i++) {
+        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
+
+            sf::Vector2f temp = oFactory->objects[i]->getPos();
+            oFactory->objects[i]->setPos(newPos_.x,newPos_.y);
+            return temp;
+        }
+    }
+}

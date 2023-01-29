@@ -81,9 +81,6 @@
     <ClCompile Include="ObjectFactory.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="AudioUnit.cpp">
-      <Filter>Source Files\Objects</Filter>
-    </ClCompile>
     <ClCompile Include="jsoncpp\dist\jsoncpp.cpp">
       <Filter>Source Files\External Libraries</Filter>
     </ClCompile>
@@ -101,6 +98,9 @@
     </ClCompile>
     <ClCompile Include="OptionsMenuHandler.cpp">
       <Filter>Source Files\inputHandlers\OptionsHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioUnit.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

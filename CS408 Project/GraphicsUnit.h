@@ -15,6 +15,9 @@ public:
 	void makeLabel(std::string message_, float x_, float y_);
 	void clearText();
 	sf::Texture* loadTexture(std::string objectName);
+	void removeLastLabel();
+	std::string getFontType();
+	int getFontSize();
 private:
 	sf::RenderWindow* window;
 	sf::Font font;
@@ -22,5 +25,6 @@ private:
 	std::vector<sf::Text> messages;
 	std::map<std::string, sf::Texture> textures;
 	std::map<std::string, std::string> textureLocations;
+	std::string fontName;
 };
 
