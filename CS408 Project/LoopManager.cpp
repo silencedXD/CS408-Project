@@ -100,6 +100,13 @@ void LoopManager::changeState(MenuCode state_) {
         state = state_;
         break;
 
+    case controlsOptions:
+        delete handler;
+        graphics->clearText();
+        handler = new ControlsOptionsHandler(graphics, oFactory, audio);
+        state = state_;
+        break;
+
     case empty:
     default:
         break;

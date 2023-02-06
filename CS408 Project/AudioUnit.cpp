@@ -24,6 +24,13 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["general_volume"] = "Text_To_Speech/general volume.ogg";
     soundLocations["text_volume"] = "Text_To_Speech/audio prompt volume.ogg";
     soundLocations["game_volume"] = "Text_To_Speech/game volume.ogg";
+    soundLocations["UP"] = "Text_To_Speech/up.ogg";
+    soundLocations["DOWN"] = "Text_To_Speech/down.ogg";
+    soundLocations["LEFT"] = "Text_To_Speech/left.ogg";
+    soundLocations["RIGHT"] = "Text_To_Speech/right.ogg";
+    soundLocations["ENTER"] = "Text_To_Speech/enter.ogg";
+    soundLocations["PAUSE"] = "Text_To_Speech/pause.ogg";
+
     soundLocations["1920_1080"] = "Text_To_Speech/1920_1080.ogg";
     soundLocations["1680_1050"] = "Text_To_Speech/1680_1050.ogg";
     soundLocations["1600_900"] = "Text_To_Speech/1600_900.ogg";
@@ -32,9 +39,7 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["1024_768"] = "Text_To_Speech/1024_768.ogg";
     soundLocations["800_600"] = "Text_To_Speech/800_600.ogg";
     soundLocations["640_480"] = "Text_To_Speech/640_480.ogg";
-    soundLocations["arial"] = "Text_To_Speech/arial.ogg";
-    soundLocations["open-dyslexic"] = "Text_To_Speech/open_dyslexic.ogg";
-    soundLocations["comic"] = "Text_To_Speech/comic_sans.ogg";
+
     soundLocations["100"] = "Text_To_Speech/100.ogg";
     soundLocations["90"] = "Text_To_Speech/90.ogg";
     soundLocations["80"] = "Text_To_Speech/80.ogg";
