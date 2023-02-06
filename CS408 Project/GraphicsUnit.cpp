@@ -76,15 +76,15 @@ void GraphicsUnit::removeLastLabel() {
     messages.pop_back();
 }
 
+sf::Text GraphicsUnit::getLastLabel() {
+    return messages.back();
+}
+
 sf::Vector2u GraphicsUnit::getWindowSize() { return window->getSize();}
 
 std::string GraphicsUnit::getFontType() { return fontName;}
 
 int GraphicsUnit::getFontSize() { return fontSize;}
-
-void GraphicsUnit::reloadWindow() {
-    
-}
 
 void GraphicsUnit::changeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_)
 {
@@ -94,10 +94,11 @@ void GraphicsUnit::changeDisplaySize(std::tuple<unsigned int, unsigned int, unsi
 void GraphicsUnit::changeFontType(std::string fontName_)
 {
     loadFont(fontName_);
-    reloadWindow();
 }
 
 void GraphicsUnit::changeFontSize(int size) {
     fontSize = size;
-    reloadWindow();
+    for (int i = 0; i < messages.size(); i++) {
+        messages[i].setCharacterSize(fontSize);
+    }
 }

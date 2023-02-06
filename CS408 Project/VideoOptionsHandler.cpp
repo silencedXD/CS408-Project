@@ -94,17 +94,21 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
     case displaySize:
         if (event.key.code == sf::Keyboard::Down) {
             optionPointer = (optionPointer + 1) % optionTotal;
-            changeOption();
             graphics->changeDisplaySize(displayModes[optionPointer]);
+            currentDisplaySize = displayModes[optionPointer];
             displaySizeFlag = true;
+            changeOption();
+            reloadLabels(graphics->getLastLabel().getString());
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Up) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
-            changeOption();
             graphics->changeDisplaySize(displayModes[optionPointer]);
+            currentDisplaySize = displayModes[optionPointer];
             displaySizeFlag = true;
+            changeOption();
+            reloadLabels(graphics->getLastLabel().getString());
             playTextPrompt();
         }
         if (event.key.code == sf::Keyboard::Right) {
@@ -117,17 +121,19 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
     case fontType:
         if (event.key.code == sf::Keyboard::Down) {
             optionPointer = (optionPointer + 1) % optionTotal;
-            changeOption();
             graphics->changeFontType(fontTypes[optionPointer]);
+            currentFontType = fontTypes[optionPointer];
             fontTypeFlag = true;
+            changeOption();
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Up) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
-            changeOption();
             graphics->changeFontType(fontTypes[optionPointer]);
+            currentFontType = fontTypes[optionPointer];
             fontTypeFlag = true;
+            changeOption();
             playTextPrompt();
         }
 
@@ -140,17 +146,19 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
     case fontSize:
         if (event.key.code == sf::Keyboard::Down) {
             optionPointer = (optionPointer + 1) % optionTotal;
-            changeOption();
             graphics->changeFontSize(fontSizes[optionPointer]);
+            currentFontSize = fontSizes[optionPointer];
             fontSizeFlag = true;
+            changeOption();
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Up) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
-            changeOption();
             graphics->changeFontSize(fontSizes[optionPointer]);
+            currentFontSize = fontSizes[optionPointer];
             fontSizeFlag = true;
+            changeOption();
             playTextPrompt();
         }
 
@@ -168,6 +176,17 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
         std::cout << "Error unknown video state";
         break;
     }
+}
+
+void VideoOptionsHandler::reloadLabels(std::string lastLabel) {
+    graphics->clearText();
+    sf::Vector2u windowSize = graphics->getWindowSize();
+    graphics->makeLabel("Video options", 0, 0);
+    graphics->makeLabel("Display size", 0, windowSize.y * 0.25);
+    graphics->makeLabel("Font type", 0, windowSize.y * 0.45);
+    graphics->makeLabel("Font size", 0, windowSize.y * 0.65);
+    graphics->makeLabel("Go back", 0, windowSize.y * 0.85);
+    graphics->makeLabel(lastLabel, arrowPos.x, arrowPos.y);
 }
 
 MenuCode VideoOptionsHandler::updateState() {
@@ -228,6 +247,7 @@ MenuCode VideoOptionsHandler::updateState() {
             if (fontSizeFlag) {
                 config["font_size"] = currentFontSize;
             }
+
             saveConfig(config);
             return options;
 

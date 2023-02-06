@@ -10,8 +10,9 @@ public:
 	void playTextPrompt();
 	void changeOption();
 	void keyPressed(sf::Event event);
+	void reloadLabels(std::string lastLabel);
 
-	enum videoOptionsEnum	{displaySize, fontType, fontSize, empty};
+	enum videoOptionsEnum { displaySize, fontType, fontSize, empty };
 	std::vector<std::tuple<unsigned int, unsigned int, unsigned int>> displayModes;
 	std::vector<std::string> displayModeSounds;
 	std::vector<std::string> fontTypes;

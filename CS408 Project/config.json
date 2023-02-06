@@ -2,11 +2,11 @@
 	"Test" : "Test",
 	"bpp" : 32,
 	"font" : "arial",
-	"font_size" : 36,
+	"font_size" : 48,
+	"fullscreen" : false,
 	"game_volume" : 100,
 	"general_volume" : 100,
 	"text_volume" : 100,
-	"window_height" : 720,
-	"window_style" : "close",
-	"window_width" : 1280
+	"window_height" : 768,
+	"window_width" : 1024
 }

@@ -13,6 +13,7 @@ public:
 
 	void makeLabel(std::string message_, float x_, float y_);
 	void removeLastLabel();
+	sf::Text getLastLabel();
 	void clearText();
 	sf::Texture* loadTexture(std::string objectName);
 
@@ -25,8 +26,6 @@ public:
 	void changeFontSize(int size_);
 
 private:
-	void reloadWindow();
-
 	sf::RenderWindow* window;
 	sf::Font font;
 	int fontSize;	

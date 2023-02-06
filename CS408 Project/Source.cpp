@@ -22,6 +22,7 @@ int main()
     Json::Value config = loadConfig();
     sf::RenderWindow window;
 
+    /*
     std::vector<sf::VideoMode> modes = sf::VideoMode::getFullscreenModes();
     for (std::size_t i = 0; i < modes.size(); ++i)
     {
@@ -30,15 +31,10 @@ int main()
             << mode.width << "x" << mode.height << " - "
             << mode.bitsPerPixel << " bpp" << std::endl;
     }
+    */
+    
 
-
-
-    if (config["window_style"].asString() == "fullscreen") {    //We can't save an enum to the Json so we just have to check the string value and make our own decision
-        window.create(sf::VideoMode(config["window_width"].asInt(), config["window_height"].asInt(), config["bpp"].asInt()), "Game", sf::Style::Fullscreen);
-    }
-    else {
-        window.create(sf::VideoMode(config["window_width"].asInt(), config["window_height"].asInt()), "Game", sf::Style::Close);
-    }
+    window.create(sf::VideoMode(config["window_width"].asInt(), config["window_height"].asInt()), "Game", sf::Style::Close);
 
     GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt());
     
