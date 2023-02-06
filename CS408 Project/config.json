@@ -3,7 +3,10 @@
 	"bpp" : 32,
 	"font" : "arial",
 	"font_size" : 36,
-	"window_height" : 600,
+	"game_volume" : 100,
+	"general_volume" : 100,
+	"text_volume" : 100,
+	"window_height" : 720,
 	"window_style" : "close",
-	"window_width" : 800
+	"window_width" : 1280
 }

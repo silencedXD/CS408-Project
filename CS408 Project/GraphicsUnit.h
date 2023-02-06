@@ -6,19 +6,27 @@ class GraphicsUnit
 {
 public:
 	GraphicsUnit(sf::RenderWindow* window_, std::string fontName, int fontSize);
-	bool loadFont(std::string fontName);
-	void changeFontSize(int size);
 	void closeWindow();
 	void clearWindow();
 	void update(std::vector<GameObject*> objects);
 	sf::Vector2u getWindowSize();
+
 	void makeLabel(std::string message_, float x_, float y_);
+	void removeLastLabel();
 	void clearText();
 	sf::Texture* loadTexture(std::string objectName);
-	void removeLastLabel();
+
 	std::string getFontType();
+	bool loadFont(std::string fontName);
 	int getFontSize();
+
+	void changeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_);
+	void changeFontType(std::string fontName_);
+	void changeFontSize(int size_);
+
 private:
+	void reloadWindow();
+
 	sf::RenderWindow* window;
 	sf::Font font;
 	int fontSize;	

@@ -55,3 +55,18 @@ sf::Vector2f InputHandler::setArrowPos(sf::Vector2f newPos_)    //Sets the posit
         }
     }
 }
+
+Json::Value InputHandler::loadConfig() {
+    std::ifstream file("config.json");
+    Json::Value file_contents;
+    Json::Reader jsonReader;
+    jsonReader.parse(file, file_contents);
+    return file_contents;
+}
+
+void InputHandler::saveConfig(Json::Value config_) {
+    std::ofstream file;
+    file.open("config.json");
+    file << config_;
+    file.close();
+}

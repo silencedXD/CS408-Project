@@ -42,7 +42,7 @@ int main()
 
     GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt());
     
-    AudioUnit audio;
+    AudioUnit audio(config["general_volume"].asInt(), config["text_volume"].asInt(), config["game_volume"].asInt());
     
     LoopManager loopManager(&window, &graphics, &audio);
 

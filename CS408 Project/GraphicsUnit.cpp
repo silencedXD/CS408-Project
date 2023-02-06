@@ -21,10 +21,6 @@ bool GraphicsUnit::loadFont(std::string fontName) {
     }
 }
 
-void GraphicsUnit::changeFontSize(int size) {
-    fontSize = size;
-}
-
 void GraphicsUnit::closeWindow() {
     window->close();
 }
@@ -85,3 +81,23 @@ sf::Vector2u GraphicsUnit::getWindowSize() { return window->getSize();}
 std::string GraphicsUnit::getFontType() { return fontName;}
 
 int GraphicsUnit::getFontSize() { return fontSize;}
+
+void GraphicsUnit::reloadWindow() {
+    
+}
+
+void GraphicsUnit::changeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_)
+{
+    window->create(sf::VideoMode(std::get<0>(displaySize_), std::get<1>(displaySize_), std::get<2>(displaySize_)), "Game", sf::Style::Close);
+}
+
+void GraphicsUnit::changeFontType(std::string fontName_)
+{
+    loadFont(fontName_);
+    reloadWindow();
+}
+
+void GraphicsUnit::changeFontSize(int size) {
+    fontSize = size;
+    reloadWindow();
+}

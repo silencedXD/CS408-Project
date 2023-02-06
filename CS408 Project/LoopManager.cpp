@@ -93,6 +93,13 @@ void LoopManager::changeState(MenuCode state_) {
         state = state_;
         break;
 
+    case audioOptions:
+        delete handler;
+        graphics->clearText();
+        handler = new AudioOptionsHandler(graphics, oFactory, audio);
+        state = state_;
+        break;
+
     case empty:
     default:
         break;

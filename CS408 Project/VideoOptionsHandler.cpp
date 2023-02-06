@@ -46,9 +46,14 @@ VideoOptionsHandler::VideoOptionsHandler(GraphicsUnit* graphics_, ObjectFactory*
     fontSizeSounds.push_back("20");
 
     state = empty;
-    tempDisplaySize = std::tuple<unsigned int, unsigned int, unsigned int> (0, 0, 0);
-    tempFontType = "";
-    tempFontSize = 0;
+    currentDisplaySize = std::tuple<unsigned int, unsigned int, unsigned int> (windowSize.x, windowSize.y, 32);
+    currentFontType = graphics->getFontType();
+    currentFontSize = graphics->getFontSize();
+
+    displaySizeFlag = false;
+    fontTypeFlag = false;
+    fontSizeFlag = false;
+
     optionPointer = -1;
     arrowPos = sf::Vector2f(0, 0);
 ;}
@@ -90,16 +95,19 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
         if (event.key.code == sf::Keyboard::Down) {
             optionPointer = (optionPointer + 1) % optionTotal;
             changeOption();
+            graphics->changeDisplaySize(displayModes[optionPointer]);
+            displaySizeFlag = true;
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Up) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
             changeOption();
+            graphics->changeDisplaySize(displayModes[optionPointer]);
+            displaySizeFlag = true;
             playTextPrompt();
         }
         if (event.key.code == sf::Keyboard::Right) {
-            tempDisplaySize = displayModes[optionPointer];
             state = empty;
             changeOption();
         }
@@ -110,17 +118,20 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
         if (event.key.code == sf::Keyboard::Down) {
             optionPointer = (optionPointer + 1) % optionTotal;
             changeOption();
+            graphics->changeFontType(fontTypes[optionPointer]);
+            fontTypeFlag = true;
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Up) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
             changeOption();
+            graphics->changeFontType(fontTypes[optionPointer]);
+            fontTypeFlag = true;
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Right) {
-            tempFontType = fontTypes[optionPointer];
             state = empty;
             changeOption();
         }
@@ -130,17 +141,20 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
         if (event.key.code == sf::Keyboard::Down) {
             optionPointer = (optionPointer + 1) % optionTotal;
             changeOption();
+            graphics->changeFontSize(fontSizes[optionPointer]);
+            fontSizeFlag = true;
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Up) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
             changeOption();
+            graphics->changeFontSize(fontSizes[optionPointer]);
+            fontSizeFlag = true;
             playTextPrompt();
         }
 
         if (event.key.code == sf::Keyboard::Right) {
-            tempFontSize = fontSizes[optionPointer];
             state = empty;
             changeOption();
         }
@@ -151,6 +165,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
         break;
 
     default:
+        std::cout << "Error unknown video state";
         break;
     }
 }
@@ -162,13 +177,12 @@ MenuCode VideoOptionsHandler::updateState() {
             updateArrow();
         }
   
-        sf::Vector2u windowSize = graphics->getWindowSize();
         switch (selector) {
         case 15:
             state = displaySize;
             optionTotal = displayModes.size();
             for (int i = 0; i < displayModes.size(); i++) {
-                if (displayModes[i]._Myfirst._Val == windowSize.x) {
+                if (displayModes[i]._Myfirst._Val == currentDisplaySize._Myfirst._Val) {
                     optionPointer = i;
                     break;
                 }
@@ -181,7 +195,7 @@ MenuCode VideoOptionsHandler::updateState() {
             state = fontType;
             optionTotal = fontTypes.size();
             for (int i = 0; i < fontTypes.size(); i++) {
-                if (fontTypes[i] == graphics->getFontType()) {
+                if (fontTypes[i] == currentFontType) {
                     optionPointer = i;
                 }
             }
@@ -193,7 +207,7 @@ MenuCode VideoOptionsHandler::updateState() {
             state = fontSize;
             optionTotal = fontSizes.size();
             for (int i = 0; i < fontSizes.size(); i++) {
-                if (fontSizes[i] == graphics->getFontSize()) {
+                if (fontSizes[i] == currentFontSize) {
                     optionPointer = i;
                 }
             }
@@ -203,16 +217,16 @@ MenuCode VideoOptionsHandler::updateState() {
 
         case 45:
             config = loadConfig();
-            if (std::get<0>(tempDisplaySize) != 0) {
-                config["window_width"] = std::get<0>(tempDisplaySize);
-                config["window_height"] = std::get<1>(tempDisplaySize);
-                config["bpp"] = std::get<2>(tempDisplaySize);
+            if (displaySizeFlag) {
+                config["window_width"] = std::get<0>(currentDisplaySize);
+                config["window_height"] = std::get<1>(currentDisplaySize);
+                config["bpp"] = std::get<2>(currentDisplaySize);
             }
-            if (tempFontType != "") {
-                config["font"] = tempFontType;
+            if (fontTypeFlag) {
+                config["font"] = currentFontType;
             }
-            if (tempFontSize != 0) {
-                config["font_size"] = tempFontSize;
+            if (fontSizeFlag) {
+                config["font_size"] = currentFontSize;
             }
             saveConfig(config);
             return options;
@@ -270,19 +284,4 @@ void VideoOptionsHandler::playTextPrompt() {
         std::cout << "Error tried to play text prompt when selector is out of bounds\n";
         break;
     }
-}
-
-Json::Value VideoOptionsHandler::loadConfig() {
-    std::ifstream file("config.json");
-    Json::Value file_contents;
-    Json::Reader jsonReader;
-    jsonReader.parse(file, file_contents);
-    return file_contents;
-}
-
-void VideoOptionsHandler::saveConfig(Json::Value config_) {
-    std::ofstream file;
-    file.open("config.json");
-    file << config_;
-    file.close();
 }
