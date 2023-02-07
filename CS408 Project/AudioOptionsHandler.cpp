@@ -46,14 +46,14 @@ void AudioOptionsHandler::changeOption() {               //Changes the setting l
         arrowPos = sf::Vector2f(0, 0);
     }
     else {
-        graphics->makeLabel(std::to_string(volumeSettings[optionPointer]), arrowPos.x, arrowPos.y);
+        graphics->makeLabel(std::to_string(int(volumeSettings[optionPointer])), arrowPos.x, arrowPos.y);
     }
 }
 
 void AudioOptionsHandler::keyPressed(sf::Event event) {
     switch (state) {
     case general:
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % volumeSettings.size();    //Volume is changed in real time so user can hear if it's the right setting
             changeOption();
 
@@ -65,7 +65,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             audio->playConcurrentSound("medium_piano_note");                //Play sound so user can hear the change
         }
 
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (volumeSettings.size() + optionPointer - 1) % volumeSettings.size();
             changeOption();
 
@@ -77,7 +77,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             audio->playConcurrentSound("medium_piano_note");
         }
 
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == keyMappings.at(ENTER)) {
             state = empty;
             changeOption();
         }
@@ -85,7 +85,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
 
 
     case text:
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % volumeSettings.size();
             changeOption();
 
@@ -97,7 +97,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             audio->playConcurrentSound("medium_piano_note");
         }
 
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (volumeSettings.size() + optionPointer - 1) % volumeSettings.size();
             changeOption();
 
@@ -109,14 +109,14 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             audio->playConcurrentSound("medium_piano_note");
         }
 
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == keyMappings.at(ENTER)) {
             state = empty;
             changeOption();
         }
         break;
 
     case game:
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % volumeSettings.size();
             changeOption();
 
@@ -128,7 +128,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             audio->playConcurrentSound("medium_piano_note");
         }
 
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (volumeSettings.size() + optionPointer - 1) % volumeSettings.size();
             changeOption();
 
@@ -140,7 +140,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             audio->playConcurrentSound("medium_piano_note");
         }
 
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == keyMappings.at(ENTER)) {
             state = empty;
             changeOption();
         }
@@ -249,7 +249,7 @@ void AudioOptionsHandler::playTextPrompt() {
         }
     }
     else {
-        audio->playSound(std::to_string(volumeSettings[optionPointer]));
+        audio->playSound(std::to_string(int(volumeSettings[optionPointer])));
     }
 
 }

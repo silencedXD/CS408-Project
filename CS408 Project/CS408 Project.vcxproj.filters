@@ -155,6 +155,9 @@
     <ClInclude Include="VideoOptionsHandler.h">
       <Filter>Header Files\inputHandlersH\OptionsHandlerH</Filter>
     </ClInclude>
+    <ClInclude Include="KeyCode.h">
+      <Filter>Source Files\Misc</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SelectionArrow.png">

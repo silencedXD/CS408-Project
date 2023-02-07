@@ -38,7 +38,7 @@ int main()
 
     GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt());
     
-    AudioUnit audio(config["general_volume"].asInt(), config["text_volume"].asInt(), config["game_volume"].asInt());
+    AudioUnit audio(config["general_volume"].asFloat(), config["text_volume"].asFloat(), config["game_volume"].asFloat());
     
     LoopManager loopManager(&window, &graphics, &audio);
 

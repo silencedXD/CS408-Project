@@ -10,6 +10,7 @@
 #include "ObjectFactory.h"
 #include "GameObject.h"
 #include "AudioUnit.h"
+#include "KeyCode.h"
 
 
 class InputHandler
@@ -26,6 +27,10 @@ public:
 	Json::Value loadConfig();
 	void saveConfig(Json::Value config_);
 protected:
+	void loadKeyMappings();
+	sf::Keyboard::Key stringToKeyboard(std::string keyName);
+	Json::Value config;
+	std::map<KeyCode, sf::Keyboard::Key> keyMappings;
 	GraphicsUnit* graphics;
 	ObjectFactory* oFactory;
 	AudioUnit* audio;

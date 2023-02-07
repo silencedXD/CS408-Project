@@ -92,7 +92,7 @@ void VideoOptionsHandler::changeOption() {
 void VideoOptionsHandler::keyPressed(sf::Event event) {
     switch (state) {
     case displaySize:
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % optionTotal;
             graphics->changeDisplaySize(displayModes[optionPointer]);
             currentDisplaySize = displayModes[optionPointer];
@@ -102,7 +102,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
             playTextPrompt();
         }
 
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
             graphics->changeDisplaySize(displayModes[optionPointer]);
             currentDisplaySize = displayModes[optionPointer];
@@ -111,7 +111,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
             reloadLabels(graphics->getLastLabel().getString());
             playTextPrompt();
         }
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == keyMappings.at(ENTER)) {
             state = empty;
             changeOption();
         }
@@ -119,7 +119,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
 
 
     case fontType:
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % optionTotal;
             graphics->changeFontType(fontTypes[optionPointer]);
             currentFontType = fontTypes[optionPointer];
@@ -128,7 +128,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
             playTextPrompt();
         }
 
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
             graphics->changeFontType(fontTypes[optionPointer]);
             currentFontType = fontTypes[optionPointer];
@@ -137,14 +137,14 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
             playTextPrompt();
         }
 
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == keyMappings.at(ENTER)) {
             state = empty;
             changeOption();
         }
         break;
 
     case fontSize:
-        if (event.key.code == sf::Keyboard::Down) {
+        if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % optionTotal;
             graphics->changeFontSize(fontSizes[optionPointer]);
             currentFontSize = fontSizes[optionPointer];
@@ -153,7 +153,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
             playTextPrompt();
         }
 
-        if (event.key.code == sf::Keyboard::Up) {
+        if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
             graphics->changeFontSize(fontSizes[optionPointer]);
             currentFontSize = fontSizes[optionPointer];
@@ -162,7 +162,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
             playTextPrompt();
         }
 
-        if (event.key.code == sf::Keyboard::Right) {
+        if (event.key.code == keyMappings.at(ENTER)) {
             state = empty;
             changeOption();
         }

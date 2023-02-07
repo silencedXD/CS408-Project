@@ -10,9 +10,7 @@ OptionsMenuHandler::OptionsMenuHandler(GraphicsUnit* graphics_, ObjectFactory* o
 	graphics->makeLabel("Go back", 0, windowSize.y * 0.85);
 }
 
-void OptionsMenuHandler::keyPressed(sf::Event event) {
-	InputHandler::keyPressed(event);
-}
+
 
 MenuCode OptionsMenuHandler::updateState() {
 	updateArrow();

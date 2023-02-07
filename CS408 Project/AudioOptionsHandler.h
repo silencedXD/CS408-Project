@@ -18,18 +18,16 @@ private:
 
 	sf::Vector2f arrowPos;
 	audioOptionsEnum state;
-	std::vector<int> volumeSettings;
+	std::vector<float> volumeSettings;
 
-	int currentGeneralVolume;
-	int currentTextVolume;
-	int currentGameVolume;
+	float currentGeneralVolume;
+	float currentTextVolume;
+	float currentGameVolume;
 
 	bool generalFlag;
 	bool textFlag;
 	bool gameFlag;
 
 	int optionPointer;
-
-	Json::Value config;
 };
 

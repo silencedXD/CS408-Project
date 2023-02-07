@@ -24,10 +24,12 @@ void InputHandler::keyPressed(sf::Event event) {
     if (event.key.code == keyMappings.at(DOWN)) {
         selector = (selector + 10) % (totalMenuItems * 10);
         playTextPrompt();
+        std::cout << "Selector: " << selector << "\n";
     }
     if (event.key.code == keyMappings.at(UP)) {
         selector = (totalMenuItems * 10 + selector - 10) % (totalMenuItems * 10);
         playTextPrompt();
+        std::cout << "Selector: " << selector << "\n";
     }
     if (event.key.code == keyMappings.at(ENTER)) {
         if (selector % 10 == 0 && selector > 0)

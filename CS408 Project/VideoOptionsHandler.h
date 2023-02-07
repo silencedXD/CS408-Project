@@ -31,6 +31,4 @@ public:
 	bool displaySizeFlag;
 	bool fontTypeFlag;
 	bool fontSizeFlag;
-
-	Json::Value config;
 };

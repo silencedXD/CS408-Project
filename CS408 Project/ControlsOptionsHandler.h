@@ -14,13 +14,19 @@ public:
 	void playTextPrompt();
 
 private:
-	enum controlsOptionsEnum { UP, DOWN, LEFT, RIGHT, ENTER, PAUSE, empty };
+	enum controlsOptionsEnum { up, down, left, right, enter, pause, reset, empty };
+
 
 	sf::Vector2f arrowPos;
 	controlsOptionsEnum state;
 
 	int optionPointer;
 
-	Json::Value config;
+	bool upFlag;
+	bool downFlag;
+	bool leftFlag;
+	bool rightFlag;
+	bool enterFlag;
+	bool pauseFlag;
 };
 
