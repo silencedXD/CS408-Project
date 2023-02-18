@@ -16,10 +16,13 @@ public:
 	sf::Text getLastLabel();
 	void clearText();
 	sf::Texture* loadTexture(std::string objectName);
+	
+	sf::RenderWindow* getWindow();
 
 	std::string getFontType();
 	bool loadFont(std::string fontName);
 	int getFontSize();
+
 
 	void changeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_);
 	void changeFontType(std::string fontName_);

@@ -9,7 +9,7 @@
 class LoopManager
 {
 public:
-	LoopManager(sf::RenderWindow* window_, GraphicsUnit* graphics_, AudioUnit* audio_);
+	LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_);
 	void updateLoop();
 	void changeState(MenuCode state_);
 private:

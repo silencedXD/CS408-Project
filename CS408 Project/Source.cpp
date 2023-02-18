@@ -13,7 +13,7 @@
 
 Json::Value loadConfig();
 
-void startLevel(int level_);
+//void startLevel(int level_);
 
 int main()
 {
@@ -39,11 +39,11 @@ int main()
     GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt());
     
     AudioUnit audio(config["general_volume"].asFloat(), config["text_volume"].asFloat(), config["game_volume"].asFloat());
-    
-    LoopManager loopManager(&window, &graphics, &audio);
+
+    Game game(&graphics, &audio);
 
     while (window.isOpen()) {
-        loopManager.updateLoop();
+        game.updateLoop();
     }
 
     return 0;
@@ -58,12 +58,13 @@ Json::Value loadConfig() {
     return file_contents;
 }
 
+/*
 void startLevel(int level_) {
-    /*Level currentLevel = loadLevel(level_);
+    Level currentLevel = loadLevel(level_);
 
     if (loadFail) {
         retryLoad();
-    }*/
+    }
     Game game(level_);
 
     while (game.gameActive()) {
@@ -78,3 +79,4 @@ void startLevel(int level_) {
 
     }
 }
+*/

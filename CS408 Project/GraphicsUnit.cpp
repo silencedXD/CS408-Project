@@ -80,6 +80,10 @@ sf::Text GraphicsUnit::getLastLabel() {
     return messages.back();
 }
 
+sf::RenderWindow* GraphicsUnit::getWindow() {
+    return window;
+}
+
 sf::Vector2u GraphicsUnit::getWindowSize() { return window->getSize();}
 
 std::string GraphicsUnit::getFontType() { return fontName;}

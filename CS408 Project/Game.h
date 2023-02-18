@@ -1,10 +1,15 @@
 #pragma once
+#include "LoopManager.h"
+#include "GraphicsUnit.h"
+#include "ObjectFactory.h"
+#include "AudioUnit.h"
+
 class Game
 {
 public:
-    Game(int level_);
+    Game(GraphicsUnit* graphics_, AudioUnit* audio_);
 
-    bool gameActive();
+    void updateLoop();
 
     void updatePlayer();
     void updateObjects();
@@ -14,7 +19,14 @@ public:
     void garbageCollection();
 
 private:
+    //Game state variables
     int level;
-    bool gameState;
+    bool gameActive;
+
+    //Program managment
+    LoopManager* menuManager;
+    AudioUnit* audio;
+    GraphicsUnit* graphics;
+    ObjectFactory* oFactory;
 };
 

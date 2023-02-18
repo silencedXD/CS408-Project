@@ -1,20 +1,29 @@
 #include "Game.h"
 
-Game::Game(int level_) {
-	level = level_;
-	gameState = true;
-
+Game::Game(GraphicsUnit* graphics_, AudioUnit* audio_) {
+	graphics = graphics_;
+	audio = audio_;
+	gameActive = false;
+	menuManager = nullptr;
 }
 
-bool Game::gameActive() {
-	return gameState;
+void Game::updateLoop() {
+	if (gameActive) {
+		std::cout << "Game active";
+	}
+	else {
+		if (menuManager == nullptr) {
+			menuManager = new LoopManager(graphics, audio);
+		}
+		menuManager->updateLoop();
+	}
 }
 
 void Game::updatePlayer() {}
 void Game::updateObjects() {}
 void Game::checkCollisions() {}
-void Game::updateSound() {}
+
 void Game::updateView() {}
 void Game::garbageCollection() {
-	gameState = false;
+	gameActive = false;
 }

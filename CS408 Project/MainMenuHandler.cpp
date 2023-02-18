@@ -32,7 +32,7 @@ MenuCode MainMenuHandler::updateState() {
         return quit;
 
     default:
-        return empty;
+        return mainMenu;
     }
 }
 

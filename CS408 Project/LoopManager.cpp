@@ -9,16 +9,15 @@
 #include "AudioOptionsHandler.h"
 #include "ControlsOptionsHandler.h"
 
-LoopManager::LoopManager(sf::RenderWindow* window_, GraphicsUnit* graphics_, AudioUnit* audio_) {
-	window = window_;
+LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
 	audio = audio_;
     handler = nullptr;
     graphics = graphics_;
-
+    window = graphics->getWindow();
     oFactory = new ObjectFactory(graphics); //For some reason the arrow doesn't display on the first load
-    oFactory->makeObject("arrow", window->getSize().x / 2.0, 0);
+    oFactory->makeObject("arrow", graphics->getWindowSize().x / 2.0, 0);
     oFactory->clearObjects();
-    oFactory->makeObject("arrow", window->getSize().x / 2.0, 0);
+    oFactory->makeObject("arrow", graphics->getWindowSize().x / 2.0, 0);
     for (int i = 0; i < oFactory->objects.size(); i++) {
         if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
             oFactory->objects[i]->getSprite()->setScale(0.5, 0.5);  //Otherwise the arrow would be massive
@@ -34,7 +33,7 @@ void LoopManager::updateLoop() {
     {
         switch (event.type) {
         case sf::Event::Closed: //If the user closes the window by clicking the x button in the top right corner
-            window->close();
+            graphics->closeWindow();
             break;
 
         case sf::Event::KeyPressed:
@@ -48,7 +47,8 @@ void LoopManager::updateLoop() {
    
 
     MenuCode tempState = handler->updateState();
-
+    
+    //TODO: Measure frame intervals to ensure smoother framerate
     graphics->update(oFactory->objects);
 
     if (tempState != state) {
@@ -82,7 +82,7 @@ void LoopManager::changeState(MenuCode state_) {
         break;
 
     case quit:
-        window->close();    //If the user exits using the quit button in a menu
+        graphics->closeWindow();    //If the user exits using the quit button in a menu
         return;
         break;
 
@@ -107,7 +107,6 @@ void LoopManager::changeState(MenuCode state_) {
         state = state_;
         break;
 
-    case empty:
     default:
         break;
     }
