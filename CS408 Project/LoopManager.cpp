@@ -10,7 +10,8 @@
 #include "ControlsOptionsHandler.h"
 
 LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
-	audio = audio_;
+    selectedLevel = 0;
+    audio = audio_;
     handler = nullptr;
     graphics = graphics_;
     window = graphics->getWindow();
@@ -48,7 +49,6 @@ void LoopManager::updateLoop() {
 
     MenuCode tempState = handler->updateState();
     
-    //TODO: Measure frame intervals to ensure smoother framerate
     graphics->update(oFactory->objects);
 
     if (tempState != state) {
@@ -57,28 +57,23 @@ void LoopManager::updateLoop() {
 }
 
 void LoopManager::changeState(MenuCode state_) {
+    delete handler;
+    graphics->clearText();
+    state = state_;
+
     switch (state_) {
     case mainMenu:
-        delete handler;
-        graphics->clearText();
         handler = new MainMenuHandler(graphics, oFactory, audio);
-        state = state_;
         break;
 
     case options:
-        delete handler;
-        graphics->clearText();
         handler = new OptionsMenuHandler(graphics, oFactory, audio);
-        state = state_;
         break;
 
     case levelEditor:
         std::cout << "Level Editor Selected\n";
     case levelSelect:
-        delete handler;
-        graphics->clearText();
         handler = new LevelSelectHandler(graphics, oFactory, audio);
-        state = state_;
         break;
 
     case quit:
@@ -87,27 +82,22 @@ void LoopManager::changeState(MenuCode state_) {
         break;
 
     case videoOptions:
-        delete handler;
-        graphics->clearText();
         handler = new VideoOptionsHandler(graphics, oFactory, audio);
-        state = state_;
         break;
 
     case audioOptions:
-        delete handler;
-        graphics->clearText();
         handler = new AudioOptionsHandler(graphics, oFactory, audio);
-        state = state_;
         break;
 
     case controlsOptions:
-        delete handler;
-        graphics->clearText();
         handler = new ControlsOptionsHandler(graphics, oFactory, audio);
-        state = state_;
         break;
 
     default:
         break;
     }
 }
+
+MenuCode LoopManager::getState() { return state; }
+
+int LoopManager::getSelectedLevel() { return selectedLevel; }

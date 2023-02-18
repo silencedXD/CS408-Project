@@ -12,6 +12,8 @@ public:
 	LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_);
 	void updateLoop();
 	void changeState(MenuCode state_);
+	MenuCode getState();
+	int getSelectedLevel();
 private:
 	sf::RenderWindow* window;
 	InputHandler* handler;
@@ -19,5 +21,7 @@ private:
 	AudioUnit* audio;
 	GraphicsUnit* graphics;
 	ObjectFactory* oFactory;
+
+	int selectedLevel;
 };
 

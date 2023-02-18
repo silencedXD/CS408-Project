@@ -10,7 +10,7 @@ public:
     Game(GraphicsUnit* graphics_, AudioUnit* audio_);
 
     void updateLoop();
-
+    
     void updatePlayer();
     void updateObjects();
     void checkCollisions();

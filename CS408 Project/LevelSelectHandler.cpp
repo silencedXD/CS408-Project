@@ -16,32 +16,27 @@ MenuCode LevelSelectHandler::updateState() {
 
     switch (selector) {
     case 15:
-        std::cout << "Level One selected";
         selector = 10;
-        return levelSelect;
-        break;
+        return level1;
+
     case 25:
-        std::cout << "Level Two selected";
         selector = 20;
-        return levelSelect;
-        break;
+        return level2;
+
     case 35:
-        std::cout << "Level Three selected";
         selector = 30;
-        return levelSelect;
-        break;
+        return level3;
+
     case 45:
         return mainMenu;
-        break;
+
     default:
         return levelSelect;
-        break;
     }
 
 }
 
 void LevelSelectHandler::playTextPrompt() {
-    std::cout << "Selector: " << selector << "\n";
     switch (selector) {
     case 0:
         audio->playSound("select_level");
