@@ -6,6 +6,7 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["medium_piano_note"] = "Sound_Effects/piano5C.ogg";
     //soundLocations["low_piano_note"] = "Sound_Effects/piano4C.ogg";
     soundLocations["main_menu"] = "Text_To_Speech/main_menu.ogg";
+    soundLocations["start_game"] = "Text_To_Speech/start_game.ogg";
     soundLocations["options"] = "Text_To_Speech/options.ogg";
     soundLocations["select_level"] = "Text_To_Speech/select_level.ogg";
     soundLocations["level_editor"] = "Text_To_Speech/level_editor.ogg";

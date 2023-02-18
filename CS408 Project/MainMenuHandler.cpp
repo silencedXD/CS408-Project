@@ -6,8 +6,8 @@ MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactor
 
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Main menu", 0, 0);
-    graphics->makeLabel("Options", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Level Editor", 0, windowSize.y * 0.45);
+    graphics->makeLabel("Start game", 0, windowSize.y * 0.25);
+    graphics->makeLabel("Options", 0, windowSize.y * 0.45);
     graphics->makeLabel("Select Level", 0, windowSize.y * 0.65);
     graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
 
@@ -18,12 +18,11 @@ MenuCode MainMenuHandler::updateState() {
     updateArrow();
 
     switch (selector) {
-
     case 15:
-        return options;
+        return level1;
 
     case 25:
-        return levelEditor;
+        return options;
 
     case 35:
         return levelSelect;
@@ -43,11 +42,11 @@ void MainMenuHandler::playTextPrompt() {
         break;
 
     case 10:
-        audio->playSound("options");
+        audio->playSound("start_game");
         break;
 
     case 20:
-        audio->playSound("level_editor");
+        audio->playSound("options");
         break;
 
     case 30:

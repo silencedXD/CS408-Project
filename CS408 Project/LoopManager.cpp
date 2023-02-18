@@ -70,8 +70,6 @@ void LoopManager::changeState(MenuCode state_) {
         handler = new OptionsMenuHandler(graphics, oFactory, audio);
         break;
 
-    case levelEditor:
-        std::cout << "Level Editor Selected\n";
     case levelSelect:
         handler = new LevelSelectHandler(graphics, oFactory, audio);
         break;

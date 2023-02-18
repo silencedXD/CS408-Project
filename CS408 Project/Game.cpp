@@ -17,7 +17,7 @@ void Game::updateLoop() {
 			menuManager = new LoopManager(graphics, audio);
 		}
 		menuManager->updateLoop();
-		level = menuManager->getState() - 7;	//MenuCodes >= 8 are level codes
+		level = menuManager->getState() - controlsOptions;	//ControlsOptions is the last MenuCode before the level codes
 		if (level >= 1) {
 			gameActive = true;
 			delete menuManager;
