@@ -1,0 +1,14 @@
+{
+	"background_colour": "black",
+	"platform1": {
+		"x" : 0,
+		"y" : 4,
+		"length" : 3
+	}, 
+	
+	"platform2" : {
+		"x" : 4,
+		"y" : 4,
+		"length" : 3
+	}
+}

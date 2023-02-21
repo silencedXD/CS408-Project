@@ -10,7 +10,13 @@ public:
     Game(GraphicsUnit* graphics_, AudioUnit* audio_);
 
     void updateLoop();
-    
+    void loadLevel();
+    void updateGame();
+
+    //TODO: implement listener so that blockUnit is updated if window size is changed
+    //TODO: Add blockUnit conversion
+    //BlockU
+
     void updatePlayer();
     void updateObjects();
     void checkCollisions();
@@ -21,7 +27,8 @@ public:
 private:
     //Game state variables
     int level;
-    bool gameActive;
+    bool paused;
+    bool levelNotLoaded;
 
     //Program managment
     LoopManager* menuManager;

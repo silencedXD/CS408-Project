@@ -3,34 +3,49 @@
 Game::Game(GraphicsUnit* graphics_, AudioUnit* audio_) {
 	graphics = graphics_;
 	audio = audio_;
-	gameActive = false;
+	paused = true;
+	levelNotLoaded = true;
 	menuManager = NULL;
 }
 
 void Game::updateLoop() {
-	if (gameActive) {
-		std::cout << "Game active\n";
-		gameActive = false;
-	}
-	else {
+
+	if (paused) {
 		if (menuManager == NULL) {
 			menuManager = new LoopManager(graphics, audio);
 		}
 		menuManager->updateLoop();
 		level = menuManager->getState() - controlsOptions;	//ControlsOptions is the last MenuCode before the level codes
 		if (level >= 1) {
-			gameActive = true;
+			paused = false;
 			delete menuManager;
 			menuManager = NULL;
 		}
 	}
+	else {
+		if (levelNotLoaded) {
+			loadLevel();
+			levelNotLoaded = false;
+		}
+		else{
+			updateGame();
+		}
+		std::cout << "Game active\n";
+		
+		//TODO: remove this once actual game is implemented
+		paused = true;
+	}
 }
+
+void Game::loadLevel() {
+	
+}
+
+void Game::updateGame() {}
 
 void Game::updatePlayer() {}
 void Game::updateObjects() {}
 void Game::checkCollisions() {}
 
 void Game::updateView() {}
-void Game::garbageCollection() {
-	gameActive = false;
-}
+void Game::garbageCollection() {}

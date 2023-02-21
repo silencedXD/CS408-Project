@@ -52,6 +52,9 @@
     <Filter Include="Header Files\inputHandlersH\OptionsHandlerH">
       <UniqueIdentifier>{992082ad-67cb-48e8-b80b-57ce1cf720fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Levels">
+      <UniqueIdentifier>{dc5ad39c-2f62-4a31-91e7-169491d1cd13}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="InputHandler.cpp">
@@ -65,9 +68,6 @@
     </ClCompile>
     <ClCompile Include="LevelSelectHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="SpriteObject.cpp">
       <Filter>Source Files\Objects</Filter>
@@ -102,6 +102,9 @@
     <ClCompile Include="AudioUnit.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenuHandler.h">
@@ -115,9 +118,6 @@
     </ClInclude>
     <ClInclude Include="LevelSelectHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
-    </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\ObjectsH</Filter>
     </ClInclude>
     <ClInclude Include="SpriteObject.h">
       <Filter>Header Files\ObjectsH</Filter>
@@ -158,6 +158,9 @@
     <ClInclude Include="KeyCode.h">
       <Filter>Source Files\Misc</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\ManagersH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\..\..\SelectionArrow.png">
@@ -172,6 +175,15 @@
   <ItemGroup>
     <None Include="config.json">
       <Filter>Source Files\Misc</Filter>
+    </None>
+    <None Include="Levels\level1.json">
+      <Filter>Resource Files\Levels</Filter>
+    </None>
+    <None Include="Levels\level2.json">
+      <Filter>Resource Files\Levels</Filter>
+    </None>
+    <None Include="Levels\level3.json">
+      <Filter>Resource Files\Levels</Filter>
     </None>
   </ItemGroup>
 </Project>
