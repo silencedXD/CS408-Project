@@ -30,10 +30,11 @@ private:
     bool paused;
     bool levelNotLoaded;
 
+
     //Program managment
     LoopManager* menuManager;
     AudioUnit* audio;
     GraphicsUnit* graphics;
-    ObjectFactory* oFactory;
+    ObjectFactory* gFactory;
 };
 

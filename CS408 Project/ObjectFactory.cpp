@@ -24,5 +24,9 @@ void ObjectFactory::deleteObjects() {
 }
 
 void ObjectFactory::clearObjects() {
+	for (int i = 0; i < objects.size(); i++) {
+		objects[i]->deleteFlag = true;
+	}
+	deleteObjects();
 	objects.clear();
 }

@@ -1,5 +1,7 @@
 {
 	"background_colour": "black",
+	"total_platforms": 2,
+
 	"platform1": {
 		"x" : 0,
 		"y" : 4,

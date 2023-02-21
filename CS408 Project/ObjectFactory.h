@@ -8,6 +8,7 @@ class ObjectFactory
 public:
 	ObjectFactory(GraphicsUnit* unit);
 	void makeObject(std::string objectName, float posX, float posY);
+	void makeObject(std::string objectName, float posX, float posY, float length);
 	void deleteObjects();
 	void clearObjects();
 
