@@ -2,12 +2,14 @@
 #include <iostream>
 
 
-GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_, std::string fontName_, int fontSize) {
+GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_, std::string fontName_, int fontSize, sf::Color backgroundColour_) {
     window = window_;
     loadFont(fontName_);
     fontName = fontName_;
     changeFontSize(fontSize);
     textureLocations["arrow"] = "Images/SelectionArrow.png";
+    textureLocations["platform"] = "Images/platform.png";
+    backgroundColour = backgroundColour_;
 }
 
 bool GraphicsUnit::loadFont(std::string fontName) {
@@ -26,12 +28,14 @@ void GraphicsUnit::closeWindow() {
 }
 
 void GraphicsUnit::clearWindow() {
-    window->clear(sf::Color::Black);
+    window->clear(backgroundColour);
 }
 
 void GraphicsUnit::clearText() {
     messages.clear();
 }
+
+void GraphicsUnit::setBackgroundColour(sf::Color colour) { backgroundColour = colour; }
 
 sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
     sf::Texture* temp;

@@ -2,13 +2,50 @@
 #include <iostream>
 
 ObjectFactory::ObjectFactory(GraphicsUnit* unit){
+	std::ifstream file("config.json");
+	Json::Value config;
+	Json::Reader jsonReader;
+	jsonReader.parse(file, config);
+	
 	graphics = unit;
+	playerColour = parseToColour(config["player_colour"].asString());
+	platformColour = parseToColour(config["platform_colour"].asString());
 }
 
 void ObjectFactory::makeObject(std::string objectName, float posX, float posY) {
 	sf::Texture* temp = graphics->loadTexture(objectName);
 
 	objects.push_back(new SpriteObject(posX, posY, objectName + std::to_string(objectCount[objectName]), temp));
+	if (objectName == "player") {
+		objects.back()->getSprite()->setColor(playerColour);
+	}
+	if (objectName == "platform") {
+		objects.back()->getSprite()->setColor(platformColour);
+	}
+	if (objectCount.count(objectName)) {
+		objectCount[objectName]++;
+	}
+	else {
+		objectCount[objectName] = 0;
+	}
+}
+
+void ObjectFactory::makeObject(std::string objectName, float posX, float posY, float xScale, float yScale) {
+	sf::Texture* temp = graphics->loadTexture(objectName);
+	sf::Vector2u windowSize = graphics->getWindowSize();
+	float xUnit = windowSize.x / 5;
+	float yUnit = windowSize.y / 5;
+
+	objects.push_back(new SpriteObject(posX * xUnit, posY * yUnit, objectName + std::to_string(objectCount[objectName]), temp));
+	objects.back()->getSprite()->scale(xScale, yScale);	//Scales' the sprite
+
+	if (objectName == "player") {
+		objects.back()->getSprite()->setColor(playerColour);
+	}
+	if (objectName == "platform") {
+		objects.back()->getSprite()->setColor(platformColour);
+		objects.back()->getSprite()->scale();
+	}
 	if (objectCount.count(objectName)) {
 		objectCount[objectName]++;
 	}
@@ -24,9 +61,31 @@ void ObjectFactory::deleteObjects() {
 }
 
 void ObjectFactory::clearObjects() {
-	for (int i = 0; i < objects.size(); i++) {
-		objects[i]->deleteFlag = true;
-	}
-	deleteObjects();
 	objects.clear();
+}
+
+void ObjectFactory::setPlayerColour(sf::Color colour) {
+	playerColour = colour;
+	for (int i = 0; i < objects.size(); i++) {
+		if (objects[i]->id == "player") { objects[i]->getSprite()->setColor(playerColour); }
+	}
+}
+
+void ObjectFactory::setPlatformColour(sf::Color colour) {
+	platformColour = colour;
+	for (int i = 0; i < objects.size(); i++) {
+		if (objects[i]->id == "platform") { objects[i]->getSprite()->setColor(platformColour); }
+	}
+}
+
+sf::Color ObjectFactory::parseToColour(std::string colour) {
+	if (colour == "white") { return sf::Color::White; }
+	if (colour == "black") { return sf::Color::Black; }
+	if (colour == "red") { return sf::Color::Red; }
+	if (colour == "green") { return sf::Color::Green; }
+	if (colour == "blue") { return sf::Color::Blue; }
+	if (colour == "yellow") { return sf::Color::Yellow; }
+	if (colour == "cyan") { return sf::Color::Cyan; }
+	if (colour == "magenta") { return sf::Color::Magenta; }
+	else { return sf::Color::Transparent; }
 }

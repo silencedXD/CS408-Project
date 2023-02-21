@@ -13,6 +13,8 @@
 
 Json::Value loadConfig();
 
+sf::Color parseToColour(std::string colour);
+
 //void startLevel(int level_);
 
 int main()
@@ -36,7 +38,7 @@ int main()
 
     window.create(sf::VideoMode(config["window_width"].asInt(), config["window_height"].asInt()), "Game", sf::Style::Close);
 
-    GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt());
+    GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt(), parseToColour(config["background_colour"].asString()));
     
     AudioUnit audio(config["general_volume"].asFloat(), config["text_volume"].asFloat(), config["game_volume"].asFloat());
 
@@ -56,6 +58,18 @@ Json::Value loadConfig() {
     Json::Reader jsonReader;
     jsonReader.parse(file, file_contents);
     return file_contents;
+}
+
+sf::Color parseToColour(std::string colour) {
+    if (colour == "white") { return sf::Color::White; }
+    if (colour == "black") { return sf::Color::Black; }
+    if (colour == "red") { return sf::Color::Red; }
+    if (colour == "green") { return sf::Color::Green; }
+    if (colour == "blue") { return sf::Color::Blue; }
+    if (colour == "yellow") { return sf::Color::Yellow; }
+    if (colour == "cyan") { return sf::Color::Cyan; }
+    if (colour == "magenta") { return sf::Color::Magenta; }
+    else { return sf::Color::Transparent; }
 }
 
 /*

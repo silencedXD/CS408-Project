@@ -30,9 +30,9 @@ void Game::updateLoop() {
 			loadLevel();
 			levelNotLoaded = false;
 		}
-		else{
-			updateGame();
-		}
+	
+		updateGame();
+
 		std::cout << "Game active\n";
 		
 		//TODO: remove this once actual game is implemented
@@ -42,23 +42,26 @@ void Game::updateLoop() {
 
 void Game::loadLevel() {
 	//Same as loading config files
-	std::string level_dir = "level" + std::to_string(level) + ".json";
+	std::string level_dir = "Levels/level" + std::to_string(level) + ".json";
 	std::ifstream file(level_dir);
 	Json::Value level_contents;
 	Json::Reader jsonReader;
 	jsonReader.parse(file, level_contents);
 	
 	//First we read in the platforms
-	for (int i = 0; i < level_contents["total_platforms"].asInt(); i++) {
+	int totalPlatforms = level_contents["total_platforms"].asInt();
+	for (int i = 0; i < totalPlatforms; i++) {
 		std::string platformName = "platform" + std::to_string(i);
 		float x_pos = level_contents[platformName]["x"].asFloat();
 		float y_pos = level_contents[platformName]["y"].asFloat();
 		float length = level_contents[platformName]["length"].asFloat();
-		gFactory->makeObject("platform", x_pos, y_pos, length);
+		gFactory->makeObject("platform", x_pos, y_pos, length, 1);
 	}
 }
 
-void Game::updateGame() {}
+void Game::updateGame() {
+	graphics->update(gFactory->objects);
+}
 
 void Game::updatePlayer() {}
 void Game::updateObjects() {}

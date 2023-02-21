@@ -5,7 +5,7 @@
 class GraphicsUnit
 {
 public:
-	GraphicsUnit(sf::RenderWindow* window_, std::string fontName, int fontSize);
+	GraphicsUnit(sf::RenderWindow* window_, std::string fontName, int fontSize, sf::Color backgroundColour_);
 	void closeWindow();
 	void clearWindow();
 	void update(std::vector<GameObject*> objects);
@@ -22,6 +22,7 @@ public:
 	std::string getFontType();
 	bool loadFont(std::string fontName);
 	int getFontSize();
+	void setBackgroundColour(sf::Color colour);
 
 
 	void changeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_);
@@ -36,5 +37,6 @@ private:
 	std::map<std::string, sf::Texture> textures;
 	std::map<std::string, std::string> textureLocations;
 	std::string fontName;
+	sf::Color backgroundColour;
 };
 
