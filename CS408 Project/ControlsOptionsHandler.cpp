@@ -134,7 +134,7 @@ void ControlsOptionsHandler::keyPressed(sf::Event event)
     }
 }
 
-MenuCode ControlsOptionsHandler::updateState()
+MenuCode ControlsOptionsHandler::updateState(sf::Time elapsed)
 {
     if (state == empty) {
         if (arrowPos.x < 10) {

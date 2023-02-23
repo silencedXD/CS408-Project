@@ -44,7 +44,7 @@ void ObjectFactory::makeObject(std::string objectName, float posX, float posY, f
 	}
 	if (objectName == "platform") {
 		objects.back()->getSprite()->setColor(platformColour);
-		objects.back()->getSprite()->scale();
+		objects.back()->getSprite()->scale(xScale, yScale);
 	}
 	if (objectCount.count(objectName)) {
 		objectCount[objectName]++;

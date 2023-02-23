@@ -1,18 +1,21 @@
 #include "LoopManager.h"
 #include <iostream>
 #include "MenuCode.h"
+#include "ObjectFactory.h"
+
 #include "MainMenuHandler.h"
 #include "OptionsMenuHandler.h"
 #include "LevelSelectHandler.h"
-#include "ObjectFactory.h"
 #include "VideoOptionsHandler.h"
 #include "AudioOptionsHandler.h"
 #include "ControlsOptionsHandler.h"
+#include "GameHandler.h"
 
 LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
     selectedLevel = 0;
     audio = audio_;
     handler = nullptr;
+    pausedGame = NULL;
     graphics = graphics_;
     window = graphics->getWindow();
     oFactory = new ObjectFactory(graphics); //For some reason the arrow doesn't display on the first load
@@ -29,6 +32,9 @@ LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
 }
 
 void LoopManager::updateLoop() {
+    sf::Clock clock;
+
+
     sf::Event event;
     while (window->pollEvent(event))
     {
@@ -46,17 +52,24 @@ void LoopManager::updateLoop() {
         }
     }
    
-
-    MenuCode tempState = handler->updateState();
+    sf::Time elapsed = clock.restart();
+    MenuCode tempState = handler->updateState(elapsed);
     
     graphics->update(oFactory->objects);
 
     if (tempState != state) {
-        changeState(tempState);
+        if (pausedGame != NULL && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
+
+        else { changeState(tempState); }
     }
 }
 
 void LoopManager::changeState(MenuCode state_) {
+    if (state == game && state_ != mainMenu) {    //This means the game is being paused so game data should be preserved unless the game is over
+        pausedGame = handler;
+        handler = NULL;
+    }
+    
     delete handler;
     graphics->clearText();
     state = state_;
@@ -89,6 +102,16 @@ void LoopManager::changeState(MenuCode state_) {
 
     case controlsOptions:
         handler = new ControlsOptionsHandler(graphics, oFactory, audio);
+        break;
+
+    case game:
+        if (pausedGame != NULL) {
+            handler = pausedGame;
+            pausedGame = NULL;
+        }
+        else {
+            handler = new GameHandler(graphics, oFactory, audio);
+        }
         break;
 
     default:

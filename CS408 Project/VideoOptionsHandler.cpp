@@ -189,7 +189,7 @@ void VideoOptionsHandler::reloadLabels(std::string lastLabel) {
     graphics->makeLabel(lastLabel, arrowPos.x, arrowPos.y);
 }
 
-MenuCode VideoOptionsHandler::updateState() {
+MenuCode VideoOptionsHandler::updateState(sf::Time elapsed) {
 
     if (state == empty) {
         if (arrowPos.x < 10){

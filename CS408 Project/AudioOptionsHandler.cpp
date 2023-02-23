@@ -156,7 +156,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
     }
 }
 
-MenuCode AudioOptionsHandler::updateState() {
+MenuCode AudioOptionsHandler::updateState(sf::Time elapsed) {
 
     if (state == empty) {
         if (arrowPos.x < 10) {

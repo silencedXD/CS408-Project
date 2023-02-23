@@ -22,6 +22,7 @@ private:
 	GraphicsUnit* graphics;
 	ObjectFactory* oFactory;
 
+	InputHandler* pausedGame;
 	int selectedLevel;
 };
 

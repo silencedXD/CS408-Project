@@ -1,10 +1,11 @@
 {
 	"DOWN" : 74,
-	"ENTER" : 71,
+	"ENTER" : 41,
 	"LEFT" : 71,
-	"PAUSE" : 100,
+	"PAUSE" : 36,
 	"RIGHT" : 72,
 	"UP" : 73,
+	"background_colour" : "black",
 	"bpp" : 32,
 	"defalt_RIGHT" : "72",
 	"default_DOWN" : "74",
@@ -13,13 +14,12 @@
 	"default_PAUSE" : "100",
 	"default_UP" : "73",
 	"font" : "arial",
-	"font_size" : 60,
+	"font_size" : 48,
 	"game_volume" : 100.0,
 	"general_volume" : 100.0,
-	"text_volume" : 100.0,
-	"window_height" : 768,
-	"window_width" : 1024,
-	"player_colour": "white",
-	"background_colour": "black",
-	"platform_colour": "red"
+	"platform_colour" : "red",
+	"player_colour" : "white",
+	"text_volume" : 60.0,
+	"window_height" : 600,
+	"window_width" : 800
 }

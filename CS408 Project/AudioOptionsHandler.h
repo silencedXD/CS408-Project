@@ -9,7 +9,7 @@ public:
 
 	void keyPressed(sf::Event event);
 
-	MenuCode updateState();
+	MenuCode updateState(sf::Time elapsed);
 
 	void playTextPrompt();
 

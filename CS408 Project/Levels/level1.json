@@ -2,15 +2,15 @@
 	"background_colour": "black",
 	"total_platforms": 2,
 
-	"platform1": {
+	"platform0": {
 		"x" : 0,
-		"y" : 4,
-		"length" : 3
+		"y" : 0,
+		"length" : 0.3
 	}, 
 	
-	"platform2" : {
-		"x" : 4,
-		"y" : 4,
-		"length" : 3
+	"platform1" : {
+		"x" : 1,
+		"y" : 1,
+		"length" : 0.3
 	}
 }

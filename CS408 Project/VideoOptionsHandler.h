@@ -6,7 +6,7 @@ class VideoOptionsHandler : public InputHandler
 {
 public:
 	VideoOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
-	virtual MenuCode updateState();
+	virtual MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 	void changeOption();
 	void keyPressed(sf::Event event);

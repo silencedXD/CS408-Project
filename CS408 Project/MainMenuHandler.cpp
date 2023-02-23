@@ -14,12 +14,12 @@ MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactor
     audio->playSound("main_menu");
 }
 
-MenuCode MainMenuHandler::updateState() {
+MenuCode MainMenuHandler::updateState(sf::Time elapsed) {
     updateArrow();
 
     switch (selector) {
     case 15:
-        return level1;
+        return game;
 
     case 25:
         return options;

@@ -11,7 +11,7 @@ LevelSelectHandler::LevelSelectHandler(GraphicsUnit* graphics_, ObjectFactory* o
 }
 
 
-MenuCode LevelSelectHandler::updateState() {
+MenuCode LevelSelectHandler::updateState(sf::Time elapsed) {
     updateArrow();
 
     switch (selector) {

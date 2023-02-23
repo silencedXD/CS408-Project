@@ -8,6 +8,8 @@ Game::Game(GraphicsUnit* graphics_, AudioUnit* audio_) {
 	menuManager = NULL;
 	gFactory = NULL;
 	level = 0;
+	srand(time(NULL));
+	window = graphics->getWindow();
 }
 
 void Game::updateLoop() {
@@ -17,7 +19,7 @@ void Game::updateLoop() {
 			menuManager = new LoopManager(graphics, audio);
 		}
 		menuManager->updateLoop();
-		level = menuManager->getState() - controlsOptions;	//ControlsOptions is the last MenuCode before the level codes
+		level = menuManager->getState() - game;	//ControlsOptions is the last MenuCode before the level codes
 		if (level >= 1) {
 			paused = false;
 			delete menuManager;
@@ -27,7 +29,7 @@ void Game::updateLoop() {
 	else {
 		if (levelNotLoaded) {
 			gFactory = new ObjectFactory(graphics);	//Having an object factory that is separate to the menu system keeps them out of scope of eachother
-			loadLevel();
+			generateLevel();
 			levelNotLoaded = false;
 		}
 	
@@ -37,6 +39,15 @@ void Game::updateLoop() {
 		
 		//TODO: remove this once actual game is implemented
 		paused = true;
+	}
+}
+
+void Game::generateLevel() {
+	player = Player();
+	int obstacleCount = 5;
+
+	for (int i = 0; i < obstacleCount; i++) {
+		obstacles.push_back(new Obstacle(rand() % 5, 1, rand() % 10 + 5, 1, "test"));
 	}
 }
 
@@ -60,7 +71,9 @@ void Game::loadLevel() {
 }
 
 void Game::updateGame() {
-	graphics->update(gFactory->objects);
+	//graphics->update(gFactory->objects);
+
+
 }
 
 void Game::updatePlayer() {}

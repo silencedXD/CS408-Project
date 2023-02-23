@@ -12,7 +12,7 @@ OptionsMenuHandler::OptionsMenuHandler(GraphicsUnit* graphics_, ObjectFactory* o
 
 
 
-MenuCode OptionsMenuHandler::updateState() {
+MenuCode OptionsMenuHandler::updateState(sf::Time elapsed) {
 	updateArrow();
 
 	switch (selector) {

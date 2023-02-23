@@ -139,6 +139,7 @@
     <ClCompile Include="AudioUnit.cpp" />
     <ClCompile Include="ControlsOptionsHandler.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GameHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsUnit.cpp" />
     <ClCompile Include="InputHandler.cpp" />
@@ -148,6 +149,8 @@
     <ClCompile Include="MainMenuHandler.cpp" />
     <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="OptionsMenuHandler.cpp" />
+    <ClCompile Include="Obstacle.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="SpriteObject.cpp" />
     <ClCompile Include="VideoOptionsHandler.cpp" />
@@ -157,6 +160,7 @@
     <ClInclude Include="AudioUnit.h" />
     <ClInclude Include="ControlsOptionsHandler.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GameHandler.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicsUnit.h" />
     <ClInclude Include="InputHandler.h" />
@@ -169,6 +173,8 @@
     <ClInclude Include="MainMenuHandler.h" />
     <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="OptionsMenuHandler.h" />
+    <ClInclude Include="Obstacle.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SpriteObject.h" />
     <ClInclude Include="VideoOptionsHandler.h" />
   </ItemGroup>
