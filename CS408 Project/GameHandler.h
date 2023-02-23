@@ -10,12 +10,13 @@ public:
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 	void keyPressed(sf::Event event);
-	bool isCollided(Obstacle* obstacle);
 
 private:
-	bool paused;
+	bool isInfrontOf(Obstacle* obstacle);
+	void checkCollisions();
 	void displayStats();
 
+	bool paused;
 	Player player;
 	std::vector<Obstacle*> obstacles;
 };

@@ -14,12 +14,12 @@
 	"default_PAUSE" : "100",
 	"default_UP" : "73",
 	"font" : "arial",
-	"font_size" : 48,
+	"font_size" : 60,
 	"game_volume" : 100.0,
 	"general_volume" : 100.0,
 	"platform_colour" : "red",
 	"player_colour" : "white",
 	"text_volume" : 60.0,
-	"window_height" : 600,
-	"window_width" : 800
+	"window_height" : 480,
+	"window_width" : 640
 }

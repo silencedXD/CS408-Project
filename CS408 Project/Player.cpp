@@ -2,31 +2,31 @@
 
 Player::Player() {
 	x = 2;
-	y = 1;
+	y = 2;
 	isHit = false;
 }
 
 void Player::Move(KeyCode command) {
 	switch (command) {
 	case LEFT:
-		if (x > 0) { x--; }
+		x = (x - 1) % 5;
 		break;
 
 	case RIGHT:
-		if (x < 5) { x++; }
+		x = (x + 1) % 5;
 		break;
 
 	case UP:
-		if (y < 5) { y++; }
+		y = (y + 1) % 5;
 		break;
 
 	case DOWN:
-		if (y > 1) { y--; }
+		y = (y - 1) % 5;
 		break;
 
 	case ENTER:
 		x = 2;
-		y = 1;
+		y = 2;
 
 	default:
 		break;

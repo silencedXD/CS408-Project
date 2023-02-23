@@ -42,10 +42,10 @@ int main()
     
     AudioUnit audio(config["general_volume"].asFloat(), config["text_volume"].asFloat(), config["game_volume"].asFloat());
 
-    Game game(&graphics, &audio);
+    LoopManager loopManager(&graphics, &audio);
 
     while (window.isOpen()) {
-        game.updateLoop();
+        loopManager.updateLoop();
     }
 
     return 0;

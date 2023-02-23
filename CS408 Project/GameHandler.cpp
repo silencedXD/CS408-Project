@@ -26,35 +26,48 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 		return mainMenu;
 	}
 
-	if (!player.isHit) {
-		std::vector<Obstacle*>::iterator it = obstacles.begin();
-		while (it != obstacles.end()) {
-			Obstacle* currentObstacle = *it;
-			currentObstacle->Move();
+	checkCollisions();
 
-			if (currentObstacle->distance == 0) {
-				if (isCollided(currentObstacle)) {
-					player.isHit = true;
-				}
-			}
+	if (player.isHit) {
+		std::cout << "Game Over";
 
-			if (currentObstacle->distance < 0) {
-				delete currentObstacle;
-				it = obstacles.erase(it);
-			}
-			else {
-				++it;
-			}
-		}
+		return mainMenu;
+	}
+	else {
 		displayStats();
 
 		return game;
 	}
-	else {
-		std::cout << "Game Over";
-		return mainMenu;
+}
+
+void GameHandler::checkCollisions() {
+	std::vector<Obstacle*>::iterator it = obstacles.begin();
+
+	while (it != obstacles.end()) {
+		Obstacle* currentObstacle = *it;
+		currentObstacle->Move();
+
+		if (currentObstacle->distance == 0) {
+			if (isInfrontOf(currentObstacle)) {
+				player.isHit = true;
+				//audio->playConcurrentSound("crash");
+			}
+		}
+
+		if (currentObstacle->distance < 0) {
+			delete currentObstacle;
+			it = obstacles.erase(it);	//Deleting the element automatically moves the iterator to the following element
+		}
+		else {
+			if (isInfrontOf(currentObstacle) && currentObstacle->distance < 60)	//Since game is at roughly 60fps, a distance of 60 should be about 1 second away from collision
+			{
+				//audio->playConcurrentSound("Nearby");
+			}
+			++it;	//This moves to the next element if it hasn't been deleted
+		}
 	}
 }
+
 
 void GameHandler::keyPressed(sf::Event event) {
 	if (event.key.code == keyMappings.at(UP)) { player.Move(UP); }
@@ -76,7 +89,7 @@ void GameHandler::displayStats() {
 	}*/
 }
 
-bool GameHandler::isCollided(Obstacle* obstacle) {
+bool GameHandler::isInfrontOf(Obstacle* obstacle) {
 	if (obstacle->x == player.x) {
 		if (obstacle->y == player.y) {
 			return true;
