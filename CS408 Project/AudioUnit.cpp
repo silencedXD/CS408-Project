@@ -69,12 +69,15 @@ AudioUnit::AudioUnit(float general, float text, float game) {
 }
 
 void AudioUnit::loadSound(std::string soundName) {
-    sf::Sound temp;
-    buffers.push_back(new sf::SoundBuffer);
 
-    if (buffers.back()->loadFromFile(soundLocations.at(soundName))) {
+    sf::Sound temp;
+    sf::SoundBuffer* buffer = new sf::SoundBuffer;
+
+    if (buffer->loadFromFile(soundLocations.at(soundName))) {
+        buffers[soundName] = buffer;
+
         sounds[soundName] = temp;
-        sounds[soundName].setBuffer(*buffers[bufferCount]);
+        sounds[soundName].setBuffer(*buffer);
 
         if (soundLocations[soundName].at(0) == 'T') {                       //Individual volume is a percentage of the general volume
             sounds[soundName].setVolume(generalVolume * (textVolume / 100));
@@ -82,12 +85,13 @@ void AudioUnit::loadSound(std::string soundName) {
         else{
             sounds[soundName].setVolume(generalVolume * (gameVolume / 100));
         }
-        bufferCount++;
     }
     else{
         std::cout << soundName + " sound either failed to load or location is missing";
     }   //If the sound fails to load the program exits
 }
+
+sf::SoundBuffer* AudioUnit::getBuffer(std::string soundName) { return buffers[soundName]; }
 
 void AudioUnit::playSound(std::string soundName) {
     if (sounds.count(soundName))

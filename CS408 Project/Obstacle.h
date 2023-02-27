@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <SFML/Audio.hpp>
 
 class Obstacle { 
 public:
@@ -12,4 +13,5 @@ public:
 	int speed;
 	std::string type;
 	bool deleteFlag;
+	sf::Sound sound;
 };

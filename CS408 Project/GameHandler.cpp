@@ -13,8 +13,8 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 
 MenuCode GameHandler::updateState(sf::Time elapsed) {
 
-	sf::Time gap = sf::milliseconds(100/6) - elapsed;	//This locks the framerate at 60fps which should also lock the game speed too
-	if (gap.asMilliseconds() > 0) { sf::sleep(gap); }
+	sf::Time gap = sf::milliseconds(100/6) - elapsed;	//This locks the framerate at 60fps which should also somewhat locks the game speed too
+	if (gap.asMilliseconds() > 0) { sf::sleep(gap); }	//which should allow us to assumpe that 1 second in real life equates to 60 game cycles
 
 	if (paused) {
 		paused = false;

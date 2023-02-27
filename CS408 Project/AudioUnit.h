@@ -12,13 +12,16 @@ public:
 	float getTextVolume();
 	float getGameVolume();
 	void setVolume(float general, float text, float game);
+
+	sf::SoundBuffer* getBuffer(std::string soundName);
+
 private:
 	void loadSound(std::string soundName);
 	void resetVolume();
 
 	std::map<std::string, sf::Sound> sounds;
 	std::map<std::string, std::string> soundLocations;
-	std::vector<sf::SoundBuffer*> buffers;
+	std::map<std::string, sf::SoundBuffer*> buffers;
 	int bufferCount;
 	sf::Sound* previousSound;
 	float generalVolume;
