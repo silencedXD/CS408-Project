@@ -253,3 +253,8 @@ void AudioOptionsHandler::playTextPrompt() {
     }
 
 }
+
+
+MenuCode AudioOptionsHandler::getState() {
+    return audioOptions;
+}

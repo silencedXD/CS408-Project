@@ -62,3 +62,7 @@ void LevelSelectHandler::playTextPrompt() {
         break;
     }
 };
+
+MenuCode LevelSelectHandler::getState() {
+    return levelSelect;
+}

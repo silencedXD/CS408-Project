@@ -13,6 +13,8 @@ public:
 
 	void playTextPrompt();
 
+	MenuCode getState();
+
 private:
 	enum controlsOptionsEnum { up, down, left, right, enter, pause, reset, empty };
 

@@ -11,6 +11,7 @@ public:
 	void changeOption();
 	void keyPressed(sf::Event event);
 	void reloadLabels(std::string lastLabel);
+	MenuCode getState();
 
 	enum videoOptionsEnum { displaySize, fontType, fontSize, empty };
 	std::vector<std::tuple<unsigned int, unsigned int, unsigned int>> displayModes;

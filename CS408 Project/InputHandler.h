@@ -20,12 +20,13 @@ public:
 	virtual void keyPressed(sf::Event event);
 	virtual MenuCode updateState(sf::Time elapsed) = 0;
 	virtual void playTextPrompt() = 0;
-
+	virtual void keyReleased(sf::Event event);
 	void updateArrow();
 	sf::Vector2f setArrowPos(sf::Vector2f newPos_);
 
 	Json::Value loadConfig();
 	void saveConfig(Json::Value config_);
+	virtual MenuCode getState() = 0;
 protected:
 	void loadKeyMappings();
 	sf::Keyboard::Key stringToKeyboard(std::string keyName);

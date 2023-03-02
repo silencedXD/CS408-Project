@@ -271,3 +271,6 @@ void ControlsOptionsHandler::playTextPrompt()
     }
 }
 
+MenuCode ControlsOptionsHandler::getState() {
+    return controlsOptions;
+}

@@ -19,7 +19,7 @@ MenuCode MainMenuHandler::updateState(sf::Time elapsed) {
 
     switch (selector) {
     case 15:
-        return game;
+        return level1;
 
     case 25:
         return options;
@@ -61,4 +61,8 @@ void MainMenuHandler::playTextPrompt() {
         std::cout << "Error tried to play text prompt when selector is out of bounds\n";
         break;
     }
+}
+
+MenuCode MainMenuHandler::getState() {
+    return mainMenu;
 }

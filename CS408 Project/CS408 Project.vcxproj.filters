@@ -102,10 +102,7 @@
     <ClCompile Include="AudioUnit.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files\Managers</Filter>
-    </ClCompile>
-    <ClCompile Include="Obstacle.cpp">
+    <ClCompile Include="Rock.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
@@ -167,10 +164,7 @@
     <ClInclude Include="KeyCode.h">
       <Filter>Source Files\Misc</Filter>
     </ClInclude>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files\ManagersH</Filter>
-    </ClInclude>
-    <ClInclude Include="Obstacle.h">
+    <ClInclude Include="Rock.h">
       <Filter>Header Files\ObjectsH</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">

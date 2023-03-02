@@ -2,6 +2,8 @@
 #include <iostream>
 
 AudioUnit::AudioUnit(float general, float text, float game) {
+    soundLocations["copper_break"] = "Sound_Effects/copper_break.ogg";
+    soundLocations["copper_near"] = "Sound_Effects/copper_near.ogg";
     //soundLocations["high_piano_note"] = "Sound_Effects/piano6C.ogg";
     soundLocations["medium_piano_note"] = "Sound_Effects/piano5C.ogg";
     //soundLocations["low_piano_note"] = "Sound_Effects/piano4C.ogg";
@@ -77,6 +79,7 @@ void AudioUnit::loadSound(std::string soundName) {
         buffers[soundName] = buffer;
 
         sounds[soundName] = temp;
+        sounds[soundName].setRelativeToListener(true);  //Any sounds played using the audio unit are played without spatialisation
         sounds[soundName].setBuffer(*buffer);
 
         if (soundLocations[soundName].at(0) == 'T') {                       //Individual volume is a percentage of the general volume
@@ -91,7 +94,12 @@ void AudioUnit::loadSound(std::string soundName) {
     }   //If the sound fails to load the program exits
 }
 
-sf::SoundBuffer* AudioUnit::getBuffer(std::string soundName) { return buffers[soundName]; }
+sf::SoundBuffer* AudioUnit::getBuffer(std::string soundName) { 
+    if (!buffers.count(soundName)) {
+        loadSound(soundName);      //Loads the buffer it it isn't already present in the map
+    }
+    return buffers[soundName];
+}
 
 void AudioUnit::playSound(std::string soundName) {
     if (sounds.count(soundName))

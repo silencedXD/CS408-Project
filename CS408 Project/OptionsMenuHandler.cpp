@@ -60,3 +60,7 @@ void OptionsMenuHandler::playTextPrompt() {
 		break;
 	}
 }
+
+MenuCode OptionsMenuHandler::getState() {
+	return options;
+}

@@ -305,3 +305,7 @@ void VideoOptionsHandler::playTextPrompt() {
         break;
     }
 }
+
+MenuCode VideoOptionsHandler::getState() {
+    return videoOptions;
+}

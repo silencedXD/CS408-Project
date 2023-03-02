@@ -46,6 +46,10 @@ void LoopManager::updateLoop() {
         case sf::Event::KeyPressed:
             handler->keyPressed(event);
             break;
+        
+        case sf::Event::KeyReleased:
+            handler->keyReleased(event);
+            break;
 
         default:
             break;
@@ -58,14 +62,14 @@ void LoopManager::updateLoop() {
     graphics->update(oFactory->objects);
 
     if (tempState != state) {
-        if (pausedGame != NULL && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
+        if (pausedGame != NULL && tempState == mainMenu) {changeState(pausedGame->getState());}   //Redirects back to game if game was paused
 
         else { changeState(tempState); }
     }
 }
 
 void LoopManager::changeState(MenuCode state_) {
-    if (state == game && state_ != mainMenu) {    //This means the game is being paused so game data should be preserved unless the game is over
+    if ((state == level1 || state == level2 || state == level3) && state_ != mainMenu) {    //This means the game is being paused so game data should be preserved unless the game is over
         pausedGame = handler;
         handler = NULL;
     }
@@ -104,13 +108,33 @@ void LoopManager::changeState(MenuCode state_) {
         handler = new ControlsOptionsHandler(graphics, oFactory, audio);
         break;
 
-    case game:
+    case level1:
         if (pausedGame != NULL) {
             handler = pausedGame;
             pausedGame = NULL;
         }
         else {
-            handler = new GameHandler(graphics, oFactory, audio);
+            handler = new GameHandler(graphics, oFactory, audio, 1);
+        }
+        break;
+
+    case level2:
+        if (pausedGame != NULL) {
+            handler = pausedGame;
+            pausedGame = NULL;
+        }
+        else {
+            handler = new GameHandler(graphics, oFactory, audio, 2);
+        }
+        break;
+
+    case level3:
+        if (pausedGame != NULL) {
+            handler = pausedGame;
+            pausedGame = NULL;
+        }
+        else {
+            handler = new GameHandler(graphics, oFactory, audio, 3);
         }
         break;
 

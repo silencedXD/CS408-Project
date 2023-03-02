@@ -13,6 +13,8 @@ public:
 
 	void playTextPrompt();
 
+	MenuCode getState();
+
 private:
 	enum audioOptionsEnum { general, text, game, empty };
 

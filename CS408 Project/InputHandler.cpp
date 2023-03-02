@@ -10,6 +10,8 @@ InputHandler::InputHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Au
     loadKeyMappings();
 }
 
+void InputHandler::keyReleased(sf::Event event) {};
+
 void InputHandler::loadKeyMappings() {
     keyMappings[UP] = stringToKeyboard(config["UP"].asString());
     keyMappings[DOWN] = stringToKeyboard(config["DOWN"].asString());
