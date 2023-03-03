@@ -2,7 +2,7 @@
 	"DOWN" : 74,
 	"ENTER" : 41,
 	"LEFT" : 71,
-	"PAUSE" : 36,
+	"PAUSE" : 15,
 	"RIGHT" : 72,
 	"UP" : 73,
 	"background_colour" : "black",
@@ -20,6 +20,6 @@
 	"platform_colour" : "red",
 	"player_colour" : "white",
 	"text_volume" : 60.0,
-	"window_height" : 480,
-	"window_width" : 640
+	"window_height" : 600,
+	"window_width" : 800
 }

@@ -4,10 +4,20 @@
 GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 	paused = false;
 	player = Player();
-	int obstacleCount = 10;
+	int obstacleCount = 5;
+	frameCounter = 0;
+	winCounter = 0;
 
 	for (int i = 0; i < obstacleCount; i++) {
-		obstacles.push_back(new Obstacle(rand() % 5, 1, rand() % 180 + 60, 1, "test"));
+		int yVal = rand() % 2;
+		if (yVal == 0) {
+			int xVal = rand() % 10;
+			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 0, "test"));
+		}
+		else {
+			int xVal = rand() % 10;
+			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 2, "test"));
+		}
 	}
 }
 
@@ -16,28 +26,53 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	sf::Time gap = sf::milliseconds(100/6) - elapsed;	//This locks the framerate at 60fps which should also somewhat locks the game speed too
 	if (gap.asMilliseconds() > 0) { sf::sleep(gap); }	//which should allow us to assumpe that 1 second in real life equates to 60 game cycles
 
+	frameCounter = (frameCounter + 61) % 60;
+
 	if (paused) {
 		paused = false;
 		return options;
 	}
 
 	if (obstacles.empty()) {
-		std::cout << "All obstacles dodged, you win!";
-		return mainMenu;
+		if (winCounter < 30) {	//This allows 30 more run cycles to occur before game ends so that the sound effect has time to play
+			winCounter++;
+			return game;
+		}
+		else {
+			std::cout << "All obstacles dodged, you win!";
+			setArrowPos(sf::Vector2f(0, 0));	//This moves the arrow back in vue for the menu system
+			return mainMenu;
+		}
 	}
 
 	checkCollisions();
+	updateKeys();
+	player.update();
 
 	if (player.isHit) {
-		std::cout << "Game Over";
-
-		return mainMenu;
+		if (winCounter < 35) {
+			winCounter++;
+			return game;
+		}
+		else {
+			std::cout << "Game Over";
+			setArrowPos(sf::Vector2f(0, 0));	//This moves the arrow back in vue for the menu system
+			return mainMenu;
+		}
 	}
 	else {
 		displayStats();
-
 		return game;
 	}
+}
+
+void GameHandler::updateKeys() {
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player.Move(UP); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player.Move(DOWN); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(LEFT))) { player.Move(LEFT); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(RIGHT))) { player.Move(RIGHT); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(ENTER))) { player.Move(ENTER); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(PAUSE))) { paused = true; }
 }
 
 void GameHandler::checkCollisions() {
@@ -45,37 +80,56 @@ void GameHandler::checkCollisions() {
 
 	while (it != obstacles.end()) {
 		Obstacle* currentObstacle = *it;
-		currentObstacle->Move();
 
-		if (currentObstacle->distance == 0) {
-			if (isInfrontOf(currentObstacle)) {
+		if (currentObstacle->x == player.x) {
+			if (currentObstacle->y == player.y) {
+				player.y = 1;
+				audio->playNonRepeatingSound("pass");
+				delete currentObstacle;
+				it = obstacles.erase(it);
+			}
+			else {
 				player.isHit = true;
-				//audio->playConcurrentSound("crash");
+				audio->playSound("fail");
+				delete currentObstacle;
+				it = obstacles.erase(it);
 			}
 		}
-
-		if (currentObstacle->distance < 0) {
-			delete currentObstacle;
-			it = obstacles.erase(it);	//Deleting the element automatically moves the iterator to the following element
-		}
 		else {
-			if (isInfrontOf(currentObstacle) && currentObstacle->distance < 60)	//Since game is at roughly 60fps, a distance of 60 should be about 1 second away from collision
-			{
-				//audio->playConcurrentSound("Nearby");
+			if (isNearPlayer(currentObstacle)) {
+				if (currentObstacle->y == 0) {
+					audio->playNonRepeatingSound("low_piano_note");
+				}
+				else {
+					audio->playNonRepeatingSound("high_piano_note");
+				}
 			}
 			++it;	//This moves to the next element if it hasn't been deleted
 		}
+		
+	}
+}
+
+bool GameHandler::isNearPlayer(Obstacle* obstacle) {
+	int xDif = obstacle->x - player.x;
+	if (0 < xDif && xDif < 40) {
+		return true;
+	}
+	else {
+		return false;
 	}
 }
 
 
 void GameHandler::keyPressed(sf::Event event) {
-	if (event.key.code == keyMappings.at(UP)) { player.Move(UP); }
-	if (event.key.code == keyMappings.at(DOWN)) { player.Move(DOWN); }
-	if (event.key.code == keyMappings.at(LEFT)) { player.Move(LEFT); }
-	if (event.key.code == keyMappings.at(RIGHT)) { player.Move(RIGHT); }
-	if (event.key.code == keyMappings.at(ENTER)) { player.Move(ENTER); }
-	if (event.key.code == keyMappings.at(PAUSE)) { paused = true; }
+	//if (event.key.code == keyMappings.at(UP)) { player.Move(UP); }
+	//if (event.key.code == keyMappings.at(DOWN)) { player.Move(DOWN); }
+	//if (event.key.code == keyMappings.at(LEFT)) { player.Move(LEFT); }
+	//if (event.key.code == keyMappings.at(RIGHT)) { player.Move(RIGHT); }
+	//if (event.key.code == keyMappings.at(ENTER)) { player.Move(ENTER); }
+	//if (event.key.code == keyMappings.at(PAUSE)) { paused = true; }
+	
+
 }
 
 void GameHandler::displayStats() {
@@ -90,7 +144,7 @@ void GameHandler::displayStats() {
 }
 
 bool GameHandler::isInfrontOf(Obstacle* obstacle) {
-	if (obstacle->x == player.x) {
+	if (obstacle->x == 0) {
 		if (obstacle->y == player.y) {
 			return true;
 		}

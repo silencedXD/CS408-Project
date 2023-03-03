@@ -112,6 +112,7 @@ void LoopManager::changeState(MenuCode state_) {
         else {
             handler = new GameHandler(graphics, oFactory, audio);
         }
+        handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
         break;
 
     default:

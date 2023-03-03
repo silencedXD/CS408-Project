@@ -13,8 +13,15 @@ public:
 
 private:
 	bool isInfrontOf(Obstacle* obstacle);
+	bool isNearPlayer(Obstacle* obstacle);
+	
+	void updateKeys();
 	void checkCollisions();
 	void displayStats();
+
+	int frameCounter;
+	int winCounter;
+
 
 	bool paused;
 	Player player;

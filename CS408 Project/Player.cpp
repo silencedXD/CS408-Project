@@ -1,32 +1,38 @@
 #include "Player.h"
 
 Player::Player() {
-	x = 2;
-	y = 2;
+	x = 0;
+	y = 1;
 	isHit = false;
+	moveCounter = 0;
+}
+
+void Player::update() {
+	if (moveCounter > 0) { moveCounter--; }
+	else {
+		y = 1;
+	}
 }
 
 void Player::Move(KeyCode command) {
 	switch (command) {
 	case LEFT:
-		x = (x - 1) % 5;
+		if (x > 0) { x--; }
 		break;
 
 	case RIGHT:
-		x = (x + 1) % 5;
+		x = x++;
 		break;
 
 	case UP:
-		y = (y + 1) % 5;
+		if (y == 1) { y = 2; }
+		moveCounter = 30;
 		break;
 
 	case DOWN:
-		y = (y - 1) % 5;
+		if (y == 1) { y = 0; }
+		moveCounter = 30;
 		break;
-
-	case ENTER:
-		x = 2;
-		y = 2;
 
 	default:
 		break;

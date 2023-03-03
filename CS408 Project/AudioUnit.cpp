@@ -2,9 +2,12 @@
 #include <iostream>
 
 AudioUnit::AudioUnit(float general, float text, float game) {
-    //soundLocations["high_piano_note"] = "Sound_Effects/piano6C.ogg";
+    soundLocations["high_piano_note"] = "Sound_Effects/piano6C.ogg";
     soundLocations["medium_piano_note"] = "Sound_Effects/piano5C.ogg";
-    //soundLocations["low_piano_note"] = "Sound_Effects/piano4C.ogg";
+    soundLocations["low_piano_note"] = "Sound_Effects/piano4C.ogg";
+    soundLocations["pass"] = "Sound_Effects/pass.ogg";
+    soundLocations["fail"] = "Sound_Effects/fail.ogg";
+
     soundLocations["main_menu"] = "Text_To_Speech/main_menu.ogg";
     soundLocations["start_game"] = "Text_To_Speech/start_game.ogg";
     soundLocations["options"] = "Text_To_Speech/options.ogg";
@@ -103,6 +106,21 @@ void AudioUnit::playSound(std::string soundName) {
     else {
         loadSound(soundName);
         previousSound->stop();
+        sounds[soundName].play();
+        previousSound = &sounds[soundName];
+    }
+}
+
+void AudioUnit::playNonRepeatingSound(std::string soundName) {
+    if (sounds.count(soundName))
+    {
+        if (sounds[soundName].getStatus() != sf::SoundSource::Playing) {
+            sounds[soundName].play();
+            previousSound = &sounds[soundName];
+        }
+    }
+    else {
+        loadSound(soundName);
         sounds[soundName].play();
         previousSound = &sounds[soundName];
     }

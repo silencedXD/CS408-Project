@@ -7,6 +7,7 @@ class AudioUnit
 public:
 	AudioUnit(float general, float text, float game);
 	void playSound(std::string soundName);
+	void playNonRepeatingSound(std::string soundName);
 	void playConcurrentSound(std::string soundName);
 	float getGeneralVolume();
 	float getTextVolume();

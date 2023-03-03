@@ -5,7 +5,9 @@ class Player {
 public:
 	Player();
 	void Move(KeyCode command);
+	void update();
 
+	int moveCounter;
 	int x;
 	int y;
 	bool isHit;
