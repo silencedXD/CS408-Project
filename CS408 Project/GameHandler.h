@@ -21,6 +21,7 @@ private:
 	bool checkLoseCondition();
 	void displayStats();
 
+	int hearingRange;
 	int level;
 	int frameCounter;
 	bool paused;

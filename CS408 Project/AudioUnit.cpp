@@ -2,9 +2,10 @@
 #include <iostream>
 
 AudioUnit::AudioUnit(float general, float text, float game) {
-    soundLocations["high_piano_note"] = "Sound_Effects/piano6C.ogg";
-    soundLocations["medium_piano_note"] = "Sound_Effects/piano5C.ogg";
-    soundLocations["low_piano_note"] = "Sound_Effects/piano4C.ogg";
+    soundLocations["6C"] = "Sound_Effects/piano6C.ogg";
+    soundLocations["5C"] = "Sound_Effects/piano5C.ogg";
+    soundLocations["4C"] = "Sound_Effects/piano4C.ogg";
+    soundLocations["3C"] = "Sound_Effects/piano3C.ogg";
     soundLocations["pass"] = "Sound_Effects/pass.ogg";
     soundLocations["fail"] = "Sound_Effects/fail.ogg";
 

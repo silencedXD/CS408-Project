@@ -6,7 +6,9 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 	player = Player();
 	frameCounter = 0;
 	level = level_;
+	hearingRange = 25 + (20 / level);
 	int obstacleCount = level *  5;
+	srand(time(NULL));
 
 	for (int i = 0; i < obstacleCount; i++) {
 		int yVal = rand() % 2;
@@ -104,10 +106,10 @@ void GameHandler::checkCollisions() {
 		else {
 			if (isNearPlayer(currentObstacle)) {
 				if (currentObstacle->y == 0) {
-					audio->playNonRepeatingSound("low_piano_note");
+					audio->playNonRepeatingSound("4C");
 				}
 				else {
-					audio->playNonRepeatingSound("high_piano_note");
+					audio->playNonRepeatingSound("5C");
 				}
 			}
 			++it;	//This moves to the next element if it hasn't been deleted
@@ -118,7 +120,7 @@ void GameHandler::checkCollisions() {
 
 bool GameHandler::isNearPlayer(Obstacle* obstacle) {
 	int xDif = obstacle->x - player.x;
-	if (0 < xDif && xDif < 40) {
+	if (0 < xDif && xDif < hearingRange) {
 		return true;
 	}
 	else {
