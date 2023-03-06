@@ -35,6 +35,9 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["ENTER"] = "Text_To_Speech/enter.ogg";
     soundLocations["PAUSE"] = "Text_To_Speech/pause.ogg";
     soundLocations["reset_to_default"] = "Text_To_Speech/reset_to_default.ogg";
+    soundLocations["level_complete"] = "Text_To_Speech/level_complete.ogg";
+    soundLocations["level_failed"] = "Text_To_Speech/level_failed.ogg";
+    soundLocations["retry"] = "Text_To_Speech/retry.ogg";
 
     soundLocations["1920_1080"] = "Text_To_Speech/1920_1080.ogg";
     soundLocations["1680_1050"] = "Text_To_Speech/1680_1050.ogg";

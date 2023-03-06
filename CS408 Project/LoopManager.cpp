@@ -10,9 +10,11 @@
 #include "AudioOptionsHandler.h"
 #include "ControlsOptionsHandler.h"
 #include "GameHandler.h"
+#include "WinHandler.h"
+#include "LoseHandler.h"
 
 LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
-    selectedLevel = 0;
+    selectedLevel = 1;
     audio = audio_;
     handler = nullptr;
     pausedGame = NULL;
@@ -57,24 +59,27 @@ void LoopManager::updateLoop() {
     
     graphics->update(oFactory->objects);
 
-    if (tempState != state) {
+    if (tempState != currentState) {
         if (pausedGame != NULL && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
 
         else { changeState(tempState); }
     }
 }
 
-void LoopManager::changeState(MenuCode state_) {
-    if (state == game && state_ != mainMenu) {    //This means the game is being paused so game data should be preserved unless the game is over
+void LoopManager::changeState(MenuCode newState) {
+    if (currentState == game && newState != win && newState != lose) {    //This means the game is being paused so game data should be preserved unless the game is over
         pausedGame = handler;
         handler = NULL;
     }
     
-    delete handler;
+    if (handler != NULL); {
+        delete handler;
+    }
+    
     graphics->clearText();
-    state = state_;
+    currentState = newState;
 
-    switch (state_) {
+    switch (newState) {
     case mainMenu:
         handler = new MainMenuHandler(graphics, oFactory, audio);
         break;
@@ -104,22 +109,58 @@ void LoopManager::changeState(MenuCode state_) {
         handler = new ControlsOptionsHandler(graphics, oFactory, audio);
         break;
 
+    case level1:
+        selectedLevel = 1;
+        handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
+        handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
+        pausedGame = NULL;
+        currentState = game;
+        break;
+
+
+    case level2:
+        selectedLevel = 2;
+        handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
+        handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
+        pausedGame = NULL;
+        currentState = game;
+        break;
+
+
+    case level3:
+        selectedLevel = 3;
+        handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
+        handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
+        pausedGame = NULL;
+        currentState = game;
+        break;
+
     case game:
         if (pausedGame != NULL) {
             handler = pausedGame;
             pausedGame = NULL;
         }
         else {
-            handler = new GameHandler(graphics, oFactory, audio);
+            handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
         }
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
         break;
 
+    case win:
+        handler = new WinHandler(graphics, oFactory, audio, selectedLevel);
+        break;
+
+    case lose:
+        handler = new LoseHandler(graphics, oFactory, audio, selectedLevel);
+        break;
+
     default:
+        currentState = mainMenu;
+        handler = new MainMenuHandler(graphics, oFactory, audio);
         break;
     }
 }
 
-MenuCode LoopManager::getState() { return state; }
+MenuCode LoopManager::getState() { return currentState; }
 
 int LoopManager::getSelectedLevel() { return selectedLevel; }

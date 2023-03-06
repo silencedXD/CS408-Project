@@ -1,12 +1,12 @@
 #include "GameHandler.h"
 #include <iostream>
 
-GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, int level_) : InputHandler(graphics_, oFactory_, audio_) {
 	paused = false;
 	player = Player();
-	int obstacleCount = 5;
 	frameCounter = 0;
-	winCounter = 0;
+	level = level_;
+	int obstacleCount = level *  5;
 
 	for (int i = 0; i < obstacleCount; i++) {
 		int yVal = rand() % 2;
@@ -23,7 +23,7 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 
 MenuCode GameHandler::updateState(sf::Time elapsed) {
 
-	sf::Time gap = sf::milliseconds(100/6) - elapsed;	//This locks the framerate at 60fps which should also somewhat locks the game speed too
+	sf::Time gap = sf::milliseconds(100 / 6) - elapsed;	//This locks the framerate at 60fps which should also somewhat locks the game speed too
 	if (gap.asMilliseconds() > 0) { sf::sleep(gap); }	//which should allow us to assumpe that 1 second in real life equates to 60 game cycles
 
 	frameCounter = (frameCounter + 61) % 60;
@@ -33,36 +33,42 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 		return options;
 	}
 
-	if (obstacles.empty()) {
-		if (winCounter < 30) {	//This allows 30 more run cycles to occur before game ends so that the sound effect has time to play
-			winCounter++;
-			return game;
-		}
-		else {
-			std::cout << "All obstacles dodged, you win!";
-			setArrowPos(sf::Vector2f(0, 0));	//This moves the arrow back in vue for the menu system
-			return mainMenu;
-		}
-	}
-
-	checkCollisions();
 	updateKeys();
 	player.update();
+	checkCollisions();
 
-	if (player.isHit) {
-		if (winCounter < 35) {
-			winCounter++;
-			return game;
-		}
-		else {
-			std::cout << "Game Over";
-			setArrowPos(sf::Vector2f(0, 0));	//This moves the arrow back in vue for the menu system
-			return mainMenu;
-		}
+	if (checkLoseCondition()) {
+		return lose;
+	}
+
+	if (checkWinCondition()) {
+		return win;
+	}
+
+
+	displayStats();
+	return game;
+}
+
+bool GameHandler::checkWinCondition() {
+	if (obstacles.empty()) {
+		std::cout << "All obstacles dodged, you win!";
+		setArrowPos(sf::Vector2f(0, 0));	//This moves the arrow back in vue for the menu system
+		return true;
 	}
 	else {
-		displayStats();
-		return game;
+		return false;
+	}
+}
+
+bool GameHandler::checkLoseCondition() {
+	if (player.isHit) {
+		std::cout << "Game Over";
+		setArrowPos(sf::Vector2f(0, 0));	//This moves the arrow back in vue for the menu system
+		return true;
+	}
+	else{
+		return false;
 	}
 }
 

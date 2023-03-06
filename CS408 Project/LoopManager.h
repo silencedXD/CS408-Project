@@ -17,7 +17,7 @@ public:
 private:
 	sf::RenderWindow* window;
 	InputHandler* handler;
-	MenuCode state;
+	MenuCode currentState;
 	AudioUnit* audio;
 	GraphicsUnit* graphics;
 	ObjectFactory* oFactory;
