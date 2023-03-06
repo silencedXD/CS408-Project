@@ -3,7 +3,7 @@
 Obstacle::Obstacle(int x_, int y_, std::string type_) {
 	x = x_;
 	y = y_;
-
+	soundNotPlayed = true;
 	type = type_;
 	deleteFlag = false;
 }

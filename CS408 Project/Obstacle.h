@@ -10,6 +10,7 @@ public:
 	int x;
 	int y;
 
+	bool soundNotPlayed;
 	std::string type;
 	bool deleteFlag;
 	sf::Sound sound;

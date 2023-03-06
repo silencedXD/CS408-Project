@@ -105,12 +105,16 @@ void GameHandler::checkCollisions() {
 		}
 		else {
 			if (isNearPlayer(currentObstacle)) {
-				if (currentObstacle->y == 0) {
-					audio->playNonRepeatingSound("4C");
+				if (currentObstacle->soundNotPlayed) {
+					if (currentObstacle->y == 0) {
+						audio->playNonRepeatingSound("4C");
+					}
+					else {
+						audio->playNonRepeatingSound("5C");
+					}
+					currentObstacle->soundNotPlayed = false;
 				}
-				else {
-					audio->playNonRepeatingSound("5C");
-				}
+
 			}
 			++it;	//This moves to the next element if it hasn't been deleted
 		}

@@ -10,5 +10,6 @@ public:
 	int moveCounter;
 	int x;
 	int y;
+	bool isMoving;
 	bool isHit;
 };
