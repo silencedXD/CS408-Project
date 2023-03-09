@@ -4,7 +4,7 @@
 	"obstacle0": {
 		"x" : 50,
 		"y" : 1,
-		"soundName" : "4C"
+		"soundName" : "3C"
 	}, 
 
 	"obstacle1" : {
@@ -16,18 +16,18 @@
 	"obstacle2" : {
 		"x" : 200,
 		"y" : 1,
-		"soundName" : "4C"
+		"soundName" : "3C"
 	},
 
 	"obstacle3" : {
 		"x" : 275,
 		"y" : 0,
-		"soundName" : "3C"
+		"soundName" : "2C"
 	},
 
 	"obstacle4" : {
 		"x" : 350,
 		"y" : 0,
-		"soundName" : "3C"
+		"soundName" : "2C"
 	},
 }
