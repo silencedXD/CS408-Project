@@ -89,13 +89,13 @@ void GameHandler::checkCollisions() {
 	while (it != obstacles.end()) {
 		Obstacle* currentObstacle = *it;
 
-		if (currentObstacle->x != player.x) {
-			if (currentObstacle->y == player.y) {
+		if (currentObstacle->x == player.x) {
+			if (currentObstacle->y != player.y) {
 				player.isHit = true;
 				audio->playSound("fail");
-				delete currentObstacle;
-				it = obstacles.erase(it);
 			}
+			delete currentObstacle;
+			it = obstacles.erase(it);
 		}
 		else {
 			if (isNearPlayer(currentObstacle)) {
