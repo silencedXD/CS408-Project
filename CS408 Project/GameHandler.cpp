@@ -56,7 +56,7 @@ void GameHandler::generateLevel() {
 		int yVal = rand() % 2;
 		int xVal = rand() % 10;
 		if (yVal == 0) {
-			obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "4C"));
+			obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C"));
 		}
 		else {
 			obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C"));
@@ -166,21 +166,25 @@ void GameHandler::checkCollisions() {
 		}
 		else {
 			if (isNearPlayer(currentObstacle)) {
-				if (currentObstacle->soundNotPlayed) {
-					audio->playNonRepeatingSound(currentObstacle->soundName);
-					currentObstacle->soundNotPlayed = false;
+				audio->playNonRepeatingSound(currentObstacle->soundName);
+				if (currentObstacle->y == player.y) {
+					delete currentObstacle;
+					it = obstacles.erase(it);
 				}
-
+				else {
+					++it;	//This moves to the next element if it hasn't been deleted
+				}
 			}
-			++it;	//This moves to the next element if it hasn't been deleted
+			else {
+				++it;	//This moves to the next element if it hasn't been deleted
+			}
 		}
-		
 	}
 }
 
 bool GameHandler::isNearPlayer(Obstacle* obstacle) {
 	int xDif = obstacle->x - player.x;
-	if (0 < xDif && xDif < hearingRange) {
+	if (xDif < hearingRange) {
 		return true;
 	}
 	else {
