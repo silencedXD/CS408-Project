@@ -4,43 +4,21 @@
 GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, oFactory_, audio_) {
 	paused = false;
 	player = Player();
-	frameCounter = 0;
 	levelCode = levelCode_;
-	hearingRange = 30;
+	hearingRange = 40;
 	srand(time(NULL));
 
-	switch (levelCode) {	//Reaction levels have a smaller hearing range based on level
-	case rLevel1:
+	switch (levelCode) {
+	case level1:
 		level = 1;
-		hearingRange = 45 - (5 * level);
-		generateLevel();
 		break;
 		
-	case rLevel2:
+	case level2:
 		level = 2;
-		hearingRange = 45 - (5 * level);
-		generateLevel();
 		break;
 
-	case rLevel3:
+	case level3:
 		level = 3;
-		hearingRange = 45 - (5 * level);
-		generateLevel();
-		break;
-
-	case mLevel1:			//Melodic levels have the same hearing range
-		level = 1;
-		loadLevel();
-		break;
-
-	case mLevel2:
-		level = 2;
-		loadLevel();
-		break;
-
-	case mLevel3:
-		level = 3;
-		loadLevel();
 		break;
 
 	default:
@@ -48,6 +26,9 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 		std::cout << "Error: Unknown error code";
 		break;
 	}
+
+	hearingRange = 45 - (5 * level);
+	generateLevel();
 }
 
 void GameHandler::generateLevel() {
@@ -64,53 +45,38 @@ void GameHandler::generateLevel() {
 	}
 }
 
-void GameHandler::loadLevel() {
-	//Same as loading config files
-	std::string level_dir = "Levels/level" + std::to_string(level) + ".json";
-	std::ifstream file(level_dir);
-	Json::Value level_contents;
-	Json::Reader jsonReader;
-	jsonReader.parse(file, level_contents);
-
-	//First we read in the obstacles
-	int totalObstacles = level_contents["total_obstacles"].asInt();
-	for (int i = 0; i < totalObstacles; i++) {
-		std::string obstacleName = "obstacle" + std::to_string(i);
-
-		int xPos = level_contents[obstacleName]["x"].asInt();
-		int yPos = level_contents[obstacleName]["y"].asInt();
-		std::string soundName = level_contents[obstacleName]["soundName"].asString();
-
-		obstacles.push_back(new Obstacle(xPos, yPos, soundName));
-	}
-}
-
 MenuCode GameHandler::updateState(sf::Time elapsed) {
 
-	sf::Time gap = sf::milliseconds(100 / 6) - elapsed;	//This locks the framerate at 60fps which should also somewhat locks the game speed too
-	if (gap.asMilliseconds() > 0) { sf::sleep(gap); }	//which should allow us to assumpe that 1 second in real life equates to 60 game cycles
+	//This locks the framerate at 60fps which should also somewhat locks the game speed too
+	//which should allow us to assume that 1 second in real life equates to 60 game cycles
 
-	frameCounter = (frameCounter + 61) % 60;
+	sf::Time gap = sf::milliseconds(100 / 6) - elapsed;
+	
+	if (gap.asMilliseconds() > 0) { sf::sleep(gap); }
 
+	//The game handler is stored to maintain the game's current state so once
+	//the player has finished changing options and the game is resumed,
+	//everything continues exactly as it was left
 	if (paused) {
 		paused = false;
 		return options;
 	}
 
-	updateKeys();
-	player.update();
-	checkCollisions();
+	updateKeys();		//Check player input
+	player.update();	//Then update player state
+	checkCollisions();	//Then check if new player state is affected by the world (ie obstacles)
 
 	if (checkLoseCondition()) {
+		sf::sleep(sf::milliseconds(500));//Slight pause to allow a smoother transition
 		return lose;
 	}
 
 	if (checkWinCondition()) {
+		sf::sleep(sf::milliseconds(500));//Slight pause to allow a smoother transition
 		return win;
 	}
 
-
-	displayStats();
+	//displayStats();//Useful for displaying the player's current state while visuals have yet to be implemented
 	return game;
 }
 
@@ -136,13 +102,9 @@ bool GameHandler::checkLoseCondition() {
 	}
 }
 
-void GameHandler::updateKeys() {
-	//Up and down keys are only processed when pressed so as to have single increments, whereas moving right needs to be continuous
-
-	//if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player.Move(UP); }
-	//if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player.Move(DOWN); }
-	
-	
+void GameHandler::updateKeys() {//The keyPressed event isn't responsive enough so instead each frame we check the current state the keyboard is in since we don't care what happens inbetween frames
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player.Move(UP); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player.Move(DOWN); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(LEFT))) { player.Move(LEFT); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(RIGHT))) { player.Move(RIGHT); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(ENTER))) { player.Move(ENTER); }
@@ -156,27 +118,27 @@ void GameHandler::checkCollisions() {
 		Obstacle* currentObstacle = *it;
 
 		if (currentObstacle->x == player.x) {
-			if (currentObstacle->y != player.y) {
+			if (currentObstacle->y != player.y) {//If the player isn't at the correct altitude they will collide with the obstacle
 				player.isHit = true;
 				audio->playSound("fail");
 				return;
 			}
-			delete currentObstacle;
+			delete currentObstacle;				//Either way if the obstacle is past the player it needs to be deleted
 			it = obstacles.erase(it);
 		}
 		else {
 			if (isNearPlayer(currentObstacle)) {
 				audio->playNonRepeatingSound(currentObstacle->soundName);
-				if (currentObstacle->y == player.y) {
-					delete currentObstacle;
-					it = obstacles.erase(it);
+				if (currentObstacle->y == player.y) {//After some testing I concluded it felt smoother if the player could pass an obstacle
+					delete currentObstacle;			 //as soon as they react as this also helps feedback to the player that they succeeded in passing
+					it = obstacles.erase(it);		 //the obstacle as its sound effect will stop playing once passed
 				}
 				else {
-					++it;	//This moves to the next element if it hasn't been deleted
+					++it;//The iterator is moved to the next obstacle if no collision is detected
 				}
 			}
 			else {
-				++it;	//This moves to the next element if it hasn't been deleted
+				++it;	 //The iterator is moved to the next obstacle if no collision is detected
 			}
 		}
 	}
@@ -193,36 +155,25 @@ bool GameHandler::isNearPlayer(Obstacle* obstacle) {
 }
 
 
-void GameHandler::keyPressed(sf::Event event) {
-	if (event.key.code == keyMappings.at(UP)) { player.Move(UP); }
-	if (event.key.code == keyMappings.at(DOWN)) { player.Move(DOWN); }
+void GameHandler::keyPressed(sf::Event event) {//In case we need discrete (slower) player input
+
+	//if (event.key.code == keyMappings.at(UP)) { player.Move(UP); }
+	//if (event.key.code == keyMappings.at(DOWN)) { player.Move(DOWN); }
 	//if (event.key.code == keyMappings.at(LEFT)) { player.Move(LEFT); }
 	//if (event.key.code == keyMappings.at(RIGHT)) { player.Move(RIGHT); }
 	//if (event.key.code == keyMappings.at(ENTER)) { player.Move(ENTER); }
 	//if (event.key.code == keyMappings.at(PAUSE)) { paused = true; }
-	
-
 }
 
-void GameHandler::displayStats() {
+void GameHandler::displayStats() {//Debug tool
+
 	std::cout << "\nPlayer x: " << std::to_string(player.x);
 	std::cout << "   y: " << std::to_string(player.y);/*
-	std::cout << "     isHit: " << std::to_string(player.isHit) << "\n";
 	for (int i = 0; i < obstacles.size(); i++) {
 		std::cout << "\n Obstacle" << i << "  distance: " << std::to_string(obstacles[i]->distance);
 		std::cout << "  x: " << std::to_string(obstacles[i]->x);
 		std::cout << "  y: " << std::to_string(obstacles[i]->y) << "\n";
 	}*/
-}
-
-bool GameHandler::isInfrontOf(Obstacle* obstacle) {
-	if (obstacle->x == 0) {
-		if (obstacle->y == player.y) {
-			return true;
-		}
-		else { return false; }
-	}
-	else { return false; }
 }
 
 void GameHandler::playTextPrompt() {

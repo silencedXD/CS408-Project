@@ -139,14 +139,13 @@
     <ClCompile Include="AudioUnit.cpp" />
     <ClCompile Include="ControlsOptionsHandler.cpp" />
     <ClCompile Include="LoseHandler.cpp" />
-    <ClCompile Include="MLevelSelect.cpp" />
+    <ClCompile Include="LevelSelectHandler.cpp" />
     <ClCompile Include="WinHandler.cpp" />
     <ClCompile Include="GameHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicsUnit.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="jsoncpp\dist\jsoncpp.cpp" />
-    <ClCompile Include="RLevelSelectHandler.cpp" />
     <ClCompile Include="LoopManager.cpp" />
     <ClCompile Include="MainMenuHandler.cpp" />
     <ClCompile Include="ObjectFactory.cpp" />
@@ -162,7 +161,7 @@
     <ClInclude Include="AudioUnit.h" />
     <ClInclude Include="ControlsOptionsHandler.h" />
     <ClInclude Include="LoseHandler.h" />
-    <ClInclude Include="MLevelSelectHandler.h" />
+    <ClInclude Include="LevelSelectHandler.h" />
     <ClInclude Include="WinHandler.h" />
     <ClInclude Include="GameHandler.h" />
     <ClInclude Include="GameObject.h" />
@@ -171,7 +170,6 @@
     <ClInclude Include="jsoncpp\dist\json\json-forwards.h" />
     <ClInclude Include="jsoncpp\dist\json\json.h" />
     <ClInclude Include="KeyCode.h" />
-    <ClInclude Include="RLevelSelectHandler.h" />
     <ClInclude Include="LoopManager.h" />
     <ClInclude Include="MenuCode.h" />
     <ClInclude Include="MainMenuHandler.h" />
@@ -190,9 +188,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="config.json" />
-    <None Include="Levels\level1.json" />
-    <None Include="Levels\level2.json" />
-    <None Include="Levels\level3.json" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

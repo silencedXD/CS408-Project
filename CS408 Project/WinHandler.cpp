@@ -4,11 +4,10 @@ WinHandler::WinHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioU
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Level Complete", 0, 0);
     graphics->makeLabel("Retry", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Main Menu", 0, windowSize.y * 0.5);
-    graphics->makeLabel("Quit", 0, windowSize.y * 0.75);
+    graphics->makeLabel("Select level", 0, windowSize.y * 0.45);
+    graphics->makeLabel("Main Menu", 0, windowSize.y * 0.65);
+    graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
     levelCode = levelCode_;
-    totalMenuItems = 4;
-
     audio->playConcurrentSound("level_complete");
 }
 
@@ -20,9 +19,12 @@ MenuCode WinHandler::updateState(sf::Time elapsed) {
         return levelCode;
 
     case 25:
-        return mainMenu;
+        return levelSelect;
 
     case 35:
+        return mainMenu;
+
+    case 45:
         return quit;
 
     default:
@@ -41,10 +43,14 @@ void WinHandler::playTextPrompt() {
         break;
 
     case 20:
-        audio->playSound("main_menu");
+        audio->playSound("select_level");
         break;
 
     case 30:
+        audio->playSound("main_menu");
+        break;
+
+    case 40:
         audio->playSound("quit");
         break;
 

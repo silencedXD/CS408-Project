@@ -2,10 +2,10 @@
 #include "InputHandler.h"
 #include <SFML/Graphics/RenderWindow.hpp>
 
-class MLevelSelectHandler : public InputHandler
+class LevelSelectHandler : public InputHandler
 {
 public:
-	MLevelSelectHandler(GraphicsUnit* graphics, ObjectFactory* oFactory, AudioUnit* audio_);
+	LevelSelectHandler(GraphicsUnit* graphics, ObjectFactory* oFactory, AudioUnit* audio_);
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 };

@@ -10,8 +10,7 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["fail"] = "Sound_Effects/fail.ogg";
 
     soundLocations["main_menu"] = "Text_To_Speech/main_menu.ogg";
-    soundLocations["reaction_game"] = "Text_To_Speech/reaction_game.ogg";
-    soundLocations["melody_game"] = "Text_To_Speech/melody_game.ogg";
+    soundLocations["start_game"] = "Text_To_Speech/start_game.ogg";
     soundLocations["options"] = "Text_To_Speech/options.ogg";
     soundLocations["select_level"] = "Text_To_Speech/select_level.ogg";
     soundLocations["level_editor"] = "Text_To_Speech/level_editor.ogg";

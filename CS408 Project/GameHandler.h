@@ -12,11 +12,9 @@ public:
 	void keyPressed(sf::Event event);
 
 private:
-	bool isInfrontOf(Obstacle* obstacle);
 	bool isNearPlayer(Obstacle* obstacle);
 
 	void generateLevel();
-	void loadLevel();
 	void updateKeys();
 	void checkCollisions();
 	bool checkWinCondition();
@@ -26,7 +24,6 @@ private:
 	int level;
 	int hearingRange;
 	MenuCode levelCode;
-	int frameCounter;
 	bool paused;
 	Player player;
 	std::vector<Obstacle*> obstacles;

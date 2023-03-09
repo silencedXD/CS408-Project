@@ -5,8 +5,7 @@
 
 #include "MainMenuHandler.h"
 #include "OptionsMenuHandler.h"
-#include "RLevelSelectHandler.h"
-#include "MLevelSelectHandler.h"
+#include "LevelSelectHandler.h"
 #include "VideoOptionsHandler.h"
 #include "AudioOptionsHandler.h"
 #include "ControlsOptionsHandler.h"
@@ -88,12 +87,8 @@ void LoopManager::changeState(MenuCode newState) {
         handler = new OptionsMenuHandler(graphics, oFactory, audio);
         break;
 
-    case rLevelSelect:
-        handler = new RLevelSelectHandler(graphics, oFactory, audio);
-        break;
-
-    case mLevelSelect:
-        handler = new MLevelSelectHandler(graphics, oFactory, audio);
+    case levelSelect:
+        handler = new LevelSelectHandler(graphics, oFactory, audio);
         break;
 
     case quit:
@@ -113,12 +108,9 @@ void LoopManager::changeState(MenuCode newState) {
         handler = new ControlsOptionsHandler(graphics, oFactory, audio);
         break;
 
-    case rLevel1:
-    case rLevel2:
-    case rLevel3:
-    case mLevel1:
-    case mLevel2:
-    case mLevel3:
+    case level1:
+    case level2:
+    case level3:
         selectedLevel = currentState;
         handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
@@ -138,10 +130,13 @@ void LoopManager::changeState(MenuCode newState) {
         break;
 
     case win:
+        sf::Event event;
+        while (window->pollEvent(event)){}//This consumes any input leftover from the game
         handler = new WinHandler(graphics, oFactory, audio, selectedLevel);
         break;
 
     case lose:
+        while (window->pollEvent(event)) {}//This consumes any input leftover from the game
         handler = new LoseHandler(graphics, oFactory, audio, selectedLevel);
         break;
 
