@@ -1,14 +1,33 @@
 {
-	"background_colour": "black",
-	"platform1": {
-		"x" : 0,
-		"y" : 4,
-		"length" : 3
+	"total_obstacles": 5,
+
+	"obstacle0": {
+		"x" : 50,
+		"y" : 1,
+		"soundName" : "4C"
 	}, 
-	
-	"platform2" : {
-		"x" : 4,
-		"y" : 4,
-		"length" : 3
-	}
+
+	"obstacle1" : {
+		"x" : 125,
+		"y" : 3,
+		"soundName" : "5C"
+	},
+
+	"obstacle2" : {
+		"x" : 200,
+		"y" : 1,
+		"soundName" : "4C"
+	},
+
+	"obstacle3" : {
+		"x" : 275,
+		"y" : 0,
+		"soundName" : "3C"
+	},
+
+	"obstacle4" : {
+		"x" : 350,
+		"y" : 0,
+		"soundName" : "3C"
+	},
 }

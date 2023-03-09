@@ -1,33 +1,39 @@
 {
-	"total_obstacles": 5,
+	"total_obstacles": 6,
 
 	"obstacle0": {
 		"x" : 50,
-		"y" : 0,
+		"y" : 1,
 		"soundName" : "4C"
 	}, 
-	
+
 	"obstacle1" : {
 		"x" : 125,
-		"y" : 2,
+		"y" : 3,
 		"soundName" : "5C"
 	},
 
 	"obstacle2" : {
 		"x" : 200,
-		"y" : 2,
-		"soundName" : "5C"
+		"y" : 1,
+		"soundName" : "4C"
 	},
 
 	"obstacle3" : {
 		"x" : 275,
-		"y" : 0,
-		"soundName" : "4C"
+		"y" : 3,
+		"soundName" : "5C"
 	},
 
 	"obstacle4" : {
 		"x" : 350,
-		"y" : 2,
-		"soundName" : "5C"
-	}
+		"y" : 4,
+		"soundName" : "6C"
+	},
+
+	"obstacle5" : {
+		"x" : 425,
+		"y" : 4,
+		"soundName" : "6C"
+	},
 }

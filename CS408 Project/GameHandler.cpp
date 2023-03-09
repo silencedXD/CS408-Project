@@ -6,25 +6,25 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 	player = Player();
 	frameCounter = 0;
 	levelCode = levelCode_;
-	hearingRange = 40;
+	hearingRange = 30;
 	srand(time(NULL));
 
 	switch (levelCode) {	//Reaction levels have a smaller hearing range based on level
 	case rLevel1:
 		level = 1;
-		hearingRange = 25 + (20 / level);
+		hearingRange = 45 - (5 * level);
 		generateLevel();
 		break;
 		
 	case rLevel2:
 		level = 2;
-		hearingRange = 25 + (20 / level);
+		hearingRange = 45 - (5 * level);
 		generateLevel();
 		break;
 
 	case rLevel3:
 		level = 3;
-		hearingRange = 25 + (20 / level);
+		hearingRange = 45 - (5 * level);
 		generateLevel();
 		break;
 
@@ -44,6 +44,7 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 		break;
 
 	default:
+		level = 1;
 		std::cout << "Error: Unknown error code";
 		break;
 	}
@@ -55,10 +56,10 @@ void GameHandler::generateLevel() {
 		int yVal = rand() % 2;
 		int xVal = rand() % 10;
 		if (yVal == 0) {
-			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 0, "4C"));
+			obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "4C"));
 		}
 		else {
-			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 2, "5C"));
+			obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C"));
 		}
 	}
 }
@@ -109,7 +110,7 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	}
 
 
-	//displayStats();
+	displayStats();
 	return game;
 }
 
@@ -136,8 +137,12 @@ bool GameHandler::checkLoseCondition() {
 }
 
 void GameHandler::updateKeys() {
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player.Move(UP); }
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player.Move(DOWN); }
+	//Up and down keys are only processed when pressed so as to have single increments, whereas moving right needs to be continuous
+
+	//if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player.Move(UP); }
+	//if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player.Move(DOWN); }
+	
+	
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(LEFT))) { player.Move(LEFT); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(RIGHT))) { player.Move(RIGHT); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(ENTER))) { player.Move(ENTER); }
@@ -185,8 +190,8 @@ bool GameHandler::isNearPlayer(Obstacle* obstacle) {
 
 
 void GameHandler::keyPressed(sf::Event event) {
-	//if (event.key.code == keyMappings.at(UP)) { player.Move(UP); }
-	//if (event.key.code == keyMappings.at(DOWN)) { player.Move(DOWN); }
+	if (event.key.code == keyMappings.at(UP)) { player.Move(UP); }
+	if (event.key.code == keyMappings.at(DOWN)) { player.Move(DOWN); }
 	//if (event.key.code == keyMappings.at(LEFT)) { player.Move(LEFT); }
 	//if (event.key.code == keyMappings.at(RIGHT)) { player.Move(RIGHT); }
 	//if (event.key.code == keyMappings.at(ENTER)) { player.Move(ENTER); }

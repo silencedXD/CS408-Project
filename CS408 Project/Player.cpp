@@ -2,7 +2,7 @@
 
 Player::Player() {
 	x = 0;
-	y = 1;
+	y = 2;
 	isHit = false;
 	moveCounter = 0;
 }
@@ -10,7 +10,7 @@ Player::Player() {
 void Player::update() {
 	if (moveCounter > 0) { moveCounter--; }
 	else {
-		y = 1;
+		y = 2;
 	}
 }
 
@@ -25,12 +25,12 @@ void Player::Move(KeyCode command) {
 		break;
 
 	case UP:
-		if (y == 1) { y = 2; }
-		moveCounter = 30;
+		if (y < 4) { y++; }
+		moveCounter = 20;
 		break;
 
 	case DOWN:
-		if (y == 1) { y = 0; }
+		if (y > 0) { y--; }
 		moveCounter = 30;
 		break;
 		
