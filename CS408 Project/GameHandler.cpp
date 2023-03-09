@@ -14,11 +14,11 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 		int yVal = rand() % 2;
 		if (yVal == 0) {
 			int xVal = rand() % 10;
-			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 0, "test"));
+			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 0, "4C"));
 		}
 		else {
 			int xVal = rand() % 10;
-			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 2, "test"));
+			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 2, "5C"));
 		}
 	}
 }
@@ -89,14 +89,8 @@ void GameHandler::checkCollisions() {
 	while (it != obstacles.end()) {
 		Obstacle* currentObstacle = *it;
 
-		if (currentObstacle->x == player.x) {
+		if (currentObstacle->x != player.x) {
 			if (currentObstacle->y == player.y) {
-				player.y = 1;
-				audio->playNonRepeatingSound("pass");
-				delete currentObstacle;
-				it = obstacles.erase(it);
-			}
-			else {
 				player.isHit = true;
 				audio->playSound("fail");
 				delete currentObstacle;
@@ -106,12 +100,7 @@ void GameHandler::checkCollisions() {
 		else {
 			if (isNearPlayer(currentObstacle)) {
 				if (currentObstacle->soundNotPlayed) {
-					if (currentObstacle->y == 0) {
-						audio->playNonRepeatingSound("4C");
-					}
-					else {
-						audio->playNonRepeatingSound("5C");
-					}
+					audio->playNonRepeatingSound(currentObstacle->soundName);
 					currentObstacle->soundNotPlayed = false;
 				}
 

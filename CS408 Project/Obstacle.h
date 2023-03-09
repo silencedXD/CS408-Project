@@ -4,14 +4,13 @@
 
 class Obstacle { 
 public:
-	Obstacle(int x_, int y_, std::string type_);
+	Obstacle(int x_, int y_, std::string soundName_);
 	void Move();
 
 	int x;
 	int y;
 
 	bool soundNotPlayed;
-	std::string type;
+	std::string soundName;
 	bool deleteFlag;
-	sf::Sound sound;
 };

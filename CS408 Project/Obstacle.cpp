@@ -1,10 +1,10 @@
 #include "Obstacle.h"
 
-Obstacle::Obstacle(int x_, int y_, std::string type_) {
+Obstacle::Obstacle(int x_, int y_, std::string soundName_) {
 	x = x_;
 	y = y_;
 	soundNotPlayed = true;
-	type = type_;
+	soundName = soundName_;
 	deleteFlag = false;
 }
 
