@@ -6,7 +6,7 @@
 class GameHandler : public InputHandler
 {
 public:
-	GameHandler(GraphicsUnit* graphics, ObjectFactory* oFactory, AudioUnit* audio_, int level_);
+	GameHandler(GraphicsUnit* graphics, ObjectFactory* oFactory, AudioUnit* audio_, MenuCode levelCode_);
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 	void keyPressed(sf::Event event);
@@ -15,14 +15,17 @@ private:
 	bool isInfrontOf(Obstacle* obstacle);
 	bool isNearPlayer(Obstacle* obstacle);
 
+	void generateLevel();
+	void loadLevel();
 	void updateKeys();
 	void checkCollisions();
 	bool checkWinCondition();
 	bool checkLoseCondition();
 	void displayStats();
 
-	int hearingRange;
 	int level;
+	int hearingRange;
+	MenuCode levelCode;
 	int frameCounter;
 	bool paused;
 	Player player;

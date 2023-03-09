@@ -66,7 +66,7 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="LevelSelectHandler.cpp">
+    <ClCompile Include="RLevelSelectHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
     <ClCompile Include="SpriteObject.cpp">
@@ -117,6 +117,9 @@
     <ClCompile Include="LoseHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
+    <ClCompile Include="MLevelSelect.cpp">
+      <Filter>Source Files\inputHandlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenuHandler.h">
@@ -128,7 +131,7 @@
     <ClInclude Include="GameObject.h">
       <Filter>Header Files\ObjectsH</Filter>
     </ClInclude>
-    <ClInclude Include="LevelSelectHandler.h">
+    <ClInclude Include="RLevelSelectHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
     <ClInclude Include="SpriteObject.h">
@@ -183,6 +186,9 @@
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
     <ClInclude Include="LoseHandler.h">
+      <Filter>Header Files\inputHandlersH</Filter>
+    </ClInclude>
+    <ClInclude Include="MLevelSelectHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
   </ItemGroup>

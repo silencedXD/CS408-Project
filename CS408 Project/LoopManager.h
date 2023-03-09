@@ -23,6 +23,6 @@ private:
 	ObjectFactory* oFactory;
 
 	InputHandler* pausedGame;
-	int selectedLevel;
+	MenuCode selectedLevel;
 };
 

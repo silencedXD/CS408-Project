@@ -5,7 +5,8 @@
 
 #include "MainMenuHandler.h"
 #include "OptionsMenuHandler.h"
-#include "LevelSelectHandler.h"
+#include "RLevelSelectHandler.h"
+#include "MLevelSelectHandler.h"
 #include "VideoOptionsHandler.h"
 #include "AudioOptionsHandler.h"
 #include "ControlsOptionsHandler.h"
@@ -14,7 +15,6 @@
 #include "LoseHandler.h"
 
 LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
-    selectedLevel = 1;
     audio = audio_;
     handler = nullptr;
     pausedGame = NULL;
@@ -88,8 +88,12 @@ void LoopManager::changeState(MenuCode newState) {
         handler = new OptionsMenuHandler(graphics, oFactory, audio);
         break;
 
-    case levelSelect:
-        handler = new LevelSelectHandler(graphics, oFactory, audio);
+    case rLevelSelect:
+        handler = new RLevelSelectHandler(graphics, oFactory, audio);
+        break;
+
+    case mLevelSelect:
+        handler = new MLevelSelectHandler(graphics, oFactory, audio);
         break;
 
     case quit:
@@ -109,26 +113,13 @@ void LoopManager::changeState(MenuCode newState) {
         handler = new ControlsOptionsHandler(graphics, oFactory, audio);
         break;
 
-    case level1:
-        selectedLevel = 1;
-        handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
-        handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
-        pausedGame = NULL;
-        currentState = game;
-        break;
-
-
-    case level2:
-        selectedLevel = 2;
-        handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
-        handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
-        pausedGame = NULL;
-        currentState = game;
-        break;
-
-
-    case level3:
-        selectedLevel = 3;
+    case rLevel1:
+    case rLevel2:
+    case rLevel3:
+    case mLevel1:
+    case mLevel2:
+    case mLevel3:
+        selectedLevel = currentState;
         handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
         pausedGame = NULL;

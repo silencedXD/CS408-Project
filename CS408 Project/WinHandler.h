@@ -4,11 +4,11 @@
 class WinHandler : public InputHandler
 {
 public:
-	WinHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, int level_);
+	WinHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_);
 	virtual MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 
 private:
-	int level;
+	MenuCode levelCode;
 };
 

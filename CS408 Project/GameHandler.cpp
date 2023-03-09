@@ -1,25 +1,86 @@
 #include "GameHandler.h"
 #include <iostream>
 
-GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, int level_) : InputHandler(graphics_, oFactory_, audio_) {
+GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, oFactory_, audio_) {
 	paused = false;
 	player = Player();
 	frameCounter = 0;
-	level = level_;
-	hearingRange = 25 + (20 / level);
-	int obstacleCount = level *  5;
+	levelCode = levelCode_;
+	hearingRange = 40;
 	srand(time(NULL));
 
+	switch (levelCode) {	//Reaction levels have a smaller hearing range based on level
+	case rLevel1:
+		level = 1;
+		hearingRange = 25 + (20 / level);
+		generateLevel();
+		break;
+		
+	case rLevel2:
+		level = 2;
+		hearingRange = 25 + (20 / level);
+		generateLevel();
+		break;
+
+	case rLevel3:
+		level = 3;
+		hearingRange = 25 + (20 / level);
+		generateLevel();
+		break;
+
+	case mLevel1:			//Melodic levels have the same hearing range
+		level = 1;
+		loadLevel();
+		break;
+
+	case mLevel2:
+		level = 2;
+		loadLevel();
+		break;
+
+	case mLevel3:
+		level = 3;
+		loadLevel();
+		break;
+
+	default:
+		std::cout << "Error: Unknown error code";
+		break;
+	}
+}
+
+void GameHandler::generateLevel() {
+	int obstacleCount = level * 5;
 	for (int i = 0; i < obstacleCount; i++) {
 		int yVal = rand() % 2;
+		int xVal = rand() % 10;
 		if (yVal == 0) {
-			int xVal = rand() % 10;
 			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 0, "4C"));
 		}
 		else {
-			int xVal = rand() % 10;
 			obstacles.push_back(new Obstacle(50 + (i * 75) + xVal, 2, "5C"));
 		}
+	}
+}
+
+void GameHandler::loadLevel() {
+	//Same as loading config files
+	std::string level_dir = "Levels/level" + std::to_string(level) + ".json";
+	std::ifstream file(level_dir);
+	Json::Value level_contents;
+	Json::Reader jsonReader;
+	jsonReader.parse(file, level_contents);
+
+	//First we read in the obstacles
+	int totalObstacles = level_contents["total_obstacles"].asInt();
+	for (int i = 0; i < totalObstacles; i++) {
+		std::string obstacleName = "obstacle" + std::to_string(i);
+
+		int xPos = level_contents[obstacleName]["x"].asInt();
+		int yPos = level_contents[obstacleName]["y"].asInt();
+		std::string soundName = level_contents[obstacleName]["soundName"].asString();
+
+		obstacles.push_back(new Obstacle(xPos, yPos, soundName));
 	}
 }
 
@@ -48,7 +109,7 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	}
 
 
-	displayStats();
+	//displayStats();
 	return game;
 }
 
@@ -93,6 +154,7 @@ void GameHandler::checkCollisions() {
 			if (currentObstacle->y != player.y) {
 				player.isHit = true;
 				audio->playSound("fail");
+				return;
 			}
 			delete currentObstacle;
 			it = obstacles.erase(it);

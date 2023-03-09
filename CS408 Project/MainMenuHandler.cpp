@@ -6,9 +6,9 @@ MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactor
 
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Main menu", 0, 0);
-    graphics->makeLabel("Start game", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Options", 0, windowSize.y * 0.45);
-    graphics->makeLabel("Select Level", 0, windowSize.y * 0.65);
+    graphics->makeLabel("Reaction game", 0, windowSize.y * 0.25);
+    graphics->makeLabel("Melody game", 0, windowSize.y * 0.45);
+    graphics->makeLabel("Options", 0, windowSize.y * 0.65);
     graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
 
     audio->playSound("main_menu");
@@ -19,13 +19,13 @@ MenuCode MainMenuHandler::updateState(sf::Time elapsed) {
 
     switch (selector) {
     case 15:
-        return game;
+        return rLevelSelect;
 
     case 25:
-        return options;
+        return mLevelSelect;
 
     case 35:
-        return levelSelect;
+        return options;
 
     case 45:
         return quit;
@@ -42,15 +42,15 @@ void MainMenuHandler::playTextPrompt() {
         break;
 
     case 10:
-        audio->playSound("start_game");
+        audio->playSound("reaction_game");
         break;
 
     case 20:
-        audio->playSound("options");
+        audio->playSound("melody_game");
         break;
 
     case 30:
-        audio->playSound("select_level");
+        audio->playSound("options");
         break;
 
     case 40:

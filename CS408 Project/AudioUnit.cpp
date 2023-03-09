@@ -10,7 +10,8 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["fail"] = "Sound_Effects/fail.ogg";
 
     soundLocations["main_menu"] = "Text_To_Speech/main_menu.ogg";
-    soundLocations["start_game"] = "Text_To_Speech/start_game.ogg";
+    soundLocations["reaction_game"] = "Text_To_Speech/reaction_game.ogg";
+    soundLocations["melody_game"] = "Text_To_Speech/melody_game.ogg";
     soundLocations["options"] = "Text_To_Speech/options.ogg";
     soundLocations["select_level"] = "Text_To_Speech/select_level.ogg";
     soundLocations["level_editor"] = "Text_To_Speech/level_editor.ogg";
@@ -103,7 +104,7 @@ sf::SoundBuffer* AudioUnit::getBuffer(std::string soundName) { return buffers[so
 void AudioUnit::playSound(std::string soundName) {
     if (sounds.count(soundName))
     {
-        previousSound->stop();                              //Stops previous sound so not to have them play ontop of eachother
+        previousSound->stop();                              //Stops previous sound so not to have them play ontop of eachother, useful for text prompts
         sounds[soundName].play();
         previousSound = &sounds[soundName];
     }
@@ -115,7 +116,7 @@ void AudioUnit::playSound(std::string soundName) {
     }
 }
 
-void AudioUnit::playNonRepeatingSound(std::string soundName) {
+void AudioUnit::playNonRepeatingSound(std::string soundName) {//For when multiple objects want to play the same sound effect at the same time to ensure it only plays once
     if (sounds.count(soundName))
     {
         if (sounds[soundName].getStatus() != sf::SoundSource::Playing) {
