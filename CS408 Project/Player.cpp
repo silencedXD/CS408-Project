@@ -5,7 +5,6 @@ Player::Player() {
 	y = 1;
 	isHit = false;
 	moveCounter = 0;
-	isMoving = false;
 }
 
 void Player::update() {
@@ -13,34 +12,27 @@ void Player::update() {
 	else {
 		y = 1;
 	}
-	if (isMoving) {
-		x++;
-	}
 }
 
 void Player::Move(KeyCode command) {
 	switch (command) {
+	case LEFT:
+		if (x > 0) { x--; }
+		break;
+
+	case RIGHT:
+		x = x++;
+		break;
+
 	case UP:
-		if (isMoving) {
-			if (y == 1) { y = 2; }
-			moveCounter = 30;
-			break;
-		}
-		else {
-			isMoving = true;
-			break;
-		}
+		if (y == 1) { y = 2; }
+		moveCounter = 30;
+		break;
 
 	case DOWN:
-		if (isMoving) {
-			if (y == 1) { y = 0; }
-			moveCounter = 30;
-			break;
-		}
-		else {
-			isMoving = true;
-			break;
-		}
+		if (y == 1) { y = 0; }
+		moveCounter = 30;
+		break;
 		
 	default:
 		break;
