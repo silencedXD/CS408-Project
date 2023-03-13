@@ -5,6 +5,8 @@ Player::Player() {
 	y = 2;
 	isHit = false;
 	moveCounter = 0;
+	scoreMultiplier = 1;
+	score = 0;
 }
 
 void Player::update() {
@@ -12,6 +14,10 @@ void Player::update() {
 	else {
 		y = 2;
 	}
+}
+
+void Player::scorePoint(int point) {
+	score += point * scoreMultiplier;
 }
 
 void Player::Move(KeyCode command) {

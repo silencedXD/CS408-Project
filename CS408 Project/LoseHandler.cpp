@@ -1,6 +1,15 @@
 #include "LoseHandler.h"
 
-LoseHandler::LoseHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, oFactory_, audio_) {
+LoseHandler::LoseHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, bool newHighscore) : InputHandler(graphics_, oFactory_, audio_) {
+
+    audio->playConcurrentSound("level_failed");
+
+    if (newHighscore) {
+        audio->playConcurrentSound("new_highscore");
+    }
+    
+    //TODO: Display highscore
+
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Level Failed", 0, 0);
     graphics->makeLabel("Retry", 0, windowSize.y * 0.25);
@@ -9,7 +18,7 @@ LoseHandler::LoseHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
     graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
     levelCode = levelCode_;
     
-    audio->playConcurrentSound("level_failed");
+
 }
 
 MenuCode LoseHandler::updateState(sf::Time elapsed) {

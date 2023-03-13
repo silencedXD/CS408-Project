@@ -10,12 +10,10 @@
 #include "AudioOptionsHandler.h"
 #include "ControlsOptionsHandler.h"
 #include "GameHandler.h"
-#include "WinHandler.h"
-#include "LoseHandler.h"
+#include "EndOfLevelHandler.h"
 
 LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
     audio = audio_;
-    handler = nullptr;
     pausedGame = NULL;
     graphics = graphics_;
     window = graphics->getWindow();
@@ -29,6 +27,8 @@ LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
             break;
         }
     }
+    handler = new MainMenuHandler(graphics, oFactory, audio);
+    highscore = loadHighscore();
     changeState(mainMenu);
 }
 
@@ -70,13 +70,13 @@ void LoopManager::changeState(MenuCode newState) {
         pausedGame = handler;
         handler = NULL;
     }
-    
-    if (handler != NULL); {
-        delete handler;
-    }
-    
+
+    playerScore = handler->getScore();
+    delete handler;
+   
     graphics->clearText();
     currentState = newState;
+    sf::Event event;
 
     switch (newState) {
     case mainMenu:
@@ -111,6 +111,9 @@ void LoopManager::changeState(MenuCode newState) {
     case level1:
     case level2:
     case level3:
+    case practiseLevel1:
+    case practiseLevel2:
+    case practiseLevel3:
         selectedLevel = currentState;
         handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
@@ -130,14 +133,23 @@ void LoopManager::changeState(MenuCode newState) {
         break;
 
     case win:
-        sf::Event event;
         while (window->pollEvent(event)){}//This consumes any input leftover from the game
-        handler = new WinHandler(graphics, oFactory, audio, selectedLevel);
+        if (playerScore > highscore) {
+            highscore = playerScore;
+            saveHighscore(highscore);
+        }
+        
+        handler = new EndOfLevelHandler(graphics, oFactory, audio, selectedLevel, true, playerScore, highscore);
         break;
 
     case lose:
         while (window->pollEvent(event)) {}//This consumes any input leftover from the game
-        handler = new LoseHandler(graphics, oFactory, audio, selectedLevel);
+        if (playerScore > highscore) {
+            highscore = playerScore;
+            saveHighscore(highscore);
+        }
+
+        handler = new EndOfLevelHandler(graphics, oFactory, audio, selectedLevel, false, playerScore, highscore);
         break;
 
     default:
@@ -149,4 +161,25 @@ void LoopManager::changeState(MenuCode newState) {
 
 MenuCode LoopManager::getState() { return currentState; }
 
-int LoopManager::getSelectedLevel() { return selectedLevel; }
+Json::Value LoopManager::loadConfig() {
+    std::ifstream file("config.json");
+    Json::Value file_contents;
+    Json::Reader jsonReader;
+    jsonReader.parse(file, file_contents);
+    return file_contents;
+}
+
+void LoopManager::saveHighscore(int highscore)
+{
+    Json::Value config = loadConfig();
+    config["highscore"] = highscore;
+    std::ofstream file;
+    file.open("config.json");
+    file << config;
+    file.close();
+}
+
+int LoopManager::loadHighscore() {
+    Json::Value config = loadConfig();
+    return config["highscore"].asInt();
+}

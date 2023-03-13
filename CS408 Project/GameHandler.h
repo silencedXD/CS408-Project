@@ -10,6 +10,7 @@ public:
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 	void keyPressed(sf::Event event);
+	int getScore();
 
 private:
 	bool isNearPlayer(Obstacle* obstacle);

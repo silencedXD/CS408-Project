@@ -13,8 +13,14 @@ public:
 	void updateLoop();
 	void changeState(MenuCode state_);
 	MenuCode getState();
-	int getSelectedLevel();
+
 private:
+	Json::Value loadConfig();
+	int loadHighscore();
+	void saveHighscore(int highscore);
+	int highscore;
+	int playerScore;
+
 	sf::RenderWindow* window;
 	InputHandler* handler;
 	MenuCode currentState;

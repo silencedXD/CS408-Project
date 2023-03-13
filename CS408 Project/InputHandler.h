@@ -21,6 +21,7 @@ public:
 	virtual MenuCode updateState(sf::Time elapsed) = 0;
 	virtual void playTextPrompt() = 0;
 
+	virtual int getScore();
 	void updateArrow();
 	sf::Vector2f setArrowPos(sf::Vector2f newPos_);
 

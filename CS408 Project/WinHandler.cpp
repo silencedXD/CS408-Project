@@ -1,6 +1,22 @@
 #include "WinHandler.h"
 
-WinHandler::WinHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, oFactory_, audio_) {
+WinHandler::WinHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, int playerScore, int highscore) : InputHandler(graphics_, oFactory_, audio_) {
+    
+    activated = false;
+    audio->playConcurrentSound("level_complete");
+
+    if (playerScore >= highscore) {
+        audio->playConcurrentSound("new_highscore");
+        graphics->makeLabel("New Highscore!!!", 0, 0);
+    }
+
+    sf::sleep(sf::milliseconds(100));
+    audio->playSound("your_highscore_is");
+    //for ()
+
+    //graphics->makeLabel("Your highscore is: " + )
+    //TODO: Display highscore
+
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Level Complete", 0, 0);
     graphics->makeLabel("Retry", 0, windowSize.y * 0.25);
@@ -8,7 +24,7 @@ WinHandler::WinHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioU
     graphics->makeLabel("Main Menu", 0, windowSize.y * 0.65);
     graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
     levelCode = levelCode_;
-    audio->playConcurrentSound("level_complete");
+
 }
 
 MenuCode WinHandler::updateState(sf::Time elapsed) {

@@ -3,21 +3,32 @@
 
 GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, oFactory_, audio_) {
 	paused = false;
-	player = Player();
 	levelCode = levelCode_;
 	hearingRange = 40;
 	srand(time(NULL));
-
+	level = 1;
 	switch (levelCode) {
 	case level1:
-		level = 1;
+		level = 11;
 		break;
 		
 	case level2:
-		level = 2;
+		level = 22;
 		break;
 
 	case level3:
+		level = 33;
+		break;
+
+	case practiseLevel1:
+		level = 1;
+		break;
+
+	case practiseLevel2:
+		level = 2;
+		break;
+
+	case practiseLevel3:
 		level = 3;
 		break;
 
@@ -27,20 +38,36 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 		break;
 	}
 
-	hearingRange = 45 - (5 * level);
+	player.scoreMultiplier = level;
+	hearingRange = 45 - (5 * (level % 10));
 	generateLevel();
 }
 
 void GameHandler::generateLevel() {
-	int obstacleCount = level * 5;
-	for (int i = 0; i < obstacleCount; i++) {
-		int yVal = rand() % 2;
-		int xVal = rand() % 10;
-		if (yVal == 0) {
-			obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C"));
+	if (level < 10) {
+		int obstacleCount = level * 5;
+		for (int i = 0; i < obstacleCount; i++) {
+			int yVal = rand() % 2;
+			int xVal = rand() % 10;
+			if (yVal == 0) {
+				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C"));
+			}
+			else {
+				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C"));
+			}
 		}
-		else {
-			obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C"));
+	}
+	else {
+		int obstacleCount = 100;
+		for (int i = 0; i < obstacleCount; i++) {
+			int yVal = rand() % 2;
+			int xVal = rand() % 10;
+			if (yVal == 0) {
+				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C"));
+			}
+			else {
+				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C"));
+			}
 		}
 	}
 }
@@ -79,6 +106,8 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	//displayStats();//Useful for displaying the player's current state while visuals have yet to be implemented
 	return game;
 }
+
+int GameHandler::getScore() { return player.score; }
 
 bool GameHandler::checkWinCondition() {
 	if (obstacles.empty()) {
@@ -123,15 +152,18 @@ void GameHandler::checkCollisions() {
 				audio->playSound("fail");
 				return;
 			}
+			player.scorePoint(1);
 			delete currentObstacle;				//Either way if the obstacle is past the player it needs to be deleted
 			it = obstacles.erase(it);
 		}
 		else {
 			if (isNearPlayer(currentObstacle)) {
 				audio->playNonRepeatingSound(currentObstacle->soundName);
-				if (currentObstacle->y == player.y) {//After some testing I concluded it felt smoother if the player could pass an obstacle
-					delete currentObstacle;			 //as soon as they react as this also helps feedback to the player that they succeeded in passing
-					it = obstacles.erase(it);		 //the obstacle as its sound effect will stop playing once passed
+				if (currentObstacle->y == player.y) {			//After some testing I concluded it felt smoother if the player could pass an obstacle
+					int xDif = currentObstacle->x - player.x;	//as soon as they react as this also helps feedback to the player that they succeeded in passing
+					delete currentObstacle;						//the obstacle as its sound effect will stop playing once passed
+					it = obstacles.erase(it);		
+					player.scorePoint(xDif);					//Player scores more points the faster they react
 				}
 				else {
 					++it;//The iterator is moved to the next obstacle if no collision is detected

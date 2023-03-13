@@ -39,6 +39,15 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["level_complete"] = "Text_To_Speech/level_complete.ogg";
     soundLocations["level_failed"] = "Text_To_Speech/level_failed.ogg";
     soundLocations["retry"] = "Text_To_Speech/retry.ogg";
+    soundLocations["tutorial"] = "Text_To_Speech/tutorial.ogg";
+    soundLocations["play_instructions"] = "Text_To_Speech/play_instructions.ogg";
+    soundLocations["practise_level_one"] = "Text_To_Speech/practise_level_one.ogg";
+    soundLocations["practise_level_two"] = "Text_To_Speech/practise_level_two.ogg";
+    soundLocations["practise_level_three"] = "Text_To_Speech/practise_level_three.ogg";
+    soundLocations["new_highscore"] = "Text_To_Speech/new_highscore.ogg";
+    soundLocations["the_highscore_is"] = "Text_To_Speech/the_highscore_is.ogg";
+    soundLocations["your_score_is"] = "Text_To_Speech/your_score_is.ogg";
+    soundLocations["one_million"] = "Text_To_Speech/one_million.ogg";
 
     soundLocations["1920_1080"] = "Text_To_Speech/1920_1080.ogg";
     soundLocations["1680_1050"] = "Text_To_Speech/1680_1050.ogg";

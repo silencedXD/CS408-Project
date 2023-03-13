@@ -114,6 +114,12 @@
     <ClCompile Include="LevelSelectHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
+    <ClCompile Include="TutorialHandler.cpp">
+      <Filter>Source Files\inputHandlers</Filter>
+    </ClCompile>
+    <ClCompile Include="EndOfLevelHandler.cpp">
+      <Filter>Source Files\inputHandlers</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainMenuHandler.h">
@@ -180,6 +186,12 @@
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
     <ClInclude Include="LevelSelectHandler.h">
+      <Filter>Header Files\inputHandlersH</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialHandler.h">
+      <Filter>Header Files\inputHandlersH</Filter>
+    </ClInclude>
+    <ClInclude Include="EndOfLevelHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
   </ItemGroup>
