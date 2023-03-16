@@ -17,10 +17,11 @@ LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
     pausedGame = NULL;
     graphics = graphics_;
     window = graphics->getWindow();
+    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
     oFactory = new ObjectFactory(graphics); //For some reason the arrow doesn't display on the first load
-    oFactory->makeObject("arrow", graphics->getWindowSize().x / 2.0, 0);
+    oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
     oFactory->clearObjects();
-    oFactory->makeObject("arrow", graphics->getWindowSize().x / 2.0, 0);
+    oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
     for (int i = 0; i < oFactory->objects.size(); i++) {
         if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
             oFactory->objects[i]->getSprite()->setScale(0.5, 0.5);  //Otherwise the arrow would be massive
@@ -66,12 +67,12 @@ void LoopManager::updateLoop() {
 }
 
 void LoopManager::changeState(MenuCode newState) {
+    playerScore = handler->getScore();
     if (currentState == game && newState != win && newState != lose) {    //This means the game is being paused so game data should be preserved unless the game is over
         pausedGame = handler;
         handler = NULL;
     }
 
-    playerScore = handler->getScore();
     delete handler;
    
     graphics->clearText();

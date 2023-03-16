@@ -4,12 +4,12 @@
 
 VideoOptionsHandler::VideoOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
 {
-    sf::Vector2u windowSize = graphics->getWindowSize();
+    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
     graphics->makeLabel("Video options", 0, 0);
-    graphics->makeLabel("Display size", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Font type", 0, windowSize.y * 0.45);
-    graphics->makeLabel("Font size", 0, windowSize.y * 0.65);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.85);
+    graphics->makeLabel("Display size", 0, windowSize.y * 0.25f);
+    graphics->makeLabel("Font type", 0, windowSize.y * 0.45f);
+    graphics->makeLabel("Font size", 0, windowSize.y * 0.65f);
+    graphics->makeLabel("Go back", 0, windowSize.y * 0.85f);
 
     displayModes.push_back(std::tuple<unsigned int, unsigned int, unsigned int>(1920, 1080, 32));
     displayModes.push_back(std::tuple<unsigned int, unsigned int, unsigned int>(1680, 1050, 32));
@@ -180,12 +180,12 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
 
 void VideoOptionsHandler::reloadLabels(std::string lastLabel) {
     graphics->clearText();
-    sf::Vector2u windowSize = graphics->getWindowSize();
+    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
     graphics->makeLabel("Video options", 0, 0);
-    graphics->makeLabel("Display size", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Font type", 0, windowSize.y * 0.45);
-    graphics->makeLabel("Font size", 0, windowSize.y * 0.65);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.85);
+    graphics->makeLabel("Display size", 0, windowSize.y * 0.25f);
+    graphics->makeLabel("Font type", 0, windowSize.y * 0.45f);
+    graphics->makeLabel("Font size", 0, windowSize.y * 0.65f);
+    graphics->makeLabel("Go back", 0, windowSize.y * 0.85f);
     graphics->makeLabel(lastLabel, arrowPos.x, arrowPos.y);
 }
 
@@ -199,8 +199,8 @@ MenuCode VideoOptionsHandler::updateState(sf::Time elapsed) {
         switch (selector) {
         case 15:
             state = displaySize;
-            optionTotal = displayModes.size();
-            for (int i = 0; i < displayModes.size(); i++) {
+            optionTotal = (int)displayModes.size();
+            for (int i = 0; i < optionTotal; i++) {
                 if (displayModes[i]._Myfirst._Val == currentDisplaySize._Myfirst._Val) {
                     optionPointer = i;
                     break;
@@ -212,8 +212,8 @@ MenuCode VideoOptionsHandler::updateState(sf::Time elapsed) {
 
         case 25:
             state = fontType;
-            optionTotal = fontTypes.size();
-            for (int i = 0; i < fontTypes.size(); i++) {
+            optionTotal = (int)fontTypes.size();
+            for (int i = 0; i < optionTotal; i++) {
                 if (fontTypes[i] == currentFontType) {
                     optionPointer = i;
                 }
@@ -224,8 +224,8 @@ MenuCode VideoOptionsHandler::updateState(sf::Time elapsed) {
 
         case 35:
             state = fontSize;
-            optionTotal = fontSizes.size();
-            for (int i = 0; i < fontSizes.size(); i++) {
+            optionTotal = (int)fontSizes.size();
+            for (int i = 0; i < optionTotal; i++) {
                 if (fontSizes[i] == currentFontSize) {
                     optionPointer = i;
                 }

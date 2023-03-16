@@ -17,6 +17,32 @@ sf::Color parseToColour(std::string colour);
 int main()
 {
 //First load the config file
+    /*std::cout << "1 % 1000 = " << std::to_string(1 % 1000) << "\n";
+    std::cout << "12 % 1000 = " << std::to_string(12 % 1000) << "\n";
+    std::cout << "230 % 1000 = " << std::to_string(230 % 1000) << "\n";
+    std::cout << "3400 % 1000 = " << std::to_string(3400 % 1000) << "\n";
+    std::cout << "45000 % 1000 = " << std::to_string(45000 % 1000) << "\n\n\n";
+
+    std::cout << "10000 % 1000 = " << std::to_string(11000 % 1000) << "\n";
+    std::cout << "10002 % 1000 = " << std::to_string(10002 % 1000) << "\n";
+    std::cout << "20030 % 1000 = " << std::to_string(20030 % 1000) << "\n";
+    std::cout << "30400 % 1000 = " << std::to_string(30400 % 1000) << "\n";
+    std::cout << "45000 % 1000 = " << std::to_string(45000 % 1000) << "\n";
+
+    std::cout << "\n\n\n";
+
+    std::cout << "1 / 1000 = " << std::to_string(1 / 1000) << "\n";
+    std::cout << "12 / 1000 = " << std::to_string(12 / 1000) << "\n";
+    std::cout << "230 / 1000 = " << std::to_string(230 / 1000) << "\n";
+    std::cout << "3400 / 1000 = " << std::to_string(3400 / 1000) << "\n";
+    std::cout << "45000 / 1000 = " << std::to_string(45000 / 1000) << "\n\n\n";
+
+    std::cout << "10000 / 1000 = " << std::to_string(10000 / 1000) << "\n";
+    std::cout << "10002 / 1000 = " << std::to_string(10002 / 1000) << "\n";
+    std::cout << "20030 / 1000 = " << std::to_string(20030 / 1000) << "\n";
+    std::cout << "30400 / 1000 = " << std::to_string(30400 / 1000) << "\n";
+    std::cout << "45000 / 1000 = " << std::to_string(45000 / 1000) << "\n";
+*/
 
     Json::Value config = loadConfig();
     sf::RenderWindow window;

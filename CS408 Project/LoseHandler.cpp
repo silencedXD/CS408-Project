@@ -10,12 +10,12 @@ LoseHandler::LoseHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
     
     //TODO: Display highscore
 
-    sf::Vector2u windowSize = graphics->getWindowSize();
+    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
     graphics->makeLabel("Level Failed", 0, 0);
-    graphics->makeLabel("Retry", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Select level", 0, windowSize.y * 0.45);
-    graphics->makeLabel("Main Menu", 0, windowSize.y * 0.65);
-    graphics->makeLabel("Quit", 0, windowSize.y * 0.85);
+    graphics->makeLabel("Retry", 0, windowSize.y * 0.25f);
+    graphics->makeLabel("Select level", 0, windowSize.y * 0.45f);
+    graphics->makeLabel("Main Menu", 0, windowSize.y * 0.65f);
+    graphics->makeLabel("Quit", 0, windowSize.y * 0.85f);
     levelCode = levelCode_;
     
 

@@ -9,7 +9,11 @@ public:
 	void playTextPrompt();
 
 private:
-	void playScore(std::string scoreName);
+	void playScore(int score);
+	void playHundreds(int score);
+	void playTens(int score);
+	void playDigits(int score);
+
 	MenuCode levelCode;
 	bool win_;
 	int highscore;

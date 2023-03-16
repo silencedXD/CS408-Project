@@ -2,12 +2,12 @@
 
 AudioOptionsHandler::AudioOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
 {
-    sf::Vector2u windowSize = graphics->getWindowSize();
+    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
     graphics->makeLabel("Audio options", 0, 0);
-    graphics->makeLabel("General Volume", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Audio Prompt Volume", 0, windowSize.y * 0.45);
-    graphics->makeLabel("Game Volume", 0, windowSize.y * 0.65);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.85);
+    graphics->makeLabel("General Volume", 0, windowSize.y * 0.25f);
+    graphics->makeLabel("Audio Prompt Volume", 0, windowSize.y * 0.45f);
+    graphics->makeLabel("Game Volume", 0, windowSize.y * 0.65f);
+    graphics->makeLabel("Go back", 0, windowSize.y * 0.85f);
 
     volumeSettings.push_back(100);
     volumeSettings.push_back(90);

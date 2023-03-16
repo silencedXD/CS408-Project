@@ -2,12 +2,12 @@
 
 TutorialHandler::TutorialHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 
-    sf::Vector2u windowSize = graphics->getWindowSize();
+    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
     graphics->makeLabel("Read Instructions", 0, 0);
-    graphics->makeLabel("Practise Level One", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Practise Level Two", 0, windowSize.y * 0.45);
-    graphics->makeLabel("Practise Level Three", 0, windowSize.y * 0.65);
-    graphics->makeLabel("Go Back", 0, windowSize.y * 0.85);
+    graphics->makeLabel("Practise Level One", 0, windowSize.y * 0.25f);
+    graphics->makeLabel("Practise Level Two", 0, windowSize.y * 0.45f);
+    graphics->makeLabel("Practise Level Three", 0, windowSize.y * 0.65f);
+    graphics->makeLabel("Go Back", 0, windowSize.y * 0.85f);
 }
 
 MenuCode TutorialHandler::updateState(sf::Time elapsed) {

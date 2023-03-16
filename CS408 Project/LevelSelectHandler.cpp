@@ -4,10 +4,10 @@ LevelSelectHandler::LevelSelectHandler(GraphicsUnit* graphics_, ObjectFactory* o
 
     sf::Vector2u windowSize = graphics->getWindowSize();
     graphics->makeLabel("Select level", 0, 0);
-    graphics->makeLabel("Level One", 0, windowSize.y * 0.25);
-    graphics->makeLabel("Level Two", 0, windowSize.y * 0.45);
-    graphics->makeLabel("Level Three", 0, windowSize.y * 0.65);
-    graphics->makeLabel("Go Back", 0, windowSize.y * 0.85);
+    graphics->makeLabel("Level One", 0, windowSize.y * 0.25f);
+    graphics->makeLabel("Level Two", 0, windowSize.y * 0.45f);
+    graphics->makeLabel("Level Three", 0, windowSize.y * 0.65f);
+    graphics->makeLabel("Go Back", 0, windowSize.y * 0.85f);
 }
 
 

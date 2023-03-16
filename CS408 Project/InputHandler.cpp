@@ -42,7 +42,7 @@ void InputHandler::keyPressed(sf::Event event) {
 void InputHandler::updateArrow() {
     for (int i = 0; i < oFactory->objects.size(); i++) {
         if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
-            sf::Vector2u windowSize = graphics->getWindowSize();
+            sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
 
             oFactory->objects[i]->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
             break;
@@ -60,6 +60,7 @@ sf::Vector2f InputHandler::setArrowPos(sf::Vector2f newPos_)    //Sets the posit
             return temp;
         }
     }
+    return sf::Vector2f(0,0);
 }
 
 Json::Value InputHandler::loadConfig() {

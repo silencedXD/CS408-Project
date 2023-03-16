@@ -11,36 +11,26 @@ EndOfLevelHandler::EndOfLevelHandler(GraphicsUnit* graphics_, ObjectFactory* oFa
     sf::Vector2u windowSize = graphics->getWindowSize();
 
     if (win) {
-        audio->playConcurrentSound("level_complete");
+        audio->playSound("level_complete");
         graphics->makeLabel("Level complete!", 0, 0);
     }
     else {
-        audio->playConcurrentSound("level_failed");
+        audio->playSound("level_failed");
         graphics->makeLabel("Level failed", 0, 0);
     }
 
-    sf::sleep(sf::milliseconds(delay));       //Adds a pause between text prompts
-
     if (playerScore >= highscore) {
-        graphics->makeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.17);
-        audio->playConcurrentSound("new_highscore");
-        sf::sleep(sf::milliseconds(delay));
+        graphics->makeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.17f);
     }
     else {
-        graphics->makeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.17);
-        audio->playConcurrentSound("the_highscore_is");
-        sf::sleep(sf::milliseconds(delay));
-        playScore(std::to_string(highscore));
+        graphics->makeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.17f);
     }
 
-    graphics->makeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.34);
-    audio->playConcurrentSound("your_score_is");
-    sf::sleep(sf::milliseconds(delay));
-    playScore(std::to_string(playerScore));
+    graphics->makeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.34f);
 
-    graphics->makeLabel("Retry", 0, windowSize.y * 0.52);
-    graphics->makeLabel("Select level", 0, windowSize.y * 0.68);
-    graphics->makeLabel("Main Menu", 0, windowSize.y * 0.85);
+    graphics->makeLabel("Retry", 0, windowSize.y * 0.52f);
+    graphics->makeLabel("Select level", 0, windowSize.y * 0.68f);
+    graphics->makeLabel("Main Menu", 0, windowSize.y * 0.85f);
 }
 
 MenuCode EndOfLevelHandler::updateState(sf::Time elapsed) {
@@ -69,6 +59,7 @@ MenuCode EndOfLevelHandler::updateState(sf::Time elapsed) {
 void EndOfLevelHandler::playTextPrompt() {
     switch (selector) {
     case 0:
+        audio->emptyQueue();
         if (win_){
             audio->playSound("level_complete");
         }
@@ -78,16 +69,28 @@ void EndOfLevelHandler::playTextPrompt() {
         break;
 
     case 10:
-        audio->playSound("the_highscore_is");
-        playScore(std::to_string(highscore));
+        audio->emptyQueue();    //Overrides any score that was previously being outputted
+        
+        if (playerScore >= highscore) {
+            audio->enqueueSound("new_highscore");
+        }
+        else {
+            audio->enqueueSound("the_highscore_is");
+        }
+
+        playScore(highscore);
+        audio->playQueue();
         break;
 
     case 20:
-        audio->playSound("your_score_is");
-        playScore(std::to_string(playerScore));
+        audio->emptyQueue();    //Overrides any score that was previously being outputted
+        audio->enqueueSound("your_score_is");
+        playScore(playerScore);
+        audio->playQueue();
         break;
 
     case 30:
+        audio->emptyQueue();
         audio->playSound("retry");
         break;
 
@@ -105,35 +108,184 @@ void EndOfLevelHandler::playTextPrompt() {
     }
 }
 
-void EndOfLevelHandler::playScore(std::string scoreName) {
+void EndOfLevelHandler::playScore(int score) {
+    if (score == 0) {
+        audio->enqueueSound("0");
+        return;
+    }
+    if (score / 1000000 > 0) {
+        audio->enqueueSound("over_a_million");
+        return;
+    }
+    else {
+        int thousandsScore = score / 1000;
+        if (thousandsScore > 0) {
+            
+            if (thousandsScore > 99) {
+                playHundreds(thousandsScore);
+            }
+            else {
+                playTens(thousandsScore);
+            }
+            audio->enqueueSound("thousand", 500);
+        }
+        
+        int hundredsScore = score % 1000;
+        
+        if (hundredsScore > 99) {
+            playHundreds(hundredsScore);
+        }
+        else {
+            if (hundredsScore > 0) {
+                playTens(hundredsScore);
+            }
+        }
+    }
+    //audio->playQueue();         //All sound bits are queued together then played in a separate thread
+}                               //so that pauses between sounds can occur while not freezing the rest of the game
+
+void EndOfLevelHandler::playHundreds(int score) {
+    audio->enqueueSound(std::to_string(score / 100), 300);
+    audio->enqueueSound("hundred", 500);
+    if (score % 100 > 0) {
+        audio->enqueueSound("and", 500);
+        playTens(score % 100);
+    }
+}
+
+void EndOfLevelHandler::playTens(int score) {
     
-    switch (scoreName.size()) {
-    case 1: //Size 1 is from 0 - 9
+    int digitsScore = score % 10;
+
+    switch (score / 10) {
+    case 0:
+    case 1:
+        playDigits(score);
+        digitsScore = 0;    //Otherwise it would play twice
         break;
 
-    case 2: //Size 2 is from 10 - 99
+    case 2:
+        audio->enqueueSound("20", 500);
         break;
 
-    case 3: //Size 3 is from 100 - 999
+    case 3:
+        audio->enqueueSound("30", 500);
         break;
 
-    case 4: //Size 4 is from 1000 - 9999
+    case 4:
+        audio->enqueueSound("40", 500);
         break;
 
-    case 5: //Size 5 is from 10,000 - 99,999
+    case 5:
+        audio->enqueueSound("50", 500);
         break;
 
-    case 6: //Size 6 is from 100,000 - 999,999
+    case 6:
+        audio->enqueueSound("60", 500);
+        break;
+
+    case 7:
+        audio->enqueueSound("70", 500);
+        break;
+
+    case 8:
+        audio->enqueueSound("80", 500);
+        break;
+    
+    case 9:
+        audio->enqueueSound("90", 500);
         break;
 
     default:
-        std::cout << "Error: It's over 9000!!!! (actually over 999,999)";
-        //audio->playConcurrentSound("one_million");
+        std::cout << "Error: Unknown tens found";
         break;
-    }/*
-    for (int i = 0; i < scoreName.size(); i++) {
-        std::string number = "" + scoreName[i];
-        audio->playConcurrentSound(std::to_string(scoreName[i]));
-        sf::sleep(sf::milliseconds(delay));
-    }*/
+    }
+
+    
+    if (digitsScore > 0) {
+        playDigits(digitsScore);
+    }
+}
+
+void EndOfLevelHandler::playDigits(int score) {
+    switch (score) {
+    case 1:
+        audio->enqueueSound("1", 600);
+        break;
+
+    case 2:
+        audio->enqueueSound("2", 600);
+        break;
+
+    case 3:
+        audio->enqueueSound("3", 600);
+        break;
+
+    case 4:
+        audio->enqueueSound("4", 600);
+        break;
+
+    case 5:
+        audio->enqueueSound("5", 600);
+        break;
+
+    case 6:
+        audio->enqueueSound("6", 600);
+        break;
+
+    case 7:
+        audio->enqueueSound("7", 600);
+        break;
+
+    case 8:
+        audio->enqueueSound("8", 600);
+        break;
+
+    case 9:
+        audio->enqueueSound("9", 600);
+        break;
+
+    case 10:
+        audio->enqueueSound("10", 600);
+        break;
+
+    case 11:
+        audio->enqueueSound("11", 600);
+        break;
+
+    case 12:
+        audio->enqueueSound("12", 600);
+        break;
+
+    case 13:
+        audio->enqueueSound("13", 600);
+        break;
+
+    case 14:
+        audio->enqueueSound("14", 600);
+        break;
+
+    case 15:
+        audio->enqueueSound("15", 600);
+        break;
+
+    case 16:
+        audio->enqueueSound("16", 600);
+        break;
+
+    case 17:
+        audio->enqueueSound("17", 600);
+        break;
+
+    case 18:
+        audio->enqueueSound("18", 600);
+        break;
+
+    case 19:
+        audio->enqueueSound("19", 600);
+        break;
+
+    default:
+        std::cout << "Error: unknown digit";
+    }
 }

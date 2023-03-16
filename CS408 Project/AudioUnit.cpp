@@ -1,7 +1,9 @@
 #include "AudioUnit.h"
 #include <iostream>
 
-AudioUnit::AudioUnit(float general, float text, float game) {
+AudioUnit::AudioUnit(float general, float text, float game)
+    :soundQueueThread(&AudioUnit::startQueue, this)
+{
     soundLocations["6C"] = "Sound_Effects/piano6C.ogg";
     soundLocations["5C"] = "Sound_Effects/piano5C.ogg";
     soundLocations["4C"] = "Sound_Effects/piano4C.ogg";
@@ -47,7 +49,10 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["new_highscore"] = "Text_To_Speech/new_highscore.ogg";
     soundLocations["the_highscore_is"] = "Text_To_Speech/the_highscore_is.ogg";
     soundLocations["your_score_is"] = "Text_To_Speech/your_score_is.ogg";
-    soundLocations["one_million"] = "Text_To_Speech/one_million.ogg";
+    soundLocations["over_a_million"] = "Text_To_Speech/over_a_million.ogg";
+    soundLocations["and"] = "Text_To_Speech/and.ogg";
+    soundLocations["thousand"] = "Text_To_Speech/thousand.ogg";
+    soundLocations["hundred"] = "Text_To_Speech/hundred.ogg";
 
     soundLocations["1920_1080"] = "Text_To_Speech/1920_1080.ogg";
     soundLocations["1680_1050"] = "Text_To_Speech/1680_1050.ogg";
@@ -70,7 +75,25 @@ AudioUnit::AudioUnit(float general, float text, float game) {
     soundLocations["30"] = "Text_To_Speech/30.ogg";
     soundLocations["24"] = "Text_To_Speech/24.ogg";
     soundLocations["20"] = "Text_To_Speech/20.ogg";
+    soundLocations["19"] = "Text_To_Speech/19.ogg";
+    soundLocations["18"] = "Text_To_Speech/18.ogg";
+    soundLocations["17"] = "Text_To_Speech/17.ogg";
+    soundLocations["16"] = "Text_To_Speech/16.ogg";
+    soundLocations["15"] = "Text_To_Speech/15.ogg";
+    soundLocations["14"] = "Text_To_Speech/14.ogg";
+    soundLocations["13"] = "Text_To_Speech/13.ogg";
+    soundLocations["12"] = "Text_To_Speech/12.ogg";
+    soundLocations["11"] = "Text_To_Speech/11.ogg";
     soundLocations["10"] = "Text_To_Speech/10.ogg";
+    soundLocations["9"] = "Text_To_Speech/9.ogg";
+    soundLocations["8"] = "Text_To_Speech/8.ogg";
+    soundLocations["7"] = "Text_To_Speech/7.ogg";
+    soundLocations["6"] = "Text_To_Speech/6.ogg";
+    soundLocations["5"] = "Text_To_Speech/5.ogg";
+    soundLocations["4"] = "Text_To_Speech/4.ogg";
+    soundLocations["3"] = "Text_To_Speech/3.ogg";
+    soundLocations["2"] = "Text_To_Speech/2.ogg";
+    soundLocations["1"] = "Text_To_Speech/1.ogg";
     soundLocations["0"] = "Text_To_Speech/0.ogg";
 
     generalVolume = general;
@@ -150,6 +173,43 @@ void AudioUnit::playConcurrentSound(std::string soundName) {//To have sound effe
         sounds[soundName].play();
         previousSound = &sounds[soundName];
     }
+}
+
+void AudioUnit::playQueue() {
+    soundQueueThread.launch();
+}
+
+void AudioUnit::startQueue() {
+    std::vector<std::string>::iterator soundIt = soundQueue.begin();
+    std::vector<int>::iterator delayIt = delayQueue.begin();
+
+    while (soundIt != soundQueue.end() && delayIt != delayQueue.end()) {
+        playConcurrentSound(*soundIt);
+        sf::sleep(sf::milliseconds(*delayIt));
+        soundIt++;
+        delayIt++;
+    }
+    soundQueue.clear();
+    delayQueue.clear();
+}
+
+void AudioUnit::enqueueSound(std::string soundName, int delay) {
+    soundQueue.push_back(soundName);
+    delayQueue.push_back(delay);
+}
+
+void AudioUnit::enqueueSound(std::string soundName) {
+    soundQueue.push_back(soundName);
+    delayQueue.push_back(1000);
+}
+
+void AudioUnit::emptyQueue() {      //Bug: When going through options very quickly sometimes there is an access
+    soundLock.lock();               //violation error however this does not occur in most cases, only when
+    soundQueueThread.terminate();   //the player holds down the key for some time
+    previousSound->stop();
+    soundQueue.clear();
+    delayQueue.clear();
+    soundLock.unlock();             //The mutex lock keeps it safe in most cases
 }
 
 float AudioUnit::getGeneralVolume()

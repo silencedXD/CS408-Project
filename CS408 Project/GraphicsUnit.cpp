@@ -44,8 +44,7 @@ sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
             sf::Texture objectTexture;
             objectTexture.loadFromFile(textureLocations.at(objectName));	//If this is the first object of its kind the texture will first be loaded
             textures[objectName] = objectTexture;
-            temp = &objectTexture;
-            return temp;
+            return &textures[objectName];
         }
         else {
             temp = &textures[objectName];	//If object has already been created the texture will be stored in the map
@@ -55,6 +54,7 @@ sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
     catch (...) {
         std::cout << objectName + " texture either failed to load or location is missing";	//If the texture fails to load the program exits
         window->close();
+        return NULL;
     }
 }
 

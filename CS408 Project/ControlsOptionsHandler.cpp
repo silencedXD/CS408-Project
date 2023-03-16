@@ -2,16 +2,16 @@
 
 ControlsOptionsHandler::ControlsOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
 {
-    sf::Vector2u windowSize = graphics->getWindowSize();
+    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
     graphics->makeLabel("Controls", 0, 0);
-    graphics->makeLabel("UP", 0, windowSize.y * 0.12);
-    graphics->makeLabel("DOWN", 0, windowSize.y * 0.23);
-    graphics->makeLabel("LEFT", 0, windowSize.y * 0.34);
-    graphics->makeLabel("RIGHT", 0, windowSize.y * 0.45);
-    graphics->makeLabel("ENTER", 0, windowSize.y * 0.56);
-    graphics->makeLabel("PAUSE", 0, windowSize.y * 0.67);
-    graphics->makeLabel("Reset to default", 0, windowSize.y * 0.78);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.89);
+    graphics->makeLabel("UP", 0, windowSize.y * 0.12f);
+    graphics->makeLabel("DOWN", 0, windowSize.y * 0.23f);
+    graphics->makeLabel("LEFT", 0, windowSize.y * 0.34f);
+    graphics->makeLabel("RIGHT", 0, windowSize.y * 0.45f);
+    graphics->makeLabel("ENTER", 0, windowSize.y * 0.56f);
+    graphics->makeLabel("PAUSE", 0, windowSize.y * 0.67f);
+    graphics->makeLabel("Reset to default", 0, windowSize.y * 0.78f);
+    graphics->makeLabel("Go back", 0, windowSize.y * 0.89f);
 
     totalMenuItems = 9;
 

@@ -32,7 +32,7 @@ void ObjectFactory::makeObject(std::string objectName, float posX, float posY) {
 
 void ObjectFactory::makeObject(std::string objectName, float posX, float posY, float xScale, float yScale) {
 	sf::Texture* temp = graphics->loadTexture(objectName);
-	sf::Vector2u windowSize = graphics->getWindowSize();
+	sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
 	float xUnit = windowSize.x / 5;
 	float yUnit = windowSize.y / 5;
 
