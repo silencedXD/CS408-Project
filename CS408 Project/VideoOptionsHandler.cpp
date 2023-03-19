@@ -277,6 +277,9 @@ void VideoOptionsHandler::playTextPrompt() {
 
     case empty:
         switch (selector) {
+        case 0:
+            audio->playSound("video_options");
+            break;
 
         case 10:
             audio->playSound("display_size");

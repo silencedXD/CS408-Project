@@ -2,7 +2,7 @@
 
 LoseHandler::LoseHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, bool newHighscore) : InputHandler(graphics_, oFactory_, audio_) {
 
-    audio->playConcurrentSound("level_failed");
+    audio->playConcurrentSound("game_over");
 
     if (newHighscore) {
         audio->playConcurrentSound("new_highscore");
@@ -11,7 +11,7 @@ LoseHandler::LoseHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
     //TODO: Display highscore
 
     sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    graphics->makeLabel("Level Failed", 0, 0);
+    graphics->makeLabel("Game Over", 0, 0);
     graphics->makeLabel("Retry", 0, windowSize.y * 0.25f);
     graphics->makeLabel("Select level", 0, windowSize.y * 0.45f);
     graphics->makeLabel("Main Menu", 0, windowSize.y * 0.65f);

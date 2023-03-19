@@ -15,20 +15,22 @@ EndOfLevelHandler::EndOfLevelHandler(GraphicsUnit* graphics_, ObjectFactory* oFa
         graphics->makeLabel("Level complete!", 0, 0);
     }
     else {
-        audio->playSound("level_failed");
-        graphics->makeLabel("Level failed", 0, 0);
+        audio->playSound("game_over");
+        graphics->makeLabel("Game Over", 0, 0);
     }
+
+    graphics->makeLabel("Retry", 0, windowSize.y * 0.17f);
 
     if (playerScore >= highscore) {
-        graphics->makeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.17f);
+        graphics->makeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.34f);
     }
     else {
-        graphics->makeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.17f);
+        graphics->makeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.34f);
     }
 
-    graphics->makeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.34f);
+    graphics->makeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.52f);
 
-    graphics->makeLabel("Retry", 0, windowSize.y * 0.52f);
+
     graphics->makeLabel("Select level", 0, windowSize.y * 0.68f);
     graphics->makeLabel("Main Menu", 0, windowSize.y * 0.85f);
 }
@@ -37,11 +39,16 @@ MenuCode EndOfLevelHandler::updateState(sf::Time elapsed) {
     updateArrow();
 
     switch (selector) {
-    case 35:
+    case 15:
         return levelCode;
 
     case 45:
-        return levelSelect;
+        if (levelCode > level3) {
+            return tutorial;
+        }
+        else {
+            return levelSelect;
+        }
 
     case 55:
         return mainMenu;
@@ -64,11 +71,16 @@ void EndOfLevelHandler::playTextPrompt() {
             audio->playSound("level_complete");
         }
         else {
-            audio->playSound("level_failed");
+            audio->playSound("game_over");
         }
         break;
 
     case 10:
+        audio->emptyQueue();
+        audio->playSound("retry");
+        break;
+
+    case 20:
         audio->emptyQueue();    //Overrides any score that was previously being outputted
         
         if (playerScore >= highscore) {
@@ -82,16 +94,11 @@ void EndOfLevelHandler::playTextPrompt() {
         audio->playQueue();
         break;
 
-    case 20:
+    case 30:
         audio->emptyQueue();    //Overrides any score that was previously being outputted
         audio->enqueueSound("your_score_is");
         playScore(playerScore);
         audio->playQueue();
-        break;
-
-    case 30:
-        audio->emptyQueue();
-        audio->playSound("retry");
         break;
 
     case 40:

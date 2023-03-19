@@ -11,7 +11,7 @@ MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactor
     graphics->makeLabel("Options", 0, windowSize.y * 0.65f);
     graphics->makeLabel("Quit", 0, windowSize.y * 0.85f);
 
-    audio->playSound("main_menu");
+    audio->playSound("menu_controls");
 }
 
 MenuCode MainMenuHandler::updateState(sf::Time elapsed) {

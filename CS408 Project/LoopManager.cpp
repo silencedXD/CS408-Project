@@ -11,6 +11,7 @@
 #include "ControlsOptionsHandler.h"
 #include "GameHandler.h"
 #include "EndOfLevelHandler.h"
+#include "TutorialHandler.h"
 
 LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
     audio = audio_;
@@ -151,6 +152,10 @@ void LoopManager::changeState(MenuCode newState) {
         }
 
         handler = new EndOfLevelHandler(graphics, oFactory, audio, selectedLevel, false, playerScore, highscore);
+        break;
+
+    case tutorial:
+        handler = new TutorialHandler(graphics, oFactory, audio);
         break;
 
     default:

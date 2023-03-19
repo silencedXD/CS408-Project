@@ -23,7 +23,9 @@ AudioUnit::AudioUnit(float general, float text, float game)
     soundLocations["go_back"] = "Text_To_Speech/go_back.ogg";
     soundLocations["menu_controls"] = "Text_To_Speech/menu_controls.ogg";
     soundLocations["video"] = "Text_To_Speech/video.ogg";
+    soundLocations["video_options"] = "Text_To_Speech/video_options.ogg";
     soundLocations["audio"] = "Text_To_Speech/audio.ogg";
+    soundLocations["audio_options"] = "Text_To_Speech/audio_options.ogg";
     soundLocations["controls"] = "Text_To_Speech/controls.ogg";
     soundLocations["display_size"] = "Text_To_Speech/display_size.ogg";
     soundLocations["font_type"] = "Text_To_Speech/font_type.ogg";
@@ -39,10 +41,11 @@ AudioUnit::AudioUnit(float general, float text, float game)
     soundLocations["PAUSE"] = "Text_To_Speech/pause.ogg";
     soundLocations["reset_to_default"] = "Text_To_Speech/reset_to_default.ogg";
     soundLocations["level_complete"] = "Text_To_Speech/level_complete.ogg";
-    soundLocations["level_failed"] = "Text_To_Speech/level_failed.ogg";
+    soundLocations["game_over"] = "Text_To_Speech/game_over.ogg";
     soundLocations["retry"] = "Text_To_Speech/retry.ogg";
     soundLocations["tutorial"] = "Text_To_Speech/tutorial.ogg";
     soundLocations["play_instructions"] = "Text_To_Speech/play_instructions.ogg";
+    soundLocations["instructions"] = "Text_To_Speech/instructions.ogg";
     soundLocations["practise_level_one"] = "Text_To_Speech/practise_level_one.ogg";
     soundLocations["practise_level_two"] = "Text_To_Speech/practise_level_two.ogg";
     soundLocations["practise_level_three"] = "Text_To_Speech/practise_level_three.ogg";
@@ -53,6 +56,9 @@ AudioUnit::AudioUnit(float general, float text, float game)
     soundLocations["and"] = "Text_To_Speech/and.ogg";
     soundLocations["thousand"] = "Text_To_Speech/thousand.ogg";
     soundLocations["hundred"] = "Text_To_Speech/hundred.ogg";
+    soundLocations["arial"] = "Text_To_Speech/arial.ogg";
+    soundLocations["open-dyslexic"] = "Text_To_Speech/open_dyslexic.ogg";
+    soundLocations["comic"] = "Text_To_Speech/comic_sans.ogg";
 
     soundLocations["1920_1080"] = "Text_To_Speech/1920_1080.ogg";
     soundLocations["1680_1050"] = "Text_To_Speech/1680_1050.ogg";
@@ -112,7 +118,8 @@ void AudioUnit::loadSound(std::string soundName) {
     sf::Sound temp;
     sf::SoundBuffer* buffer = new sf::SoundBuffer;
 
-    if (buffer->loadFromFile(soundLocations.at(soundName))) {
+    try {
+        buffer->loadFromFile(soundLocations.at(soundName));
         buffers[soundName] = buffer;
 
         sounds[soundName] = temp;
@@ -125,7 +132,7 @@ void AudioUnit::loadSound(std::string soundName) {
             sounds[soundName].setVolume(generalVolume * (gameVolume / 100));
         }
     }
-    else{
+    catch (...) {
         std::cout << soundName + " sound either failed to load or location is missing";
     }   //If the sound fails to load the program exits
 }

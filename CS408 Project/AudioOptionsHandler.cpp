@@ -62,7 +62,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             
             generalFlag = true;
             playTextPrompt();
-            audio->playConcurrentSound("medium_piano_note");                //Play sound so user can hear the change
+            audio->playConcurrentSound("3C");                //Play sound so user can hear the change
         }
 
         if (event.key.code == keyMappings.at(UP)) {
@@ -74,7 +74,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             
             generalFlag = true;
             playTextPrompt();
-            audio->playConcurrentSound("medium_piano_note");
+            audio->playConcurrentSound("3C");
         }
 
         if (event.key.code == keyMappings.at(ENTER)) {
@@ -94,7 +94,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
 
             textFlag = true;
             playTextPrompt();
-            audio->playConcurrentSound("medium_piano_note");
+            audio->playConcurrentSound("3C");
         }
 
         if (event.key.code == keyMappings.at(UP)) {
@@ -106,7 +106,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
 
             textFlag = true;
             playTextPrompt();
-            audio->playConcurrentSound("medium_piano_note");
+            audio->playConcurrentSound("3C");
         }
 
         if (event.key.code == keyMappings.at(ENTER)) {
@@ -124,8 +124,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
             audio->setVolume(-1, -1, currentGameVolume);
 
             gameFlag = true;
-            playTextPrompt();
-            audio->playConcurrentSound("medium_piano_note");
+            audio->playConcurrentSound("3C");
         }
 
         if (event.key.code == keyMappings.at(UP)) {
@@ -137,7 +136,7 @@ void AudioOptionsHandler::keyPressed(sf::Event event) {
 
             gameFlag = true;
             playTextPrompt();
-            audio->playConcurrentSound("medium_piano_note");
+            audio->playConcurrentSound("3C");
         }
 
         if (event.key.code == keyMappings.at(ENTER)) {
@@ -225,7 +224,9 @@ MenuCode AudioOptionsHandler::updateState(sf::Time elapsed) {
 
 void AudioOptionsHandler::playTextPrompt() {
     if (state == empty) {
-                switch (selector) {
+        switch (selector) {
+        case 0:
+            audio->playSound("audio_options");
 
         case 10:
             audio->playSound("general_volume");

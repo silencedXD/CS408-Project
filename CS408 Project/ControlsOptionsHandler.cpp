@@ -30,7 +30,7 @@ ControlsOptionsHandler::ControlsOptionsHandler(GraphicsUnit* graphics_, ObjectFa
     arrowPos = sf::Vector2f(0, 0);
 }
 
-void ControlsOptionsHandler::changeOption()
+void ControlsOptionsHandler::changeOption() //TODO: Controls should be mutually exclusive
 {
     if (arrowPos.x > 10) {
         graphics->removeLastLabel();
@@ -231,6 +231,9 @@ void ControlsOptionsHandler::playTextPrompt()
 {
     if (state == empty) {
         switch (selector) {
+        case 0:
+            audio->playSound("controls");
+            break;
 
         case 10:
             audio->playSound("UP");
