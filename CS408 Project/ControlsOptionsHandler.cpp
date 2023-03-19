@@ -1,5 +1,8 @@
 #include "ControlsOptionsHandler.h"
 
+//TODO: Controls should be mutually exclusive, right now the player could set all controls
+//      to be the same key which would result in undefined behaviour and should not be allowed
+
 ControlsOptionsHandler::ControlsOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
 {
     sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
@@ -30,7 +33,7 @@ ControlsOptionsHandler::ControlsOptionsHandler(GraphicsUnit* graphics_, ObjectFa
     arrowPos = sf::Vector2f(0, 0);
 }
 
-void ControlsOptionsHandler::changeOption() //TODO: Controls should be mutually exclusive
+void ControlsOptionsHandler::changeOption()
 {
     if (arrowPos.x > 10) {
         graphics->removeLastLabel();

@@ -105,12 +105,6 @@
     <ClCompile Include="GameHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
-    <ClCompile Include="WinHandler.cpp">
-      <Filter>Source Files\inputHandlers</Filter>
-    </ClCompile>
-    <ClCompile Include="LoseHandler.cpp">
-      <Filter>Source Files\inputHandlers</Filter>
-    </ClCompile>
     <ClCompile Include="LevelSelectHandler.cpp">
       <Filter>Source Files\inputHandlers</Filter>
     </ClCompile>
@@ -177,12 +171,6 @@
       <Filter>Header Files\ObjectsH</Filter>
     </ClInclude>
     <ClInclude Include="GameHandler.h">
-      <Filter>Header Files\inputHandlersH</Filter>
-    </ClInclude>
-    <ClInclude Include="WinHandler.h">
-      <Filter>Header Files\inputHandlersH</Filter>
-    </ClInclude>
-    <ClInclude Include="LoseHandler.h">
       <Filter>Header Files\inputHandlersH</Filter>
     </ClInclude>
     <ClInclude Include="LevelSelectHandler.h">

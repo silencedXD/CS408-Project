@@ -19,7 +19,7 @@ LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
     graphics = graphics_;
     window = graphics->getWindow();
     sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    oFactory = new ObjectFactory(graphics); //For some reason the arrow doesn't display on the first load
+    oFactory = new ObjectFactory(graphics);                         //For some reason the arrow doesn't display on the first load
     oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
     oFactory->clearObjects();
     oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
@@ -42,7 +42,7 @@ void LoopManager::updateLoop() {
     while (window->pollEvent(event))
     {
         switch (event.type) {
-        case sf::Event::Closed: //If the user closes the window by clicking the x button in the top right corner
+        case sf::Event::Closed:         //If the user closes the window by clicking the x button in the top right corner
             graphics->closeWindow();
             break;
 

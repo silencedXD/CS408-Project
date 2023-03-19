@@ -1,6 +1,10 @@
 #include "AudioUnit.h"
 #include <iostream>
 
+//TODO: Fix bug where going through menu items causes crash due to highscore and playerscore
+//      playing too quickly, the issue is probably thread related
+//      Also, emptyQueue() is probably part of the issue
+
 AudioUnit::AudioUnit(float general, float text, float game)
     :soundQueueThread(&AudioUnit::startQueue, this)
 {
@@ -134,7 +138,7 @@ void AudioUnit::loadSound(std::string soundName) {
     }
     catch (...) {
         std::cout << soundName + " sound either failed to load or location is missing";
-    }   //If the sound fails to load the program exits
+    }   //If the sound fails to load, simply nothing is played. Before this was added the game would crash if a sound didn't load
 }
 
 sf::SoundBuffer* AudioUnit::getBuffer(std::string soundName) { return buffers[soundName]; }
@@ -210,9 +214,9 @@ void AudioUnit::enqueueSound(std::string soundName) {
     delayQueue.push_back(1000);
 }
 
-void AudioUnit::emptyQueue() {      //Bug: When going through options very quickly sometimes there is an access
-    soundLock.lock();               //violation error however this does not occur in most cases, only when
-    soundQueueThread.terminate();   //the player holds down the key for some time
+void AudioUnit::emptyQueue() {
+    soundLock.lock();
+    soundQueueThread.terminate();
     previousSound->stop();
     soundQueue.clear();
     delayQueue.clear();

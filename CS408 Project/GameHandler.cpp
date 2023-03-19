@@ -38,9 +38,9 @@ GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, Audi
 		break;
 	}
 
-	player.scoreMultiplier = level;
-	hearingRange = 45 - (5 * (level % 10));
-	generateLevel();
+	player.scoreMultiplier = level;			//The higher the level the higher the score
+	hearingRange = 45 - (5 * (level % 10));	//The hearing range is smaller the higher the level
+	generateLevel();						//Level 1 is the same as practise level 1 ect
 }
 
 void GameHandler::generateLevel() {
@@ -89,9 +89,9 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 		return options;
 	}
 
-	updateKeys();		//Check player input
-	player.update();	//Then update player state
-	checkCollisions();	//Then check if new player state is affected by the world (ie obstacles)
+	updateKeys();						//Check player input
+	player.update();					//Then update player state
+	checkCollisions();					//Then check if new player state is affected by the world (ie obstacles)
 
 	if (checkLoseCondition()) {
 		sf::sleep(sf::milliseconds(500));//Slight pause to allow a smoother transition
@@ -103,7 +103,7 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 		return win;
 	}
 
-	//displayStats();//Useful for displaying the player's current state while visuals have yet to be implemented
+	//displayStats();
 	return game;
 }
 
@@ -131,7 +131,7 @@ bool GameHandler::checkLoseCondition() {
 	}
 }
 
-void GameHandler::updateKeys() {//The keyPressed event isn't responsive enough so instead each frame we check the current state the keyboard is in since we don't care what happens inbetween frames
+void GameHandler::updateKeys() {			//The keyPressed event isn't responsive enough so instead each frame we check the current state the keyboard is in since we don't care what happens inbetween frames
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player.Move(UP); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player.Move(DOWN); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(LEFT))) { player.Move(LEFT); }
@@ -197,7 +197,7 @@ void GameHandler::keyPressed(sf::Event event) {//In case we need discrete (slowe
 	//if (event.key.code == keyMappings.at(PAUSE)) { paused = true; }
 }
 
-void GameHandler::displayStats() {//Debug tool
+void GameHandler::displayStats() {//Useful debug tool for displaying the player's current state when you can't rely on visuals
 
 	std::cout << "\nPlayer x: " << std::to_string(player.x);
 	std::cout << "   y: " << std::to_string(player.y);/*

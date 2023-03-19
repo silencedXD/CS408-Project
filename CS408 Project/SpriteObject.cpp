@@ -1,5 +1,7 @@
 #include "SpriteObject.h"
 
+//Currenly unused but may be sueful when graphics are implemented
+
 SpriteObject::SpriteObject(float x_, float y_, std::string id_, sf::Texture* texture_){
 	sprite.setTexture(*texture_);
 	sprite.setPosition(x_, y_);

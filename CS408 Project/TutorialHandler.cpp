@@ -19,7 +19,7 @@ MenuCode TutorialHandler::updateState(sf::Time elapsed) {
     case 15:
         audio->playSound("instructions");
         selector = 10;
-        return tutorial;//TODO: create instructions including voice file and written instructions
+        return tutorial;
 
     case 25:
         selector = 20;
