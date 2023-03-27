@@ -5,7 +5,6 @@ Obstacle::Obstacle(int x_, int y_, std::string soundName_) {
 	y = y_;
 	soundNotPlayed = true;
 	soundName = soundName_;
-	deleteFlag = false;
 }
 
 void Obstacle::Move() {
