@@ -187,6 +187,9 @@
     <Image Include="..\..\..\SelectionArrow.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
+    <Image Include="MissingTexture.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\pianoSound.wav">

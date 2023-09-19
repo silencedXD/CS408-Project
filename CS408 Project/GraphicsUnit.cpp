@@ -52,9 +52,23 @@ sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
         }
     }
     catch (...) {
-        std::cout << objectName + " texture either failed to load or location is missing";	//If the texture fails to load the program exits
-        window->close();
-        return NULL;
+        try {
+            if (!textures.count("MissingTexture")) {
+                sf::Texture objectTexture;
+                objectTexture.loadFromFile(textureLocations.at("MissingTexture"));
+                textures["MissingTexture"] = objectTexture;
+                return &textures["MissingTexture"];
+            }
+            else {
+                temp = &textures["MissingTexture"];
+                return temp;
+            }
+        }
+        catch (...){
+            std::cout << "\"MissingTexture\" texture either failed to load or location is missing";
+            window->close();
+            return NULL;
+        }
     }
 }
 
