@@ -2,10 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include "GameObject.h"
 
-class GraphicsUnit
+class UIUnit
 {
 public:
-	GraphicsUnit(sf::RenderWindow* window_, std::string fontName, int fontSize, sf::Color backgroundColour_);
+	UIUnit(sf::RenderWindow* window_, std::string fontName, int fontSize, sf::Color backgroundColour_);
 	void closeWindow();
 	void clearWindow();
 	void update(std::vector<GameObject*> objects);

@@ -1,5 +1,5 @@
 #pragma once
-#include "GraphicsUnit.h"
+#include "UIUnit.h"
 #include "GameObject.h"
 #include "SpriteObject.h"
 #include "jsoncpp\dist\json\json.h"
@@ -8,7 +8,7 @@
 class ObjectFactory
 {
 public:
-	ObjectFactory(GraphicsUnit* unit);
+	ObjectFactory(UIUnit* unit);
 	void makeObject(std::string objectName, float posX, float posY);//Standard object creation
 	void makeObject(std::string objectName, float posX, float posY, float xScale, float yScale);//Same as above except sprite is scaled
 	void deleteObjects();
@@ -19,7 +19,7 @@ public:
 
 private:
 	sf::Color parseToColour(std::string colour_);
-	GraphicsUnit* graphics;
+	UIUnit* UI;
 	std::map<std::string, int> objectCount;
 	sf::Color playerColour;
 	sf::Color backgroundColour;

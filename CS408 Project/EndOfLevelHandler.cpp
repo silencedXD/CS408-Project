@@ -1,6 +1,6 @@
 #include "EndOfLevelHandler.h"
 
-EndOfLevelHandler::EndOfLevelHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, bool win, int playerScore_, int highscore_) : InputHandler(graphics_, oFactory_, audio_) {
+EndOfLevelHandler::EndOfLevelHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, bool win, int playerScore_, int highscore_) : InputHandler(graphics_, oFactory_, audio_) {
 
     totalMenuItems = 6;
     delay = 1000;
@@ -8,31 +8,31 @@ EndOfLevelHandler::EndOfLevelHandler(GraphicsUnit* graphics_, ObjectFactory* oFa
     win_ = win;
     playerScore = playerScore_;
     highscore = highscore_;
-    sf::Vector2u windowSize = graphics->getWindowSize();
+    sf::Vector2u windowSize = UI->getWindowSize();
 
     if (win) {
         audio->playSound("level_complete");
-        graphics->makeLabel("Level complete!", 0, 0);
+        UI->makeLabel("Level complete!", 0, 0);
     }
     else {
         audio->playSound("game_over");
-        graphics->makeLabel("Game Over", 0, 0);
+        UI->makeLabel("Game Over", 0, 0);
     }
 
-    graphics->makeLabel("Retry", 0, windowSize.y * 0.17f);
+    UI->makeLabel("Retry", 0, windowSize.y * 0.17f);
 
     if (playerScore >= highscore) {
-        graphics->makeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.34f);
+        UI->makeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.34f);
     }
     else {
-        graphics->makeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.34f);
+        UI->makeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.34f);
     }
 
-    graphics->makeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.52f);
+    UI->makeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.52f);
 
 
-    graphics->makeLabel("Select level", 0, windowSize.y * 0.68f);
-    graphics->makeLabel("Main Menu", 0, windowSize.y * 0.85f);
+    UI->makeLabel("Select level", 0, windowSize.y * 0.68f);
+    UI->makeLabel("Main Menu", 0, windowSize.y * 0.85f);
 }
 
 MenuCode EndOfLevelHandler::updateState(sf::Time elapsed) {

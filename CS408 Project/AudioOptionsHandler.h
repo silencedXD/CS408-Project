@@ -1,10 +1,11 @@
 #pragma once
 #include "InputHandler.h"
+#include "UIUnit.h"
 
 class AudioOptionsHandler : public InputHandler
 {
 public:
-	AudioOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
+	AudioOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
 	void changeOption();
 
 	void keyPressed(sf::Event event);

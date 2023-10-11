@@ -4,7 +4,7 @@
 class EndOfLevelHandler : public InputHandler
 {
 public:
-	EndOfLevelHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, bool win, int playerScore_, int highscore_);
+	EndOfLevelHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, bool win, int playerScore_, int highscore_);
 	virtual MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 

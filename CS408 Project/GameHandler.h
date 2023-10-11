@@ -6,7 +6,7 @@
 class GameHandler : public InputHandler
 {
 public:
-	GameHandler(GraphicsUnit* graphics, ObjectFactory* oFactory, AudioUnit* audio_, MenuCode levelCode_);
+	GameHandler(UIUnit* UI, ObjectFactory* oFactory, AudioUnit* audio_, MenuCode levelCode_);
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 	void keyPressed(sf::Event event);
@@ -21,6 +21,7 @@ private:
 	bool checkWinCondition();
 	bool checkLoseCondition();
 	void displayStats();
+	void updateGraphics();
 
 	int level;
 	int hearingRange;

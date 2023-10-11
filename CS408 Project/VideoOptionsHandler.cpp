@@ -2,14 +2,14 @@
 #include <sstream>
 
 
-VideoOptionsHandler::VideoOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
+VideoOptionsHandler::VideoOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
 {
-    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    graphics->makeLabel("Video options", 0, 0);
-    graphics->makeLabel("Display size", 0, windowSize.y * 0.25f);
-    graphics->makeLabel("Font type", 0, windowSize.y * 0.45f);
-    graphics->makeLabel("Font size", 0, windowSize.y * 0.65f);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.85f);
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    UI->makeLabel("Video options", 0, 0);
+    UI->makeLabel("Display size", 0, windowSize.y * 0.25f);
+    UI->makeLabel("Font type", 0, windowSize.y * 0.45f);
+    UI->makeLabel("Font size", 0, windowSize.y * 0.65f);
+    UI->makeLabel("Go back", 0, windowSize.y * 0.85f);
 
     displayModes.push_back(std::tuple<unsigned int, unsigned int, unsigned int>(1920, 1080, 32));
     displayModes.push_back(std::tuple<unsigned int, unsigned int, unsigned int>(1680, 1050, 32));
@@ -47,8 +47,8 @@ VideoOptionsHandler::VideoOptionsHandler(GraphicsUnit* graphics_, ObjectFactory*
 
     state = empty;
     currentDisplaySize = std::tuple<unsigned int, unsigned int, unsigned int> (windowSize.x, windowSize.y, 32);
-    currentFontType = graphics->getFontType();
-    currentFontSize = graphics->getFontSize();
+    currentFontType = UI->getFontType();
+    currentFontSize = UI->getFontSize();
 
     displaySizeFlag = false;
     fontTypeFlag = false;
@@ -60,22 +60,22 @@ VideoOptionsHandler::VideoOptionsHandler(GraphicsUnit* graphics_, ObjectFactory*
 
 void VideoOptionsHandler::changeOption() {
     if (arrowPos.x > 10) {
-        graphics->removeLastLabel();
+        UI->removeLastLabel();
     }
     else {
         arrowPos = setArrowPos(sf::Vector2f(4000, 4000));
     }
     switch (state) {
     case displaySize:
-        graphics->makeLabel(std::to_string(std::get<0>(displayModes[optionPointer])) + " x " + std::to_string(std::get<1>(displayModes[optionPointer])), arrowPos.x, arrowPos.y);
+        UI->makeLabel(std::to_string(std::get<0>(displayModes[optionPointer])) + " x " + std::to_string(std::get<1>(displayModes[optionPointer])), arrowPos.x, arrowPos.y);
         break;
 
     case fontType:
-        graphics->makeLabel(fontTypes[optionPointer], arrowPos.x, arrowPos.y);
+        UI->makeLabel(fontTypes[optionPointer], arrowPos.x, arrowPos.y);
         break;
 
     case fontSize:
-        graphics->makeLabel(std::to_string(fontSizes[optionPointer]), arrowPos.x, arrowPos.y);
+        UI->makeLabel(std::to_string(fontSizes[optionPointer]), arrowPos.x, arrowPos.y);
         break;
 
     case empty:
@@ -94,21 +94,21 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
     case displaySize:
         if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % optionTotal;
-            graphics->changeDisplaySize(displayModes[optionPointer]);
+            UI->changeDisplaySize(displayModes[optionPointer]);
             currentDisplaySize = displayModes[optionPointer];
             displaySizeFlag = true;
             changeOption();
-            reloadLabels(graphics->getLastLabel().getString());
+            reloadLabels(UI->getLastLabel().getString());
             playTextPrompt();
         }
 
         if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
-            graphics->changeDisplaySize(displayModes[optionPointer]);
+            UI->changeDisplaySize(displayModes[optionPointer]);
             currentDisplaySize = displayModes[optionPointer];
             displaySizeFlag = true;
             changeOption();
-            reloadLabels(graphics->getLastLabel().getString());
+            reloadLabels(UI->getLastLabel().getString());
             playTextPrompt();
         }
         if (event.key.code == keyMappings.at(ENTER)) {
@@ -121,7 +121,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
     case fontType:
         if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % optionTotal;
-            graphics->changeFontType(fontTypes[optionPointer]);
+            UI->changeFontType(fontTypes[optionPointer]);
             currentFontType = fontTypes[optionPointer];
             fontTypeFlag = true;
             changeOption();
@@ -130,7 +130,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
 
         if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
-            graphics->changeFontType(fontTypes[optionPointer]);
+            UI->changeFontType(fontTypes[optionPointer]);
             currentFontType = fontTypes[optionPointer];
             fontTypeFlag = true;
             changeOption();
@@ -146,7 +146,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
     case fontSize:
         if (event.key.code == keyMappings.at(DOWN)) {
             optionPointer = (optionPointer + 1) % optionTotal;
-            graphics->changeFontSize(fontSizes[optionPointer]);
+            UI->changeFontSize(fontSizes[optionPointer]);
             currentFontSize = fontSizes[optionPointer];
             fontSizeFlag = true;
             changeOption();
@@ -155,7 +155,7 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
 
         if (event.key.code == keyMappings.at(UP)) {
             optionPointer = (optionTotal + optionPointer - 1) % optionTotal;
-            graphics->changeFontSize(fontSizes[optionPointer]);
+            UI->changeFontSize(fontSizes[optionPointer]);
             currentFontSize = fontSizes[optionPointer];
             fontSizeFlag = true;
             changeOption();
@@ -179,14 +179,14 @@ void VideoOptionsHandler::keyPressed(sf::Event event) {
 }
 
 void VideoOptionsHandler::reloadLabels(std::string lastLabel) {
-    graphics->clearText();
-    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    graphics->makeLabel("Video options", 0, 0);
-    graphics->makeLabel("Display size", 0, windowSize.y * 0.25f);
-    graphics->makeLabel("Font type", 0, windowSize.y * 0.45f);
-    graphics->makeLabel("Font size", 0, windowSize.y * 0.65f);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.85f);
-    graphics->makeLabel(lastLabel, arrowPos.x, arrowPos.y);
+    UI->clearText();
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    UI->makeLabel("Video options", 0, 0);
+    UI->makeLabel("Display size", 0, windowSize.y * 0.25f);
+    UI->makeLabel("Font type", 0, windowSize.y * 0.45f);
+    UI->makeLabel("Font size", 0, windowSize.y * 0.65f);
+    UI->makeLabel("Go back", 0, windowSize.y * 0.85f);
+    UI->makeLabel(lastLabel, arrowPos.x, arrowPos.y);
 }
 
 MenuCode VideoOptionsHandler::updateState(sf::Time elapsed) {

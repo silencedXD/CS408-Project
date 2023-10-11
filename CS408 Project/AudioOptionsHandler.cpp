@@ -1,13 +1,13 @@
 #include "AudioOptionsHandler.h"
 
-AudioOptionsHandler::AudioOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
+AudioOptionsHandler::AudioOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
 {
-    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    graphics->makeLabel("Audio options", 0, 0);
-    graphics->makeLabel("General Volume", 0, windowSize.y * 0.25f);
-    graphics->makeLabel("Audio Prompt Volume", 0, windowSize.y * 0.45f);
-    graphics->makeLabel("Game Volume", 0, windowSize.y * 0.65f);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.85f);
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    UI->makeLabel("Audio options", 0, 0);
+    UI->makeLabel("General Volume", 0, windowSize.y * 0.25f);
+    UI->makeLabel("Audio Prompt Volume", 0, windowSize.y * 0.45f);
+    UI->makeLabel("Game Volume", 0, windowSize.y * 0.65f);
+    UI->makeLabel("Go back", 0, windowSize.y * 0.85f);
 
     volumeSettings.push_back(100);
     volumeSettings.push_back(90);
@@ -36,7 +36,7 @@ AudioOptionsHandler::AudioOptionsHandler(GraphicsUnit* graphics_, ObjectFactory*
 
 void AudioOptionsHandler::changeOption() {               //Changes the setting label when an option is selected
     if (arrowPos.x > 10) {
-        graphics->removeLastLabel();
+        UI->removeLastLabel();
     }
     else {
         arrowPos = setArrowPos(sf::Vector2f(4000, 4000));//Function returns previous arrow position
@@ -46,7 +46,7 @@ void AudioOptionsHandler::changeOption() {               //Changes the setting l
         arrowPos = sf::Vector2f(0, 0);
     }
     else {
-        graphics->makeLabel(std::to_string(int(volumeSettings[optionPointer])), arrowPos.x, arrowPos.y);
+        UI->makeLabel(std::to_string(int(volumeSettings[optionPointer])), arrowPos.x, arrowPos.y);
     }
 }
 
@@ -162,7 +162,7 @@ MenuCode AudioOptionsHandler::updateState(sf::Time elapsed) {
             updateArrow();
         }
 
-        sf::Vector2u windowSize = graphics->getWindowSize();
+        sf::Vector2u windowSize = UI->getWindowSize();
         switch (selector) {
         case 15:
             state = general;

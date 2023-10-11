@@ -143,7 +143,7 @@
     <ClCompile Include="TutorialHandler.cpp" />
     <ClCompile Include="GameHandler.cpp" />
     <ClCompile Include="GameObject.cpp" />
-    <ClCompile Include="GraphicsUnit.cpp" />
+    <ClCompile Include="UIUnit.cpp" />
     <ClCompile Include="InputHandler.cpp" />
     <ClCompile Include="jsoncpp\dist\jsoncpp.cpp" />
     <ClCompile Include="LoopManager.cpp" />
@@ -165,7 +165,7 @@
     <ClInclude Include="TutorialHandler.h" />
     <ClInclude Include="GameHandler.h" />
     <ClInclude Include="GameObject.h" />
-    <ClInclude Include="GraphicsUnit.h" />
+    <ClInclude Include="UIUnit.h" />
     <ClInclude Include="InputHandler.h" />
     <ClInclude Include="jsoncpp\dist\json\json-forwards.h" />
     <ClInclude Include="jsoncpp\dist\json\json.h" />

@@ -1,7 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "InputHandler.h"
-#include "GraphicsUnit.h"
+#include "UIUnit.h"
 #include "ObjectFactory.h"
 #include "AudioUnit.h"
 
@@ -9,7 +9,7 @@
 class LoopManager
 {
 public:
-	LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_);
+	LoopManager(UIUnit* graphics_, AudioUnit* audio_);
 	void updateLoop();
 	void changeState(MenuCode state_);
 	MenuCode getState();
@@ -25,10 +25,9 @@ private:
 	InputHandler* handler;
 	MenuCode currentState;
 	AudioUnit* audio;
-	GraphicsUnit* graphics;
+	UIUnit* UI;
 	ObjectFactory* oFactory;
 
 	InputHandler* pausedGame;
 	MenuCode selectedLevel;
 };
-

@@ -3,18 +3,18 @@
 //TODO: Controls should be mutually exclusive, right now the player could set all controls
 //      to be the same key which would result in undefined behaviour and should not be allowed
 
-ControlsOptionsHandler::ControlsOptionsHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
+ControlsOptionsHandler::ControlsOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
 {
-    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    graphics->makeLabel("Controls", 0, 0);
-    graphics->makeLabel("UP", 0, windowSize.y * 0.12f);
-    graphics->makeLabel("DOWN", 0, windowSize.y * 0.23f);
-    graphics->makeLabel("LEFT", 0, windowSize.y * 0.34f);
-    graphics->makeLabel("RIGHT", 0, windowSize.y * 0.45f);
-    graphics->makeLabel("ENTER", 0, windowSize.y * 0.56f);
-    graphics->makeLabel("PAUSE", 0, windowSize.y * 0.67f);
-    graphics->makeLabel("Reset to default", 0, windowSize.y * 0.78f);
-    graphics->makeLabel("Go back", 0, windowSize.y * 0.89f);
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    UI->makeLabel("Controls", 0, 0);
+    UI->makeLabel("UP", 0, windowSize.y * 0.12f);
+    UI->makeLabel("DOWN", 0, windowSize.y * 0.23f);
+    UI->makeLabel("LEFT", 0, windowSize.y * 0.34f);
+    UI->makeLabel("RIGHT", 0, windowSize.y * 0.45f);
+    UI->makeLabel("ENTER", 0, windowSize.y * 0.56f);
+    UI->makeLabel("PAUSE", 0, windowSize.y * 0.67f);
+    UI->makeLabel("Reset to default", 0, windowSize.y * 0.78f);
+    UI->makeLabel("Go back", 0, windowSize.y * 0.89f);
 
     totalMenuItems = 9;
 
@@ -36,34 +36,34 @@ ControlsOptionsHandler::ControlsOptionsHandler(GraphicsUnit* graphics_, ObjectFa
 void ControlsOptionsHandler::changeOption()
 {
     if (arrowPos.x > 10) {
-        graphics->removeLastLabel();
+        UI->removeLastLabel();
     }
     else {
         arrowPos = setArrowPos(sf::Vector2f(4000, 4000));//Function returns previous arrow position
     }
     switch (state) {
     case UP:
-        graphics->makeLabel(config["UP"].asString(), arrowPos.x, arrowPos.y);
+        UI->makeLabel(config["UP"].asString(), arrowPos.x, arrowPos.y);
         break;
     
     case DOWN:
-        graphics->makeLabel(config["DOWN"].asString(), arrowPos.x, arrowPos.y);
+        UI->makeLabel(config["DOWN"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case LEFT:
-        graphics->makeLabel(config["LEFT"].asString(), arrowPos.x, arrowPos.y);
+        UI->makeLabel(config["LEFT"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case RIGHT:
-        graphics->makeLabel(config["RIGHT"].asString(), arrowPos.x, arrowPos.y);
+        UI->makeLabel(config["RIGHT"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case ENTER:
-        graphics->makeLabel(config["ENTER"].asString(), arrowPos.x, arrowPos.y);
+        UI->makeLabel(config["ENTER"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case PAUSE:
-        graphics->makeLabel(config["PAUSE"].asString(), arrowPos.x, arrowPos.y);
+        UI->makeLabel(config["PAUSE"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case reset:

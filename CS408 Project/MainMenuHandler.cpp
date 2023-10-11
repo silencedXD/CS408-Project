@@ -2,14 +2,14 @@
 #include <SFML/System/Vector2.hpp>
 
 
-MainMenuHandler::MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+MainMenuHandler::MainMenuHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 
-    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    graphics->makeLabel("Main menu", 0, 0);
-    graphics->makeLabel("Start game", 0, windowSize.y * 0.25f);
-    graphics->makeLabel("Tutorial", 0, windowSize.y * 0.45f);
-    graphics->makeLabel("Options", 0, windowSize.y * 0.65f);
-    graphics->makeLabel("Quit", 0, windowSize.y * 0.85f);
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    UI->makeLabel("Main menu", 0, 0);
+    UI->makeLabel("Start game", 0, windowSize.y * 0.25f);
+    UI->makeLabel("Tutorial", 0, windowSize.y * 0.45f);
+    UI->makeLabel("Options", 0, windowSize.y * 0.65f);
+    UI->makeLabel("Quit", 0, windowSize.y * 0.85f);
 
     audio->playSound("menu_controls");
 }

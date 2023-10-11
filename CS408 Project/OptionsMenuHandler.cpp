@@ -1,13 +1,13 @@
 #include "OptionsMenuHandler.h"
 #include <iostream>
 
-OptionsMenuHandler::OptionsMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
-	sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-	graphics->makeLabel("Options", 0, 0);
-	graphics->makeLabel("Video", 0, windowSize.y * 0.25f);
-	graphics->makeLabel("Audio", 0, windowSize.y * 0.45f);
-	graphics->makeLabel("Controls", 0, windowSize.y * 0.65f);
-	graphics->makeLabel("Go back", 0, windowSize.y * 0.85f);
+OptionsMenuHandler::OptionsMenuHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+	sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+	UI->makeLabel("Options", 0, 0);
+	UI->makeLabel("Video", 0, windowSize.y * 0.25f);
+	UI->makeLabel("Audio", 0, windowSize.y * 0.45f);
+	UI->makeLabel("Controls", 0, windowSize.y * 0.65f);
+	UI->makeLabel("Go back", 0, windowSize.y * 0.85f);
 }
 
 

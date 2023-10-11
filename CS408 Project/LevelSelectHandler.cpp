@@ -1,13 +1,13 @@
 #include "LevelSelectHandler.h"
 
-LevelSelectHandler::LevelSelectHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+LevelSelectHandler::LevelSelectHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 
-    sf::Vector2u windowSize = graphics->getWindowSize();
-    graphics->makeLabel("Select level", 0, 0);
-    graphics->makeLabel("Level One", 0, windowSize.y * 0.25f);
-    graphics->makeLabel("Level Two", 0, windowSize.y * 0.45f);
-    graphics->makeLabel("Level Three", 0, windowSize.y * 0.65f);
-    graphics->makeLabel("Go Back", 0, windowSize.y * 0.85f);
+    sf::Vector2u windowSize = UI->getWindowSize();
+    UI->makeLabel("Select level", 0, 0);
+    UI->makeLabel("Level One", 0, windowSize.y * 0.25f);
+    UI->makeLabel("Level Two", 0, windowSize.y * 0.45f);
+    UI->makeLabel("Level Three", 0, windowSize.y * 0.65f);
+    UI->makeLabel("Go Back", 0, windowSize.y * 0.85f);
 }
 
 

@@ -13,13 +13,13 @@
 #include "EndOfLevelHandler.h"
 #include "TutorialHandler.h"
 
-LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
+LoopManager::LoopManager(UIUnit* graphics_, AudioUnit* audio_) {
     audio = audio_;
     pausedGame = NULL;
-    graphics = graphics_;
-    window = graphics->getWindow();
-    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    oFactory = new ObjectFactory(graphics);                         //For some reason the arrow doesn't display on the first load
+    UI = graphics_;
+    window = UI->getWindow();
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    oFactory = new ObjectFactory(UI);                         //For some reason the arrow doesn't display on the first load
     oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
     oFactory->clearObjects();
     oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
@@ -29,7 +29,7 @@ LoopManager::LoopManager(GraphicsUnit* graphics_, AudioUnit* audio_) {
             break;
         }
     }
-    handler = new MainMenuHandler(graphics, oFactory, audio);
+    handler = new MainMenuHandler(UI, oFactory, audio);
     highscore = loadHighscore();
     changeState(mainMenu);
 }
@@ -43,7 +43,7 @@ void LoopManager::updateLoop() {
     {
         switch (event.type) {
         case sf::Event::Closed:         //If the user closes the window by clicking the x button in the top right corner
-            graphics->closeWindow();
+            UI->closeWindow();
             break;
 
         case sf::Event::KeyPressed:
@@ -58,7 +58,7 @@ void LoopManager::updateLoop() {
     sf::Time elapsed = clock.restart();
     MenuCode tempState = handler->updateState(elapsed);
     
-    graphics->update(oFactory->objects);
+    UI->update(oFactory->objects);
 
     if (tempState != currentState) {
         if (pausedGame != NULL && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
@@ -76,38 +76,38 @@ void LoopManager::changeState(MenuCode newState) {
 
     delete handler;
    
-    graphics->clearText();
+    UI->clearText();
     currentState = newState;
     sf::Event event;
 
     switch (newState) {
     case mainMenu:
-        handler = new MainMenuHandler(graphics, oFactory, audio);
+        handler = new MainMenuHandler(UI, oFactory, audio);
         break;
 
     case options:
-        handler = new OptionsMenuHandler(graphics, oFactory, audio);
+        handler = new OptionsMenuHandler(UI, oFactory, audio);
         break;
 
     case levelSelect:
-        handler = new LevelSelectHandler(graphics, oFactory, audio);
+        handler = new LevelSelectHandler(UI, oFactory, audio);
         break;
 
     case quit:
-        graphics->closeWindow();    //If the user exits using the quit button in a menu
+        UI->closeWindow();    //If the user exits using the quit button in a menu
         return;
         break;
 
     case videoOptions:
-        handler = new VideoOptionsHandler(graphics, oFactory, audio);
+        handler = new VideoOptionsHandler(UI, oFactory, audio);
         break;
 
     case audioOptions:
-        handler = new AudioOptionsHandler(graphics, oFactory, audio);
+        handler = new AudioOptionsHandler(UI, oFactory, audio);
         break;
 
     case controlsOptions:
-        handler = new ControlsOptionsHandler(graphics, oFactory, audio);
+        handler = new ControlsOptionsHandler(UI, oFactory, audio);
         break;
 
     case level1:
@@ -117,7 +117,7 @@ void LoopManager::changeState(MenuCode newState) {
     case practiseLevel2:
     case practiseLevel3:
         selectedLevel = currentState;
-        handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
+        handler = new GameHandler(UI, oFactory, audio, selectedLevel);
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
         pausedGame = NULL;
         currentState = game;
@@ -129,7 +129,7 @@ void LoopManager::changeState(MenuCode newState) {
             pausedGame = NULL;
         }
         else {
-            handler = new GameHandler(graphics, oFactory, audio, selectedLevel);
+            handler = new GameHandler(UI, oFactory, audio, selectedLevel);
         }
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
         break;
@@ -141,7 +141,7 @@ void LoopManager::changeState(MenuCode newState) {
             saveHighscore(highscore);
         }
         
-        handler = new EndOfLevelHandler(graphics, oFactory, audio, selectedLevel, true, playerScore, highscore);
+        handler = new EndOfLevelHandler(UI, oFactory, audio, selectedLevel, true, playerScore, highscore);
         break;
 
     case lose:
@@ -151,16 +151,16 @@ void LoopManager::changeState(MenuCode newState) {
             saveHighscore(highscore);
         }
 
-        handler = new EndOfLevelHandler(graphics, oFactory, audio, selectedLevel, false, playerScore, highscore);
+        handler = new EndOfLevelHandler(UI, oFactory, audio, selectedLevel, false, playerScore, highscore);
         break;
 
     case tutorial:
-        handler = new TutorialHandler(graphics, oFactory, audio);
+        handler = new TutorialHandler(UI, oFactory, audio);
         break;
 
     default:
         currentState = mainMenu;
-        handler = new MainMenuHandler(graphics, oFactory, audio);
+        handler = new MainMenuHandler(UI, oFactory, audio);
         break;
     }
 }

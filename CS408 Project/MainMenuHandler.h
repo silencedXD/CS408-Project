@@ -4,7 +4,7 @@
 class MainMenuHandler : public InputHandler
 {
 public:
-	MainMenuHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
+	MainMenuHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
 	virtual MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 };

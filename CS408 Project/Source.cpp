@@ -4,7 +4,7 @@
 #include "LoopManager.h"
 #include "MainMenuHandler.h"
 #include "MenuCode.h"
-#include "GraphicsUnit.h"
+#include "UIUnit.h"
 #include "AudioUnit.h"
 #include "jsoncpp\dist\json\json.h"
 #include <fstream>
@@ -61,11 +61,11 @@ int main()
 
     window.create(sf::VideoMode(config["window_width"].asInt(), config["window_height"].asInt()), "Game", sf::Style::Close);
 
-    GraphicsUnit graphics(&window, config["font"].asString(), config["font_size"].asInt(), parseToColour(config["background_colour"].asString()));
+    UIUnit UI(&window, config["font"].asString(), config["font_size"].asInt(), parseToColour(config["background_colour"].asString()));
     
     AudioUnit audio(config["general_volume"].asFloat(), config["text_volume"].asFloat(), config["game_volume"].asFloat());
 
-    LoopManager loopManager(&graphics, &audio);
+    LoopManager loopManager(&UI, &audio);
 
     while (window.isOpen()) {
         loopManager.updateLoop();

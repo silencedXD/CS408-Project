@@ -1,19 +1,19 @@
 #include "ObjectFactory.h"
 #include <iostream>
 
-ObjectFactory::ObjectFactory(GraphicsUnit* unit){
+ObjectFactory::ObjectFactory(UIUnit* unit){
 	std::ifstream file("config.json");
 	Json::Value config;
 	Json::Reader jsonReader;
 	jsonReader.parse(file, config);
 	
-	graphics = unit;
+	UI = unit;
 	playerColour = parseToColour(config["player_colour"].asString());
 	platformColour = parseToColour(config["platform_colour"].asString());
 }
 
 void ObjectFactory::makeObject(std::string objectName, float posX, float posY) {
-	sf::Texture* temp = graphics->loadTexture(objectName);
+	sf::Texture* temp = UI->loadTexture(objectName);
 
 	objects.push_back(new SpriteObject(posX, posY, objectName + std::to_string(objectCount[objectName]), temp));
 	if (objectName == "player") {
@@ -31,8 +31,8 @@ void ObjectFactory::makeObject(std::string objectName, float posX, float posY) {
 }
 
 void ObjectFactory::makeObject(std::string objectName, float posX, float posY, float xScale, float yScale) {
-	sf::Texture* temp = graphics->loadTexture(objectName);
-	sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
+	sf::Texture* temp = UI->loadTexture(objectName);
+	sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
 	float xUnit = windowSize.x / 5;
 	float yUnit = windowSize.y / 5;
 

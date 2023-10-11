@@ -1,14 +1,14 @@
 #include "TutorialHandler.h"
 
-TutorialHandler::TutorialHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+TutorialHandler::TutorialHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
 
-    sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
-    graphics->makeLabel("Tutorial", 0, 0);
-    graphics->makeLabel("Play Instructions", 0, windowSize.y * 0.17f);
-    graphics->makeLabel("Practise Level One", 0, windowSize.y * 0.34f);
-    graphics->makeLabel("Practise Level Two", 0, windowSize.y * 0.51f);
-    graphics->makeLabel("Practise Level Three", 0, windowSize.y * 0.68f);
-    graphics->makeLabel("Go Back", 0, windowSize.y * 0.85f);
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    UI->makeLabel("Tutorial", 0, 0);
+    UI->makeLabel("Play Instructions", 0, windowSize.y * 0.17f);
+    UI->makeLabel("Practise Level One", 0, windowSize.y * 0.34f);
+    UI->makeLabel("Practise Level Two", 0, windowSize.y * 0.51f);
+    UI->makeLabel("Practise Level Three", 0, windowSize.y * 0.68f);
+    UI->makeLabel("Go Back", 0, windowSize.y * 0.85f);
     totalMenuItems = 6;
 }
 

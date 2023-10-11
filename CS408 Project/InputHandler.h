@@ -5,7 +5,7 @@
 #include <fstream>
 
 #include "jsoncpp\dist\json\json.h"
-#include "GraphicsUnit.h"
+#include "UIUnit.h"
 #include "MenuCode.h"
 #include "ObjectFactory.h"
 #include "GameObject.h"
@@ -16,7 +16,7 @@
 class InputHandler
 {
 public:
-	InputHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
+	InputHandler(UIUnit* UI_, ObjectFactory* oFactory_, AudioUnit* audio_);
 	virtual void keyPressed(sf::Event event);
 	virtual MenuCode updateState(sf::Time elapsed) = 0;
 	virtual void playTextPrompt() = 0;
@@ -32,7 +32,7 @@ protected:
 	sf::Keyboard::Key stringToKeyboard(std::string keyName);
 	Json::Value config;
 	std::map<KeyCode, sf::Keyboard::Key> keyMappings;
-	GraphicsUnit* graphics;
+	UIUnit* UI;
 	ObjectFactory* oFactory;
 	AudioUnit* audio;
 	int selector;

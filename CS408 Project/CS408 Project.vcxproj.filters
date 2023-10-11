@@ -66,7 +66,7 @@
     <ClCompile Include="SpriteObject.cpp">
       <Filter>Source Files\Objects</Filter>
     </ClCompile>
-    <ClCompile Include="GraphicsUnit.cpp">
+    <ClCompile Include="UIUnit.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
     <ClCompile Include="LoopManager.cpp">
@@ -131,7 +131,7 @@
     <ClInclude Include="LoopManager.h">
       <Filter>Header Files\ManagersH</Filter>
     </ClInclude>
-    <ClInclude Include="GraphicsUnit.h">
+    <ClInclude Include="UIUnit.h">
       <Filter>Header Files\ManagersH</Filter>
     </ClInclude>
     <ClInclude Include="ObjectFactory.h">

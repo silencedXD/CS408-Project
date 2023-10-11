@@ -5,7 +5,7 @@
 class LevelSelectHandler : public InputHandler
 {
 public:
-	LevelSelectHandler(GraphicsUnit* graphics, ObjectFactory* oFactory, AudioUnit* audio_);
+	LevelSelectHandler(UIUnit* UI, ObjectFactory* oFactory, AudioUnit* audio_);
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 };

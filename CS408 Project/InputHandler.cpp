@@ -1,9 +1,9 @@
 #include "InputHandler.h"
 
-InputHandler::InputHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) {
+InputHandler::InputHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) {
     selector = 0;
     totalMenuItems = 5;
-    graphics = graphics_;
+    UI = graphics_;
     oFactory = oFactory_;
     audio = audio_;
     config = loadConfig();
@@ -42,7 +42,7 @@ void InputHandler::keyPressed(sf::Event event) {
 void InputHandler::updateArrow() {
     for (int i = 0; i < oFactory->objects.size(); i++) {
         if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
-            sf::Vector2f windowSize = sf::Vector2f(graphics->getWindowSize().x, graphics->getWindowSize().y);
+            sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
 
             oFactory->objects[i]->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
             break;

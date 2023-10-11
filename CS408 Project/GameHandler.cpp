@@ -1,7 +1,7 @@
 #include "GameHandler.h"
 #include <iostream>
 
-GameHandler::GameHandler(GraphicsUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, oFactory_, audio_) {
+GameHandler::GameHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, oFactory_, audio_) {
 	paused = false;
 	levelCode = levelCode_;
 	hearingRange = 40;
