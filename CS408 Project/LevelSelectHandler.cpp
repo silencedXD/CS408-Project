@@ -1,6 +1,6 @@
 #include "LevelSelectHandler.h"
 
-LevelSelectHandler::LevelSelectHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+LevelSelectHandler::LevelSelectHandler(UIUnit* graphics_, AudioUnit* audio_) : InputHandler(graphics_, audio_) {
 
     sf::Vector2u windowSize = UI->getWindowSize();
     UI->makeLabel("Select level", 0, 0);

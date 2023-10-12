@@ -5,7 +5,7 @@
 class AudioOptionsHandler : public InputHandler
 {
 public:
-	AudioOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
+	AudioOptionsHandler(UIUnit* graphics_, AudioUnit* audio_);
 	void changeOption();
 
 	void keyPressed(sf::Event event);

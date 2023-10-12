@@ -1,10 +1,9 @@
 #include "InputHandler.h"
 
-InputHandler::InputHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) {
+InputHandler::InputHandler(UIUnit* UI_, AudioUnit* audio_) {
     selector = 0;
     totalMenuItems = 5;
-    UI = graphics_;
-    oFactory = oFactory_;
+    UI = UI_;
     audio = audio_;
     config = loadConfig();
     loadKeyMappings();
@@ -40,27 +39,15 @@ void InputHandler::keyPressed(sf::Event event) {
 }
 
 void InputHandler::updateArrow() {
-    for (int i = 0; i < oFactory->objects.size(); i++) {
-        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
-            sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
-
-            oFactory->objects[i]->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
-            break;
-        }
-    }
+    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    UI->arrow->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
 }
 
 sf::Vector2f InputHandler::setArrowPos(sf::Vector2f newPos_)    //Sets the position of arrow while returning old value
 {                                                               //Used to move arrow out of display to make it invisible
-    for (int i = 0; i < oFactory->objects.size(); i++) {
-        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
-
-            sf::Vector2f temp = oFactory->objects[i]->getPos();
-            oFactory->objects[i]->setPos(newPos_.x,newPos_.y);
-            return temp;
-        }
-    }
-    return sf::Vector2f(0,0);
+    sf::Vector2f temp = UI->arrow->getPos();
+    UI->arrow->setPos(newPos_.x,newPos_.y);
+    return temp;
 }
 
 Json::Value InputHandler::loadConfig() {

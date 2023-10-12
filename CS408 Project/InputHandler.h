@@ -7,7 +7,6 @@
 #include "jsoncpp\dist\json\json.h"
 #include "UIUnit.h"
 #include "MenuCode.h"
-#include "ObjectFactory.h"
 #include "GameObject.h"
 #include "AudioUnit.h"
 #include "KeyCode.h"
@@ -16,7 +15,7 @@
 class InputHandler
 {
 public:
-	InputHandler(UIUnit* UI_, ObjectFactory* oFactory_, AudioUnit* audio_);
+	InputHandler(UIUnit* UI_, AudioUnit* audio_);
 	virtual void keyPressed(sf::Event event);
 	virtual MenuCode updateState(sf::Time elapsed) = 0;
 	virtual void playTextPrompt() = 0;
@@ -33,7 +32,6 @@ protected:
 	Json::Value config;
 	std::map<KeyCode, sf::Keyboard::Key> keyMappings;
 	UIUnit* UI;
-	ObjectFactory* oFactory;
 	AudioUnit* audio;
 	int selector;
 	int totalMenuItems;

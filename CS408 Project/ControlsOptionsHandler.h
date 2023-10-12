@@ -4,7 +4,7 @@
 class ControlsOptionsHandler : public InputHandler
 {
 public:
-	ControlsOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
+	ControlsOptionsHandler(UIUnit* graphics_, AudioUnit* audio_);
 	void changeOption();
 
 	void keyPressed(sf::Event event);

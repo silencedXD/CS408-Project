@@ -7,9 +7,15 @@ UIUnit::UIUnit(sf::RenderWindow* window_, std::string fontName_, int fontSize, s
     loadFont(fontName_);
     fontName = fontName_;
     changeFontSize(fontSize);
-    textureLocations["arrow"] = "Images/SelectionArrow.png";
-    textureLocations["platform"] = "Images/platform.png";
+
+    arrowTexture.loadFromFile("Images/SelectionArrow.png");
+    arrow = new SpriteObject(window->getSize().x / 2.0f, 0.0f, "UI Arrow", &arrowTexture);
+    arrow->getSprite()->setScale(0.5, 0.5);
     backgroundColour = backgroundColour_;
+}
+
+UIUnit::~UIUnit() {
+    delete arrow;
 }
 
 bool UIUnit::loadFont(std::string fontName) {
@@ -37,47 +43,12 @@ void UIUnit::clearText() {
 
 void UIUnit::setBackgroundColour(sf::Color colour) { backgroundColour = colour; }
 
-sf::Texture* UIUnit::loadTexture(std::string objectName) {
-    sf::Texture* temp;
-    try {
-        if (!textures.count(objectName)) {
-            sf::Texture objectTexture;
-            objectTexture.loadFromFile(textureLocations.at(objectName));	//If this is the first object of its kind the texture will first be loaded
-            textures[objectName] = objectTexture;
-            return &textures[objectName];
-        }
-        else {
-            temp = &textures[objectName];	//If object has already been created the texture will be stored in the map
-            return temp;
-        }
-    }
-    catch (...) {
-        try {
-            if (!textures.count("MissingTexture")) {
-                sf::Texture objectTexture;
-                objectTexture.loadFromFile(textureLocations.at("MissingTexture"));
-                textures["MissingTexture"] = objectTexture;
-                return &textures["MissingTexture"];
-            }
-            else {
-                temp = &textures["MissingTexture"];
-                return temp;
-            }
-        }
-        catch (...){
-            std::cout << "\"MissingTexture\" texture either failed to load or location is missing";
-            window->close();
-            return NULL;
-        }
-    }
-}
 
-void UIUnit::update(std::vector<GameObject*> objects) {
+void UIUnit::update() {
     clearWindow();
 
-    for (int i = 0; i < objects.size(); i++) {
-         window->draw(*(objects[i]->getSprite()));
-    }
+    window->draw(*arrow->getSprite());
+
     for (int i = 0; i < messages.size(); i++) {
         window->draw(messages[i]);
     }

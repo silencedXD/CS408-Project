@@ -2,14 +2,13 @@
 #include <SFML/Graphics.hpp>
 #include "InputHandler.h"
 #include "UIUnit.h"
-#include "ObjectFactory.h"
 #include "AudioUnit.h"
 
 
 class LoopManager
 {
 public:
-	LoopManager(UIUnit* graphics_, AudioUnit* audio_);
+	LoopManager(UIUnit* UI_, AudioUnit* audio_);
 	void updateLoop();
 	void changeState(MenuCode state_);
 	MenuCode getState();
@@ -26,7 +25,6 @@ private:
 	MenuCode currentState;
 	AudioUnit* audio;
 	UIUnit* UI;
-	ObjectFactory* oFactory;
 
 	InputHandler* pausedGame;
 	MenuCode selectedLevel;

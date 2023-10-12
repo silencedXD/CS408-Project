@@ -1,7 +1,7 @@
 #include "OptionsMenuHandler.h"
 #include <iostream>
 
-OptionsMenuHandler::OptionsMenuHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+OptionsMenuHandler::OptionsMenuHandler(UIUnit* graphics_, AudioUnit* audio_) : InputHandler(graphics_, audio_) {
 	sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
 	UI->makeLabel("Options", 0, 0);
 	UI->makeLabel("Video", 0, windowSize.y * 0.25f);

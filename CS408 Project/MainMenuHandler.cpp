@@ -2,7 +2,7 @@
 #include <SFML/System/Vector2.hpp>
 
 
-MainMenuHandler::MainMenuHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+MainMenuHandler::MainMenuHandler(UIUnit* graphics_, AudioUnit* audio_) : InputHandler(graphics_, audio_) {
 
     sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
     UI->makeLabel("Main menu", 0, 0);

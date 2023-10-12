@@ -5,7 +5,7 @@
 class TutorialHandler : public InputHandler
 {
 public:
-	TutorialHandler(UIUnit* UI, ObjectFactory* oFactory, AudioUnit* audio_);
+	TutorialHandler(UIUnit* UI, AudioUnit* audio_);
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 };

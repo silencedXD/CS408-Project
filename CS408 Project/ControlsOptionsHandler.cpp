@@ -3,7 +3,7 @@
 //TODO: Controls should be mutually exclusive, right now the player could set all controls
 //      to be the same key which would result in undefined behaviour and should not be allowed
 
-ControlsOptionsHandler::ControlsOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_)
+ControlsOptionsHandler::ControlsOptionsHandler(UIUnit* UI_, AudioUnit* audio_) : InputHandler(UI_, audio_)
 {
     sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
     UI->makeLabel("Controls", 0, 0);

@@ -139,6 +139,7 @@
     <ClCompile Include="AudioUnit.cpp" />
     <ClCompile Include="ControlsOptionsHandler.cpp" />
     <ClCompile Include="EndOfLevelHandler.cpp" />
+    <ClCompile Include="GraphicsUnit.cpp" />
     <ClCompile Include="LevelSelectHandler.cpp" />
     <ClCompile Include="TutorialHandler.cpp" />
     <ClCompile Include="GameHandler.cpp" />
@@ -148,7 +149,6 @@
     <ClCompile Include="jsoncpp\dist\jsoncpp.cpp" />
     <ClCompile Include="LoopManager.cpp" />
     <ClCompile Include="MainMenuHandler.cpp" />
-    <ClCompile Include="ObjectFactory.cpp" />
     <ClCompile Include="OptionsMenuHandler.cpp" />
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -161,6 +161,7 @@
     <ClInclude Include="AudioUnit.h" />
     <ClInclude Include="ControlsOptionsHandler.h" />
     <ClInclude Include="EndOfLevelHandler.h" />
+    <ClInclude Include="GraphicsUnit.h" />
     <ClInclude Include="LevelSelectHandler.h" />
     <ClInclude Include="TutorialHandler.h" />
     <ClInclude Include="GameHandler.h" />
@@ -173,7 +174,6 @@
     <ClInclude Include="LoopManager.h" />
     <ClInclude Include="MenuCode.h" />
     <ClInclude Include="MainMenuHandler.h" />
-    <ClInclude Include="ObjectFactory.h" />
     <ClInclude Include="OptionsMenuHandler.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Player.h" />

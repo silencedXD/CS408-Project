@@ -1,6 +1,6 @@
 #include "EndOfLevelHandler.h"
 
-EndOfLevelHandler::EndOfLevelHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_, MenuCode levelCode_, bool win, int playerScore_, int highscore_) : InputHandler(graphics_, oFactory_, audio_) {
+EndOfLevelHandler::EndOfLevelHandler(UIUnit* graphics_, AudioUnit* audio_, MenuCode levelCode_, bool win, int playerScore_, int highscore_) : InputHandler(graphics_, audio_) {
 
     totalMenuItems = 6;
     delay = 1000;

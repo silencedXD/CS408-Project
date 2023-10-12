@@ -5,7 +5,7 @@
 class VideoOptionsHandler : public InputHandler
 {
 public:
-	VideoOptionsHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_);
+	VideoOptionsHandler(UIUnit* graphics_, AudioUnit* audio_);
 	virtual MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 	void changeOption();

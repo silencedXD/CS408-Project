@@ -1,8 +1,6 @@
 #include "LoopManager.h"
 #include <iostream>
 #include "MenuCode.h"
-#include "ObjectFactory.h"
-
 #include "MainMenuHandler.h"
 #include "OptionsMenuHandler.h"
 #include "LevelSelectHandler.h"
@@ -13,23 +11,13 @@
 #include "EndOfLevelHandler.h"
 #include "TutorialHandler.h"
 
-LoopManager::LoopManager(UIUnit* graphics_, AudioUnit* audio_) {
+LoopManager::LoopManager(UIUnit* UI_, AudioUnit* audio_) {
     audio = audio_;
     pausedGame = NULL;
-    UI = graphics_;
+    UI = UI_;
     window = UI->getWindow();
     sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
-    oFactory = new ObjectFactory(UI);                         //For some reason the arrow doesn't display on the first load
-    oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
-    oFactory->clearObjects();
-    oFactory->makeObject("arrow", windowSize.x / 2.0, 0);
-    for (int i = 0; i < oFactory->objects.size(); i++) {
-        if (oFactory->objects[i]->id.substr(0, 5) == "arrow") {
-            oFactory->objects[i]->getSprite()->setScale(0.5, 0.5);  //Otherwise the arrow would be massive
-            break;
-        }
-    }
-    handler = new MainMenuHandler(UI, oFactory, audio);
+    handler = new MainMenuHandler(UI, audio);
     highscore = loadHighscore();
     changeState(mainMenu);
 }
@@ -58,7 +46,7 @@ void LoopManager::updateLoop() {
     sf::Time elapsed = clock.restart();
     MenuCode tempState = handler->updateState(elapsed);
     
-    UI->update(oFactory->objects);
+    UI->update();
 
     if (tempState != currentState) {
         if (pausedGame != NULL && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
@@ -82,15 +70,15 @@ void LoopManager::changeState(MenuCode newState) {
 
     switch (newState) {
     case mainMenu:
-        handler = new MainMenuHandler(UI, oFactory, audio);
+        handler = new MainMenuHandler(UI, audio);
         break;
 
     case options:
-        handler = new OptionsMenuHandler(UI, oFactory, audio);
+        handler = new OptionsMenuHandler(UI, audio);
         break;
 
     case levelSelect:
-        handler = new LevelSelectHandler(UI, oFactory, audio);
+        handler = new LevelSelectHandler(UI, audio);
         break;
 
     case quit:
@@ -99,15 +87,15 @@ void LoopManager::changeState(MenuCode newState) {
         break;
 
     case videoOptions:
-        handler = new VideoOptionsHandler(UI, oFactory, audio);
+        handler = new VideoOptionsHandler(UI, audio);
         break;
 
     case audioOptions:
-        handler = new AudioOptionsHandler(UI, oFactory, audio);
+        handler = new AudioOptionsHandler(UI, audio);
         break;
 
     case controlsOptions:
-        handler = new ControlsOptionsHandler(UI, oFactory, audio);
+        handler = new ControlsOptionsHandler(UI, audio);
         break;
 
     case level1:
@@ -117,7 +105,7 @@ void LoopManager::changeState(MenuCode newState) {
     case practiseLevel2:
     case practiseLevel3:
         selectedLevel = currentState;
-        handler = new GameHandler(UI, oFactory, audio, selectedLevel);
+        handler = new GameHandler(UI, audio, selectedLevel);
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
         pausedGame = NULL;
         currentState = game;
@@ -129,7 +117,7 @@ void LoopManager::changeState(MenuCode newState) {
             pausedGame = NULL;
         }
         else {
-            handler = new GameHandler(UI, oFactory, audio, selectedLevel);
+            handler = new GameHandler(UI, audio, selectedLevel);
         }
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
         break;
@@ -141,7 +129,7 @@ void LoopManager::changeState(MenuCode newState) {
             saveHighscore(highscore);
         }
         
-        handler = new EndOfLevelHandler(UI, oFactory, audio, selectedLevel, true, playerScore, highscore);
+        handler = new EndOfLevelHandler(UI, audio, selectedLevel, true, playerScore, highscore);
         break;
 
     case lose:
@@ -151,16 +139,16 @@ void LoopManager::changeState(MenuCode newState) {
             saveHighscore(highscore);
         }
 
-        handler = new EndOfLevelHandler(UI, oFactory, audio, selectedLevel, false, playerScore, highscore);
+        handler = new EndOfLevelHandler(UI, audio, selectedLevel, false, playerScore, highscore);
         break;
 
     case tutorial:
-        handler = new TutorialHandler(UI, oFactory, audio);
+        handler = new TutorialHandler(UI, audio);
         break;
 
     default:
         currentState = mainMenu;
-        handler = new MainMenuHandler(UI, oFactory, audio);
+        handler = new MainMenuHandler(UI, audio);
         break;
     }
 }

@@ -6,7 +6,7 @@
 class GameHandler : public InputHandler
 {
 public:
-	GameHandler(UIUnit* UI, ObjectFactory* oFactory, AudioUnit* audio_, MenuCode levelCode_);
+	GameHandler(UIUnit* UI, AudioUnit* audio_, MenuCode levelCode_);
 	MenuCode updateState(sf::Time elapsed);
 	void playTextPrompt();
 	void keyPressed(sf::Event event);

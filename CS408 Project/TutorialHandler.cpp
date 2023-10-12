@@ -1,6 +1,6 @@
 #include "TutorialHandler.h"
 
-TutorialHandler::TutorialHandler(UIUnit* graphics_, ObjectFactory* oFactory_, AudioUnit* audio_) : InputHandler(graphics_, oFactory_, audio_) {
+TutorialHandler::TutorialHandler(UIUnit* graphics_, AudioUnit* audio_) : InputHandler(graphics_, audio_) {
 
     sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
     UI->makeLabel("Tutorial", 0, 0);
