@@ -1,6 +1,19 @@
 #include "GraphicsUnit.h"
 #include <iostream>
 
+GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_) {
+    window = window_;
+}
+
+void GraphicsUnit::draw(sf::Sprite* sprite)
+{
+    window->draw(*sprite);
+}
+
+void GraphicsUnit::display()
+{
+    window->display();
+}
 
 sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
     sf::Texture* temp;
@@ -35,4 +48,14 @@ sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
             return NULL;
         }
     }
+}
+
+void GraphicsUnit::setBackgroundColour(sf::Color colour) { backgroundColour = colour; }
+
+void GraphicsUnit::closeWindow() {
+    window->close();
+}
+
+void GraphicsUnit::clearWindow() {
+    window->clear(backgroundColour);
 }

@@ -1,7 +1,9 @@
 #include "GameHandler.h"
 #include <iostream>
 
-GameHandler::GameHandler(UIUnit* graphics_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(graphics_, audio_) {
+GameHandler::GameHandler(UIUnit* UI_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(UI_, audio_) 
+{
+	graphics = new GraphicsUnit(UI_->getWindow());
 	paused = false;
 	levelCode = levelCode_;
 	hearingRange = 40;
@@ -41,6 +43,13 @@ GameHandler::GameHandler(UIUnit* graphics_, AudioUnit* audio_, MenuCode levelCod
 	player.scoreMultiplier = level;			//The higher the level the higher the score
 	hearingRange = 45 - (5 * (level % 10));	//The hearing range is smaller the higher the level
 	generateLevel();						//Level 1 is the same as practise level 1 ect
+}
+
+GameHandler::~GameHandler() {
+	delete graphics;
+	while (!obstacles.empty()) {
+		delete obstacles.front();
+	}
 }
 
 void GameHandler::generateLevel() {
@@ -92,6 +101,10 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	updateKeys();						//Check player input
 	player.update();					//Then update player state
 	checkCollisions();					//Then check if new player state is affected by the world (ie obstacles)
+
+	//graphics->clearWindow();
+	//graphics->draw(player.GetSprite());
+	//graphics->display();
 
 	if (checkLoseCondition()) {
 		sf::sleep(sf::milliseconds(500));//Slight pause to allow a smoother transition
