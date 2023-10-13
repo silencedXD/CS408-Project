@@ -7,6 +7,17 @@ Player::Player() {
 	moveCounter = 0;
 	scoreMultiplier = 1;
 	score = 0;
+	sprite = nullptr;
+}
+
+Player::Player(sf::Sprite* sprite_) {
+	x = 0;
+	y = 2;
+	isHit = false;
+	moveCounter = 0;
+	scoreMultiplier = 1;
+	score = 0;
+	sprite = sprite_;
 }
 
 void Player::update() {

@@ -102,9 +102,9 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	player.update();					//Then update player state
 	checkCollisions();					//Then check if new player state is affected by the world (ie obstacles)
 
-	//graphics->clearWindow();
-	//graphics->draw(player.GetSprite());
-	//graphics->display();
+	graphics->clearWindow();
+	graphics->draw(player.GetSprite());
+	graphics->display();
 
 	if (checkLoseCondition()) {
 		sf::sleep(sf::milliseconds(500));//Slight pause to allow a smoother transition

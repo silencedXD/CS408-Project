@@ -13,7 +13,7 @@
 
 LoopManager::LoopManager(UIUnit* UI_, AudioUnit* audio_) {
     audio = audio_;
-    pausedGame = NULL;
+    pausedGame = nullptr;
     UI = UI_;
     window = UI->getWindow();
     sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
@@ -49,7 +49,7 @@ void LoopManager::updateLoop() {
     UI->update();
 
     if (tempState != currentState) {
-        if (pausedGame != NULL && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
+        if (pausedGame != nullptr && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
 
         else { changeState(tempState); }
     }
@@ -59,7 +59,7 @@ void LoopManager::changeState(MenuCode newState) {
     playerScore = handler->getScore();
     if (currentState == game && newState != win && newState != lose) {    //This means the game is being paused so game data should be preserved unless the game is over
         pausedGame = handler;
-        handler = NULL;
+        handler = nullptr;
     }
 
     delete handler;
@@ -107,14 +107,14 @@ void LoopManager::changeState(MenuCode newState) {
         selectedLevel = currentState;
         handler = new GameHandler(UI, audio, selectedLevel);
         handler->setArrowPos(sf::Vector2f(4000, 4000));	//This removes the arrow from the screen
-        pausedGame = NULL;
+        pausedGame = nullptr;
         currentState = game;
         break;
 
     case game:
-        if (pausedGame != NULL) {
+        if (pausedGame != nullptr) {
             handler = pausedGame;
-            pausedGame = NULL;
+            pausedGame = nullptr;
         }
         else {
             handler = new GameHandler(UI, audio, selectedLevel);
