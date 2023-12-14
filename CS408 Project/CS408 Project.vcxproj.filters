@@ -190,6 +190,12 @@
     <Image Include="MissingTexture.png">
       <Filter>Resource Files\Images</Filter>
     </Image>
+    <Image Include="Images\obstacle.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
+    <Image Include="Images\player.png">
+      <Filter>Resource Files\Images</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="..\..\..\pianoSound.wav">

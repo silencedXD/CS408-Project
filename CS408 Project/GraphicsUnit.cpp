@@ -3,6 +3,12 @@
 
 GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_) {
     window = window_;
+    loadTextureLocations();
+}
+
+void GraphicsUnit::loadTextureLocations() {
+    textureLocations["player"] = "Images/player.png";
+    textureLocations["obstacle"] = "Images/obstacle.png";
 }
 
 void GraphicsUnit::draw(sf::Sprite* sprite)
@@ -58,4 +64,9 @@ void GraphicsUnit::closeWindow() {
 
 void GraphicsUnit::clearWindow() {
     window->clear(backgroundColour);
+}
+
+void GraphicsUnit::setupFrame()
+{
+    clearWindow();
 }

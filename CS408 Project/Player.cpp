@@ -1,29 +1,19 @@
 #include "Player.h"
 
-Player::Player() {
-	x = 0;
-	y = 2;
+Player::Player(float x_, float y_, std::string id_, sf::Texture* texture_) : SpriteObject(x_, y_, id_, texture_){
 	isHit = false;
 	moveCounter = 0;
 	scoreMultiplier = 1;
 	score = 0;
-	sprite = nullptr;
 }
 
-Player::Player(sf::Sprite* sprite_) {
-	x = 0;
-	y = 2;
-	isHit = false;
-	moveCounter = 0;
-	scoreMultiplier = 1;
-	score = 0;
-	sprite = sprite_;
-}
+Player::~Player() {}
 
 void Player::update() {
 	if (moveCounter > 0) { moveCounter--; }
 	else {
-		y = 2;
+		sf::Vector2f pos = getPos();
+		setPos(pos.x, 2);
 	}
 }
 
@@ -32,22 +22,23 @@ void Player::scorePoint(int point) {
 }
 
 void Player::Move(KeyCode command) {
+	sf::Vector2f pos = getPos();
 	switch (command) {
 	case LEFT:
-		if (x > 0) { x--; }
+		if (pos.x > 0) { sprite.move(sf::Vector2f(-1, 0)); }
 		break;
 
 	case RIGHT:
-		x = x++;
+		sprite.move(sf::Vector2f(1, 0));
 		break;
 
 	case UP:
-		if (y < 4) { y++; }
+		if (pos.y < 4) { sprite.move(sf::Vector2f(0, 1)); }
 		moveCounter = 20;
 		break;
 
 	case DOWN:
-		if (y > 0) { y--; }
+		if (pos.y > 0) { sprite.move(sf::Vector2f(0, -1)); }
 		moveCounter = 30;
 		break;
 		

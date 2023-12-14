@@ -4,6 +4,7 @@
 GameHandler::GameHandler(UIUnit* UI_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(UI_, audio_) 
 {
 	graphics = new GraphicsUnit(UI_->getWindow());
+	graphics->setBackgroundColour(sf::Color::Red);
 	paused = false;
 	levelCode = levelCode_;
 	hearingRange = 40;
@@ -40,7 +41,8 @@ GameHandler::GameHandler(UIUnit* UI_, AudioUnit* audio_, MenuCode levelCode_) : 
 		break;
 	}
 
-	player.scoreMultiplier = level;			//The higher the level the higher the score
+	player = new Player(10,10,"player1", graphics->loadTexture("player"));
+	player->scoreMultiplier = level;			//The higher the level the higher the score
 	hearingRange = 45 - (5 * (level % 10));	//The hearing range is smaller the higher the level
 	generateLevel();						//Level 1 is the same as practise level 1 ect
 }
@@ -50,6 +52,7 @@ GameHandler::~GameHandler() {
 	while (!obstacles.empty()) {
 		delete obstacles.front();
 	}
+	delete player;
 }
 
 void GameHandler::generateLevel() {
@@ -58,11 +61,12 @@ void GameHandler::generateLevel() {
 		for (int i = 0; i < obstacleCount; i++) {
 			int yVal = rand() % 2;
 			int xVal = rand() % 10;
+			sf::Texture* texture = graphics->loadTexture("obstacle");
 			if (yVal == 0) {
-				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C"));
+				obstacles.push_back(new Obstacle("3C", 50 + (i * 70) + xVal, 1, "OB_3C_" + i, texture));
 			}
 			else {
-				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C"));
+				obstacles.push_back(new Obstacle("5C", 50 + (i * 70) + xVal, 3, "OB_5C_" + i, texture));
 			}
 		}
 	}
@@ -72,10 +76,10 @@ void GameHandler::generateLevel() {
 			int yVal = rand() % 2;
 			int xVal = rand() % 10;
 			if (yVal == 0) {
-				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C"));
+				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C", graphics));
 			}
 			else {
-				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C"));
+				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C", graphics));
 			}
 		}
 	}
@@ -99,11 +103,16 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	}
 
 	updateKeys();						//Check player input
-	player.update();					//Then update player state
+	player->update();					//Then update player state
 	checkCollisions();					//Then check if new player state is affected by the world (ie obstacles)
 
-	graphics->clearWindow();
-	graphics->draw(player.GetSprite());
+	graphics->setupFrame();
+	graphics->display();
+	graphics->draw(player->getSprite());
+	graphics->display();
+	for (Obstacle* obstacle : obstacles) {
+		graphics->draw(obstacle->getSprite());
+	}
 	graphics->display();
 
 	if (checkLoseCondition()) {
@@ -120,7 +129,7 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	return game;
 }
 
-int GameHandler::getScore() { return player.score; }
+int GameHandler::getScore() { return player->score; }
 
 bool GameHandler::checkWinCondition() {
 	if (obstacles.empty()) {
@@ -134,7 +143,7 @@ bool GameHandler::checkWinCondition() {
 }
 
 bool GameHandler::checkLoseCondition() {
-	if (player.isHit) {
+	if (player->isHit) {
 		std::cout << "Game Over";
 		setArrowPos(sf::Vector2f(0, 0));	//This moves the arrow back in vue for the menu system
 		return true;
@@ -145,11 +154,11 @@ bool GameHandler::checkLoseCondition() {
 }
 
 void GameHandler::updateKeys() {			//The keyPressed event isn't responsive enough so instead each frame we check the current state the keyboard is in since we don't care what happens inbetween frames
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player.Move(UP); }
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player.Move(DOWN); }
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(LEFT))) { player.Move(LEFT); }
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(RIGHT))) { player.Move(RIGHT); }
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(ENTER))) { player.Move(ENTER); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player->Move(UP); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player->Move(DOWN); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(LEFT))) { player->Move(LEFT); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(RIGHT))) { player->Move(RIGHT); }
+	if (sf::Keyboard::isKeyPressed(keyMappings.at(ENTER))) { player->Move(ENTER); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(PAUSE))) { paused = true; }
 }
 
@@ -158,25 +167,27 @@ void GameHandler::checkCollisions() {
 
 	while (it != obstacles.end()) {
 		Obstacle* currentObstacle = *it;
+		sf::Vector2f obstaclePos = currentObstacle->sprite->getPosition();
+		sf::Vector2f playerPos = player->getPos();
 
-		if (currentObstacle->x == player.x) {
-			if (currentObstacle->y != player.y) {//If the player isn't at the correct altitude they will collide with the obstacle
-				player.isHit = true;
+		if (obstaclePos.x == playerPos.x) {
+			if (obstaclePos.y != playerPos.y) {//If the player isn't at the correct altitude they will collide with the obstacle
+				player->isHit = true;
 				audio->playSound("fail");
 				return;
 			}
-			player.scorePoint(1);
+			player->scorePoint(1);
 			delete currentObstacle;				//Either way if the obstacle is past the player it needs to be deleted
 			it = obstacles.erase(it);
 		}
 		else {
 			if (isNearPlayer(currentObstacle)) {
 				audio->playNonRepeatingSound(currentObstacle->soundName);
-				if (currentObstacle->y == player.y) {			//After some testing I concluded it felt smoother if the player could pass an obstacle
-					int xDif = currentObstacle->x - player.x;	//as soon as they react as this also helps feedback to the player that they succeeded in passing
+				if (obstaclePos.y == playerPos.y) {			//After some testing I concluded it felt smoother if the player could pass an obstacle
+					int xDif = obstaclePos.x - playerPos.x;	//as soon as they react as this also helps feedback to the player that they succeeded in passing
 					delete currentObstacle;						//the obstacle as its sound effect will stop playing once passed
 					it = obstacles.erase(it);		
-					player.scorePoint(xDif);					//Player scores more points the faster they react
+					player->scorePoint(xDif);					//Player scores more points the faster they react
 				}
 				else {
 					++it;//The iterator is moved to the next obstacle if no collision is detected
@@ -190,7 +201,9 @@ void GameHandler::checkCollisions() {
 }
 
 bool GameHandler::isNearPlayer(Obstacle* obstacle) {
-	int xDif = obstacle->x - player.x;
+	sf::Vector2f obstaclePos = obstacle->sprite->getPosition();
+	sf::Vector2f playerPos = player->getPos();
+	int xDif = obstaclePos.x - playerPos.x;
 	if (xDif < hearingRange) {
 		return true;
 	}
@@ -211,9 +224,9 @@ void GameHandler::keyPressed(sf::Event event) {//In case we need discrete (slowe
 }
 
 void GameHandler::displayStats() {//Useful debug tool for displaying the player's current state when you can't rely on visuals
-
-	std::cout << "\nPlayer x: " << std::to_string(player.x);
-	std::cout << "   y: " << std::to_string(player.y);/*
+	sf::Vector2f playerPos = player->getPos();
+	std::cout << "\nPlayer x: " << std::to_string(playerPos.x);
+	std::cout << "   y: " << std::to_string(playerPos.y);/*
 	for (int i = 0; i < obstacles.size(); i++) {
 		std::cout << "\n Obstacle" << i << "  distance: " << std::to_string(obstacles[i]->distance);
 		std::cout << "  x: " << std::to_string(obstacles[i]->x);

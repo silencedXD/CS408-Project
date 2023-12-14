@@ -1,12 +1,10 @@
 #pragma once
 #include <string>
+#include "SpriteObject.h"
 
-class Obstacle { 
+class Obstacle : public SpriteObject { 
 public:
-	Obstacle(int x_, int y_, std::string soundName_);
-
-	int x;
-	int y;
+	Obstacle(std::string sountName_, float x_, float y_, std::string id_, sf::Texture* texture_);
 
 	bool soundNotPlayed;
 	std::string soundName;

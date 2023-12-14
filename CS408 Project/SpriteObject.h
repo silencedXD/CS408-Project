@@ -9,7 +9,7 @@ public:
 	virtual sf::Sprite* getSprite();
 	virtual sf::Vector2f getPos();
 	virtual void setPos(float x_, float y_);
-private:
+protected:
 	sf::Sprite sprite;
 	std::vector<std::string> sounds;
 };

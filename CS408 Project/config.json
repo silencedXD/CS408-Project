@@ -5,7 +5,7 @@
 	"PAUSE" : 57,
 	"RIGHT" : 72,
 	"UP" : 73,
-	"background_colour" : "black",
+	"background_colour" : "red",
 	"bpp" : 32,
 	"defalt_RIGHT" : "72",
 	"default_DOWN" : "74",

@@ -9,12 +9,14 @@ public:
 
 	void closeWindow();
 	void clearWindow();
+	void setupFrame();
 	void draw(sf::Sprite* sprite);
 	void display();
 	sf::Texture* loadTexture(std::string objectName);
 	void setBackgroundColour(sf::Color colour);
 
 private:
+	void loadTextureLocations();
 	sf::RenderWindow* window;
 	sf::Color backgroundColour;
 

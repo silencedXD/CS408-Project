@@ -1,19 +1,17 @@
 #pragma once
 #include "KeyCode.h"
-#include <SFML/Graphics.hpp>
+#include "GraphicsUnit.h"
+#include "SpriteObject.h"
 
-class Player {
+class Player : public SpriteObject {
 public:
-	Player();
-	Player(sf::Sprite* sprite_);
+	Player(float x_, float y_, std::string id_, sf::Texture* texture_);
+	~Player();
 	void Move(KeyCode command);
 	void update();
 	void scorePoint(int point);
 
-	sf::Sprite* sprite;
 	int moveCounter;
-	int x;
-	int y;
 	bool isHit;
 	int scoreMultiplier;
 	int score;

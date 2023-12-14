@@ -29,7 +29,7 @@ private:
 	int hearingRange;
 	MenuCode levelCode;
 	bool paused;
-	Player player;
+	Player* player;
 	std::vector<Obstacle*> obstacles;
 	GraphicsUnit* graphics;
 };
