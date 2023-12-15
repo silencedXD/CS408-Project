@@ -56,12 +56,14 @@ GameHandler::~GameHandler() {
 }
 
 void GameHandler::generateLevel() {
+
+	sf::Texture* texture = graphics->loadTexture("obstacle");
+
 	if (level < 10) {
 		int obstacleCount = level * 5;
 		for (int i = 0; i < obstacleCount; i++) {
 			int yVal = rand() % 2;
 			int xVal = rand() % 10;
-			sf::Texture* texture = graphics->loadTexture("obstacle");
 			if (yVal == 0) {
 				obstacles.push_back(new Obstacle("3C", 50 + (i * 70) + xVal, 1, "OB_3C_" + i, texture));
 			}
@@ -76,10 +78,10 @@ void GameHandler::generateLevel() {
 			int yVal = rand() % 2;
 			int xVal = rand() % 10;
 			if (yVal == 0) {
-				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 1, "3C", graphics));
+				obstacles.push_back(new Obstacle("3C", 50 + (i * 70) + xVal, 1, "OB_3C_" + i, texture));
 			}
 			else {
-				obstacles.push_back(new Obstacle(50 + (i * 70) + xVal, 3, "5C", graphics));
+				obstacles.push_back(new Obstacle("5C", 50 + (i * 70) + xVal, 3, "OB_5C_" + i, texture));
 			}
 		}
 	}
@@ -107,9 +109,7 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	checkCollisions();					//Then check if new player state is affected by the world (ie obstacles)
 
 	graphics->setupFrame();
-	graphics->display();
 	graphics->draw(player->getSprite());
-	graphics->display();
 	for (Obstacle* obstacle : obstacles) {
 		graphics->draw(obstacle->getSprite());
 	}
@@ -167,7 +167,7 @@ void GameHandler::checkCollisions() {
 
 	while (it != obstacles.end()) {
 		Obstacle* currentObstacle = *it;
-		sf::Vector2f obstaclePos = currentObstacle->sprite->getPosition();
+		sf::Vector2f obstaclePos = currentObstacle->getPos();
 		sf::Vector2f playerPos = player->getPos();
 
 		if (obstaclePos.x == playerPos.x) {
@@ -201,7 +201,7 @@ void GameHandler::checkCollisions() {
 }
 
 bool GameHandler::isNearPlayer(Obstacle* obstacle) {
-	sf::Vector2f obstaclePos = obstacle->sprite->getPosition();
+	sf::Vector2f obstaclePos = obstacle->getPos();
 	sf::Vector2f playerPos = player->getPos();
 	int xDif = obstaclePos.x - playerPos.x;
 	if (xDif < hearingRange) {

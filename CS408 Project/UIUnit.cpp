@@ -45,8 +45,8 @@ void UIUnit::setBackgroundColour(sf::Color colour) { backgroundColour = colour; 
 
 
 void UIUnit::update() {
-    clearWindow();
 
+    window->clear(sf::Color::Black);
     window->draw(*arrow->getSprite());
 
     for (int i = 0; i < messages.size(); i++) {

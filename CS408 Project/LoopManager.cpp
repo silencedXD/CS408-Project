@@ -45,8 +45,12 @@ void LoopManager::updateLoop() {
    
     sf::Time elapsed = clock.restart();
     MenuCode tempState = handler->updateState(elapsed);
-    
-    UI->update();
+
+    if (tempState != game)              
+    {                                   
+        UI->update();
+    }
+
 
     if (tempState != currentState) {
         if (pausedGame != nullptr && tempState == mainMenu) {changeState(game);}   //Redirects back to game if game was paused
