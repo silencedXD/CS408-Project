@@ -11,10 +11,14 @@ Player::Player(int centre_, float x_, float y_, std::string id_, sf::Texture* te
 Player::~Player() {}
 
 void Player::update() {
-	if (moveSize > 0) { moveSize--; }
-	else {
-		sf::Vector2f pos = getPos();
-		setPos(pos.x, 2);
+	if (moveSize != 0)
+	{
+		if (getPos().y == centre) 
+		{ moveSize = 0; }
+		else 
+		{
+			sprite.move(sf::Vector2f(0, -moveSize));
+		}
 	}
 }
 
@@ -34,13 +38,17 @@ void Player::Move(KeyCode command) {
 		break;
 
 	case UP:
-		if (pos.y < 4) { sprite.move(sf::Vector2f(0, 1)); }
-		moveSize = 20;
+		if (pos.y <= centre) {
+			moveSize = 5;
+			sprite.move(sf::Vector2f(0, moveSize * 10));
+		}
 		break;
 
 	case DOWN:
-		if (pos.y > 0) { sprite.move(sf::Vector2f(0, -1)); }
-		moveSize = 30;
+		if (pos.y >= centre) { 
+			moveSize = -5;
+			sprite.move(sf::Vector2f(0, moveSize * 10));
+		}
 		break;
 		
 	default:
