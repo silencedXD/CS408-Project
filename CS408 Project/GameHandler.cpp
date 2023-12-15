@@ -3,6 +3,7 @@
 
 GameHandler::GameHandler(UIUnit* UI_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(UI_, audio_) 
 {
+	centre = 200;
 	graphics = new GraphicsUnit(UI_->getWindow());
 	graphics->setBackgroundColour(sf::Color::Red);
 	paused = false;
@@ -41,7 +42,7 @@ GameHandler::GameHandler(UIUnit* UI_, AudioUnit* audio_, MenuCode levelCode_) : 
 		break;
 	}
 
-	player = new Player(10,10,"player1", graphics->loadTexture("player"));
+	player = new Player(centre, 10,200,"player1", graphics->loadTexture("player"));
 	player->scoreMultiplier = level;			//The higher the level the higher the score
 	hearingRange = 45 - (5 * (level % 10));	//The hearing range is smaller the higher the level
 	generateLevel();						//Level 1 is the same as practise level 1 ect
@@ -65,10 +66,10 @@ void GameHandler::generateLevel() {
 			int yVal = rand() % 2;
 			int xVal = rand() % 10;
 			if (yVal == 0) {
-				obstacles.push_back(new Obstacle("3C", 50 + (i * 70) + xVal, 1, "OB_3C_" + i, texture));
+				obstacles.push_back(new Obstacle("3C", 50 + (i * 70) + xVal, 100, "OB_3C_" + i, texture));
 			}
 			else {
-				obstacles.push_back(new Obstacle("5C", 50 + (i * 70) + xVal, 3, "OB_5C_" + i, texture));
+				obstacles.push_back(new Obstacle("5C", 50 + (i * 70) + xVal, 300, "OB_5C_" + i, texture));
 			}
 		}
 	}
@@ -78,10 +79,10 @@ void GameHandler::generateLevel() {
 			int yVal = rand() % 2;
 			int xVal = rand() % 10;
 			if (yVal == 0) {
-				obstacles.push_back(new Obstacle("3C", 50 + (i * 70) + xVal, 1, "OB_3C_" + i, texture));
+				obstacles.push_back(new Obstacle("3C", 50 + (i * 70) + xVal, 100, "OB_3C_" + i, texture));
 			}
 			else {
-				obstacles.push_back(new Obstacle("5C", 50 + (i * 70) + xVal, 3, "OB_5C_" + i, texture));
+				obstacles.push_back(new Obstacle("5C", 50 + (i * 70) + xVal, 300, "OB_5C_" + i, texture));
 			}
 		}
 	}
@@ -170,32 +171,30 @@ void GameHandler::checkCollisions() {
 		sf::Vector2f obstaclePos = currentObstacle->getPos();
 		sf::Vector2f playerPos = player->getPos();
 
-		if (obstaclePos.x == playerPos.x) {
-			if (obstaclePos.y != playerPos.y) {//If the player isn't at the correct altitude they will collide with the obstacle
-				player->isHit = true;
-				audio->playSound("fail");
-				return;
+		if (isNearPlayer(currentObstacle)) {
+		
+			int playerDistanceToObstacle = obstaclePos.y - playerPos.y;
+			int centreDistanceToObstacle = obstaclePos.y - centre;
+
+			if (playerDistanceToObstacle > centreDistanceToObstacle)	//If the player is near to the obstacle and reacts correctly, they pass it successfully
+			{
+				int xDif = obstaclePos.x - playerPos.x;		
+				delete currentObstacle;
+				it = obstacles.erase(it);
+				player->scorePoint(xDif);
 			}
-			player->scorePoint(1);
-			delete currentObstacle;				//Either way if the obstacle is past the player it needs to be deleted
-			it = obstacles.erase(it);
+			else 
+			{
+				if (obstaclePos.x <= playerPos.x)
+				{
+					player->isHit = true;
+					audio->playSound("fail");
+					return;
+				}
+			}
 		}
 		else {
-			if (isNearPlayer(currentObstacle)) {
-				audio->playNonRepeatingSound(currentObstacle->soundName);
-				if (obstaclePos.y == playerPos.y) {			//After some testing I concluded it felt smoother if the player could pass an obstacle
-					int xDif = obstaclePos.x - playerPos.x;	//as soon as they react as this also helps feedback to the player that they succeeded in passing
-					delete currentObstacle;						//the obstacle as its sound effect will stop playing once passed
-					it = obstacles.erase(it);		
-					player->scorePoint(xDif);					//Player scores more points the faster they react
-				}
-				else {
-					++it;//The iterator is moved to the next obstacle if no collision is detected
-				}
-			}
-			else {
-				++it;	 //The iterator is moved to the next obstacle if no collision is detected
-			}
+			it++;														//If the player isn't near to the obstacle then move to the next
 		}
 	}
 }

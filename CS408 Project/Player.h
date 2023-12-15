@@ -5,13 +5,14 @@
 
 class Player : public SpriteObject {
 public:
-	Player(float x_, float y_, std::string id_, sf::Texture* texture_);
+	Player(int centre, float x_, float y_, std::string id_, sf::Texture* texture_);
 	~Player();
 	void Move(KeyCode command);
 	void update();
 	void scorePoint(int point);
 
-	int moveCounter;
+	int centre;
+	int moveSize;
 	bool isHit;
 	int scoreMultiplier;
 	int score;

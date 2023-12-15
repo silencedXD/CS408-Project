@@ -25,6 +25,7 @@ private:
 	void displayStats();
 	void updateGraphics();
 
+	int centre;
 	int level;
 	int hearingRange;
 	MenuCode levelCode;
