@@ -173,8 +173,8 @@ void GameHandler::checkCollisions() {
 
 		if (isNearPlayer(currentObstacle)) {
 		
-			int playerDistanceToObstacle = obstaclePos.y - playerPos.y;
-			int centreDistanceToObstacle = obstaclePos.y - centre;
+			int playerDistanceToObstacle = std::abs(obstaclePos.y - playerPos.y);
+			int centreDistanceToObstacle = std::abs(obstaclePos.y - centre);
 
 			if (playerDistanceToObstacle > centreDistanceToObstacle)	//If the player is near to the obstacle and reacts correctly, they pass it successfully
 			{
@@ -191,11 +191,10 @@ void GameHandler::checkCollisions() {
 					audio->playSound("fail");
 					return;
 				}
+				else { it++; }
 			}
 		}
-		else {
-			it++;														//If the player isn't near to the obstacle then move to the next
-		}
+		else {	it++; }														//If the player isn't near to the obstacle then move to the n/ext
 	}
 }
 

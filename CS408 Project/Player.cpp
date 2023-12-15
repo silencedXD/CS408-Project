@@ -40,14 +40,14 @@ void Player::Move(KeyCode command) {
 	case UP:
 		if (pos.y <= centre) {
 			moveSize = 5;
-			sprite.move(sf::Vector2f(0, moveSize * 10));
+			sprite.move(sf::Vector2f(0, moveSize * 20));
 		}
 		break;
 
 	case DOWN:
 		if (pos.y >= centre) { 
 			moveSize = -5;
-			sprite.move(sf::Vector2f(0, moveSize * 10));
+			sprite.move(sf::Vector2f(0, moveSize * 20));
 		}
 		break;
 		
