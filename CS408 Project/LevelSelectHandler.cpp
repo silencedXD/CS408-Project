@@ -2,12 +2,12 @@
 
 LevelSelectHandler::LevelSelectHandler(UIUnit* graphics_, AudioUnit* audio_) : InputHandler(graphics_, audio_) {
 
-    sf::Vector2u windowSize = UI->getWindowSize();
-    UI->makeLabel("Select level", 0, 0);
-    UI->makeLabel("Level One", 0, windowSize.y * 0.25f);
-    UI->makeLabel("Level Two", 0, windowSize.y * 0.45f);
-    UI->makeLabel("Level Three", 0, windowSize.y * 0.65f);
-    UI->makeLabel("Go Back", 0, windowSize.y * 0.85f);
+    sf::Vector2u windowSize = UI->GetWindowSize();
+    UI->MakeLabel("Select level", 0, 0);
+    UI->MakeLabel("Level One", 0, windowSize.y * 0.25f);
+    UI->MakeLabel("Level Two", 0, windowSize.y * 0.45f);
+    UI->MakeLabel("Level Three", 0, windowSize.y * 0.65f);
+    UI->MakeLabel("Go Back", 0, windowSize.y * 0.85f);
 }
 
 

@@ -15,8 +15,8 @@ LoopManager::LoopManager(UIUnit* UI_, AudioUnit* audio_) {
     audio = audio_;
     pausedGame = nullptr;
     UI = UI_;
-    window = UI->getWindow();
-    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    window = UI->GetWindow();
+    sf::Vector2f windowSize = sf::Vector2f(UI->GetWindowSize().x, UI->GetWindowSize().y);
     handler = new MainMenuHandler(UI, audio);
     highscore = loadHighscore();
     changeState(mainMenu);
@@ -31,7 +31,7 @@ void LoopManager::updateLoop() {
     {
         switch (event.type) {
         case sf::Event::Closed:         //If the user closes the window by clicking the x button in the top right corner
-            UI->closeWindow();
+            UI->CloseWindow();
             break;
 
         case sf::Event::KeyPressed:
@@ -48,7 +48,7 @@ void LoopManager::updateLoop() {
 
     if (tempState != game)              
     {                                   
-        UI->update();
+        UI->Update();
     }
 
 
@@ -68,7 +68,7 @@ void LoopManager::changeState(MenuCode newState) {
 
     delete handler;
    
-    UI->clearText();
+    UI->ClearText();
     currentState = newState;
     sf::Event event;
 
@@ -86,7 +86,7 @@ void LoopManager::changeState(MenuCode newState) {
         break;
 
     case quit:
-        UI->closeWindow();    //If the user exits using the quit button in a menu
+        UI->CloseWindow();    //If the user exits using the quit button in a menu
         return;
         break;
 

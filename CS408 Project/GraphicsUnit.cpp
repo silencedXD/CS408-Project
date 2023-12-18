@@ -3,25 +3,25 @@
 
 GraphicsUnit::GraphicsUnit(sf::RenderWindow* window_) {
     window = window_;
-    loadTextureLocations();
+    LoadTextureLocations();
 }
 
-void GraphicsUnit::loadTextureLocations() {
-    textureLocations["player"] = "Images/player.png";
+void GraphicsUnit::LoadTextureLocations() {
+    textureLocations["player"] = "Images/car.png";
     textureLocations["obstacle"] = "Images/obstacle.png";
 }
 
-void GraphicsUnit::draw(sf::Sprite* sprite)
+void GraphicsUnit::Draw(sf::Sprite* sprite)
 {
     window->draw(*sprite);
 }
 
-void GraphicsUnit::display()
+void GraphicsUnit::Display()
 {
     window->display();
 }
 
-sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
+sf::Texture* GraphicsUnit::LoadTexture(std::string objectName) {
     sf::Texture* temp;
     try {
         if (!textures.count(objectName)) {
@@ -56,17 +56,17 @@ sf::Texture* GraphicsUnit::loadTexture(std::string objectName) {
     }
 }
 
-void GraphicsUnit::setBackgroundColour(sf::Color colour) { backgroundColour = colour; }
+void GraphicsUnit::SetBackgroundColour(sf::Color colour) { backgroundColour = colour; }
 
-void GraphicsUnit::closeWindow() {
+void GraphicsUnit::CloseWindow() {
     window->close();
 }
 
-void GraphicsUnit::clearWindow() {
+void GraphicsUnit::ClearWindow() {
     window->clear(backgroundColour);
 }
 
-void GraphicsUnit::setupFrame()
+void GraphicsUnit::SetupFrame()
 {
-    clearWindow();
+    ClearWindow();
 }

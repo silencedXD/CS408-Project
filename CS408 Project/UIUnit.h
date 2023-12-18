@@ -9,27 +9,27 @@ class UIUnit
 public:
 	UIUnit(sf::RenderWindow* window_, std::string fontName, int fontSize, sf::Color backgroundColour_);
 	~UIUnit();
-	void closeWindow();
-	void clearWindow();
-	void update();
-	sf::Vector2u getWindowSize();
+	void CloseWindow();
+	void ClearWindow();
+	void Update();
+	sf::Vector2u GetWindowSize();
 
-	void makeLabel(std::string message_, float x_, float y_);
-	void removeLastLabel();
-	sf::Text getLastLabel();
-	void clearText();
+	void MakeLabel(std::string message_, float x_, float y_);
+	void RemoveLastLabel();
+	sf::Text GetLastLabel();
+	void ClearText();
 	
-	sf::RenderWindow* getWindow();
+	sf::RenderWindow* GetWindow();
 
-	std::string getFontType();
-	bool loadFont(std::string fontName);
-	int getFontSize();
-	void setBackgroundColour(sf::Color colour);
+	std::string GetFontType();
+	bool LoadFont(std::string fontName);
+	int GetFontSize();
+	void SetBackgroundColour(sf::Color colour);
 
 
-	void changeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_);
-	void changeFontType(std::string fontName_);
-	void changeFontSize(int size_);
+	void ChangeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_);
+	void ChangeFontType(std::string fontName_);
+	void ChangeFontSize(int size_);
 
 	SpriteObject* arrow;
 

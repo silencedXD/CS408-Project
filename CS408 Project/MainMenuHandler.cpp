@@ -4,12 +4,12 @@
 
 MainMenuHandler::MainMenuHandler(UIUnit* graphics_, AudioUnit* audio_) : InputHandler(graphics_, audio_) {
 
-    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
-    UI->makeLabel("Main menu", 0, 0);
-    UI->makeLabel("Start game", 0, windowSize.y * 0.25f);
-    UI->makeLabel("Tutorial", 0, windowSize.y * 0.45f);
-    UI->makeLabel("Options", 0, windowSize.y * 0.65f);
-    UI->makeLabel("Quit", 0, windowSize.y * 0.85f);
+    sf::Vector2f windowSize = sf::Vector2f(UI->GetWindowSize().x, UI->GetWindowSize().y);
+    UI->MakeLabel("Main menu", 0, 0);
+    UI->MakeLabel("Start game", 0, windowSize.y * 0.25f);
+    UI->MakeLabel("Tutorial", 0, windowSize.y * 0.45f);
+    UI->MakeLabel("Options", 0, windowSize.y * 0.65f);
+    UI->MakeLabel("Quit", 0, windowSize.y * 0.85f);
 
     audio->playSound("menu_controls");
 }

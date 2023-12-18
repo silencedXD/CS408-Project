@@ -4,9 +4,9 @@
 
 UIUnit::UIUnit(sf::RenderWindow* window_, std::string fontName_, int fontSize, sf::Color backgroundColour_) {
     window = window_;
-    loadFont(fontName_);
+    LoadFont(fontName_);
     fontName = fontName_;
-    changeFontSize(fontSize);
+    ChangeFontSize(fontSize);
 
     arrowTexture.loadFromFile("Images/SelectionArrow.png");
     arrow = new SpriteObject(window->getSize().x / 2.0f, 0.0f, "UI Arrow", &arrowTexture);
@@ -18,7 +18,7 @@ UIUnit::~UIUnit() {
     delete arrow;
 }
 
-bool UIUnit::loadFont(std::string fontName) {
+bool UIUnit::LoadFont(std::string fontName) {
     fontName = "Misc/" + fontName + ".ttf";
     if (!font.loadFromFile(fontName)) {
         std::cout << "Error font not loaded";
@@ -29,22 +29,22 @@ bool UIUnit::loadFont(std::string fontName) {
     }
 }
 
-void UIUnit::closeWindow() {
+void UIUnit::CloseWindow() {
     window->close();
 }
 
-void UIUnit::clearWindow() {
+void UIUnit::ClearWindow() {
     window->clear(backgroundColour);
 }
 
-void UIUnit::clearText() {
+void UIUnit::ClearText() {
     messages.clear();
 }
 
-void UIUnit::setBackgroundColour(sf::Color colour) { backgroundColour = colour; }
+void UIUnit::SetBackgroundColour(sf::Color colour) { backgroundColour = colour; }
 
 
-void UIUnit::update() {
+void UIUnit::Update() {
 
     window->clear(sf::Color::Black);
     window->draw(*arrow->getSprite());
@@ -55,41 +55,41 @@ void UIUnit::update() {
     window->display();
 }
 
-void UIUnit::makeLabel(std::string message_, float x_, float y_) {
+void UIUnit::MakeLabel(std::string message_, float x_, float y_) {
     sf::Text temp(message_, font, fontSize);
     temp.setPosition(x_, y_);
     messages.push_back(temp);
 }
 
-void UIUnit::removeLastLabel() {
+void UIUnit::RemoveLastLabel() {
     messages.pop_back();
 }
 
-sf::Text UIUnit::getLastLabel() {
+sf::Text UIUnit::GetLastLabel() {
     return messages.back();
 }
 
-sf::RenderWindow* UIUnit::getWindow() {
+sf::RenderWindow* UIUnit::GetWindow() {
     return window;
 }
 
-sf::Vector2u UIUnit::getWindowSize() { return window->getSize();}
+sf::Vector2u UIUnit::GetWindowSize() { return window->getSize();}
 
-std::string UIUnit::getFontType() { return fontName;}
+std::string UIUnit::GetFontType() { return fontName;}
 
-int UIUnit::getFontSize() { return fontSize;}
+int UIUnit::GetFontSize() { return fontSize;}
 
-void UIUnit::changeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_)
+void UIUnit::ChangeDisplaySize(std::tuple<unsigned int, unsigned int, unsigned int> displaySize_)
 {
     window->create(sf::VideoMode(std::get<0>(displaySize_), std::get<1>(displaySize_), std::get<2>(displaySize_)), "Game", sf::Style::Close);
 }
 
-void UIUnit::changeFontType(std::string fontName_)
+void UIUnit::ChangeFontType(std::string fontName_)
 {
-    loadFont(fontName_);
+    LoadFont(fontName_);
 }
 
-void UIUnit::changeFontSize(int size) {
+void UIUnit::ChangeFontSize(int size) {
     fontSize = size;
     for (int i = 0; i < messages.size(); i++) {
         messages[i].setCharacterSize(fontSize);

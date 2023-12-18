@@ -2,56 +2,105 @@
 
 Player::Player(int centre_, float x_, float y_, std::string id_, sf::Texture* texture_) : SpriteObject(x_, y_, id_, texture_){
 	isHit = false;
-	moveSize = 0;
+	momentum = 0;
 	scoreMultiplier = 1;
 	score = 0;
 	centre = centre_;
+	currentSpeed = 0;
+	maxSpeed = 10;
+	rotationFactor = 5;
+	moveFactor = 5;
+	zeroAtValue = 20;
+	decayRate = 1;
 }
 
 Player::~Player() {}
 
-void Player::update() {
-	if (moveSize != 0)
-	{
-		if (getPos().y == centre) 
-		{ moveSize = 0; }
-		else 
-		{
-			sprite.move(sf::Vector2f(0, -moveSize));
-		}
+void Player::Update() {
+
+	UpdateSpeed();
+}
+
+void Player::UpdateSpeed() {
+	currentSpeed += momentum * moveFactor;
+	if (currentSpeed > maxSpeed) {
+		currentSpeed = maxSpeed;
+	}
+	if (currentSpeed < -maxSpeed) {
+		currentSpeed = -maxSpeed;
+	}
+	if (std::abs(currentSpeed) >= maxSpeed / zeroAtValue) {
+		UpdatePosition();
+		DecaySpeed();
+	}
+	else {
+		currentSpeed = 0;
 	}
 }
 
-void Player::scorePoint(int point) {
+void Player::UpdatePosition() {
+	float pi = 3.1415926535897;
+	float rotation = sprite.getRotation();
+	float xDif = currentSpeed * std::cos(pi / 180 * (rotation - 90));
+	float yDif = currentSpeed * std::sin(pi / 180 * (rotation - 90));
+	sprite.move(sf::Vector2f(xDif, yDif));
+
+}
+
+void Player::DecaySpeed() {
+	if (currentSpeed > maxSpeed / 10) {
+		currentSpeed -= decayRate;
+	}
+	else if (currentSpeed < -maxSpeed / 10) {
+		currentSpeed += decayRate;
+	}
+	else {
+		currentSpeed = 0;
+	}
+}
+
+void Player::ScorePoint(int point) {
 	score += point * scoreMultiplier;
 }
 
 void Player::Move(KeyCode command) {
 	sf::Vector2f pos = getPos();
+	float rotation = sprite.getRotation();
 	switch (command) {
 	case LEFT:
-		if (pos.x > 0) { sprite.move(sf::Vector2f(-1, 0)); }
+		if (rotation > rotationFactor)
+		{
+			sprite.setRotation(rotation - rotationFactor);
+		}
+		else {
+			sprite.setRotation(360 + rotation - rotationFactor);
+		}
 		break;
 
 	case RIGHT:
-		sprite.move(sf::Vector2f(1, 0));
+		if (rotation < 360 - rotationFactor)
+		{
+			sprite.setRotation(rotation +rotationFactor);
+		}
+		else {
+			sprite.setRotation(rotation + rotationFactor - 360);
+		}
 		break;
 
 	case UP:
-		if (pos.y <= centre) {
-			moveSize = 5;
-			sprite.move(sf::Vector2f(0, moveSize * 20));
-		}
+		momentum = 1;
 		break;
 
 	case DOWN:
-		if (pos.y >= centre) { 
-			moveSize = -5;
-			sprite.move(sf::Vector2f(0, moveSize * 20));
-		}
+		momentum = -1;
 		break;
 		
 	default:
 		break;
 	}
+}
+
+void Player::StopMomentum()
+{
+	momentum = 0;
 }

@@ -5,16 +5,16 @@
 
 ControlsOptionsHandler::ControlsOptionsHandler(UIUnit* UI_, AudioUnit* audio_) : InputHandler(UI_, audio_)
 {
-    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
-    UI->makeLabel("Controls", 0, 0);
-    UI->makeLabel("UP", 0, windowSize.y * 0.12f);
-    UI->makeLabel("DOWN", 0, windowSize.y * 0.23f);
-    UI->makeLabel("LEFT", 0, windowSize.y * 0.34f);
-    UI->makeLabel("RIGHT", 0, windowSize.y * 0.45f);
-    UI->makeLabel("ENTER", 0, windowSize.y * 0.56f);
-    UI->makeLabel("PAUSE", 0, windowSize.y * 0.67f);
-    UI->makeLabel("Reset to default", 0, windowSize.y * 0.78f);
-    UI->makeLabel("Go back", 0, windowSize.y * 0.89f);
+    sf::Vector2f windowSize = sf::Vector2f(UI->GetWindowSize().x, UI->GetWindowSize().y);
+    UI->MakeLabel("Controls", 0, 0);
+    UI->MakeLabel("UP", 0, windowSize.y * 0.12f);
+    UI->MakeLabel("DOWN", 0, windowSize.y * 0.23f);
+    UI->MakeLabel("LEFT", 0, windowSize.y * 0.34f);
+    UI->MakeLabel("RIGHT", 0, windowSize.y * 0.45f);
+    UI->MakeLabel("ENTER", 0, windowSize.y * 0.56f);
+    UI->MakeLabel("PAUSE", 0, windowSize.y * 0.67f);
+    UI->MakeLabel("Reset to default", 0, windowSize.y * 0.78f);
+    UI->MakeLabel("Go back", 0, windowSize.y * 0.89f);
 
     totalMenuItems = 9;
 
@@ -36,34 +36,34 @@ ControlsOptionsHandler::ControlsOptionsHandler(UIUnit* UI_, AudioUnit* audio_) :
 void ControlsOptionsHandler::changeOption()
 {
     if (arrowPos.x > 10) {
-        UI->removeLastLabel();
+        UI->RemoveLastLabel();
     }
     else {
         arrowPos = setArrowPos(sf::Vector2f(4000, 4000));//Function returns previous arrow position
     }
     switch (state) {
     case UP:
-        UI->makeLabel(config["UP"].asString(), arrowPos.x, arrowPos.y);
+        UI->MakeLabel(config["UP"].asString(), arrowPos.x, arrowPos.y);
         break;
     
     case DOWN:
-        UI->makeLabel(config["DOWN"].asString(), arrowPos.x, arrowPos.y);
+        UI->MakeLabel(config["DOWN"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case LEFT:
-        UI->makeLabel(config["LEFT"].asString(), arrowPos.x, arrowPos.y);
+        UI->MakeLabel(config["LEFT"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case RIGHT:
-        UI->makeLabel(config["RIGHT"].asString(), arrowPos.x, arrowPos.y);
+        UI->MakeLabel(config["RIGHT"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case ENTER:
-        UI->makeLabel(config["ENTER"].asString(), arrowPos.x, arrowPos.y);
+        UI->MakeLabel(config["ENTER"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case PAUSE:
-        UI->makeLabel(config["PAUSE"].asString(), arrowPos.x, arrowPos.y);
+        UI->MakeLabel(config["PAUSE"].asString(), arrowPos.x, arrowPos.y);
         break;
 
     case reset:

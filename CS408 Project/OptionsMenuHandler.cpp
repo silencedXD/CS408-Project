@@ -2,12 +2,12 @@
 #include <iostream>
 
 OptionsMenuHandler::OptionsMenuHandler(UIUnit* graphics_, AudioUnit* audio_) : InputHandler(graphics_, audio_) {
-	sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
-	UI->makeLabel("Options", 0, 0);
-	UI->makeLabel("Video", 0, windowSize.y * 0.25f);
-	UI->makeLabel("Audio", 0, windowSize.y * 0.45f);
-	UI->makeLabel("Controls", 0, windowSize.y * 0.65f);
-	UI->makeLabel("Go back", 0, windowSize.y * 0.85f);
+	sf::Vector2f windowSize = sf::Vector2f(UI->GetWindowSize().x, UI->GetWindowSize().y);
+	UI->MakeLabel("Options", 0, 0);
+	UI->MakeLabel("Video", 0, windowSize.y * 0.25f);
+	UI->MakeLabel("Audio", 0, windowSize.y * 0.45f);
+	UI->MakeLabel("Controls", 0, windowSize.y * 0.65f);
+	UI->MakeLabel("Go back", 0, windowSize.y * 0.85f);
 }
 
 

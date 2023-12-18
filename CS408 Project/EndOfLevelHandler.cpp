@@ -8,31 +8,31 @@ EndOfLevelHandler::EndOfLevelHandler(UIUnit* graphics_, AudioUnit* audio_, MenuC
     win_ = win;
     playerScore = playerScore_;
     highscore = highscore_;
-    sf::Vector2u windowSize = UI->getWindowSize();
+    sf::Vector2u windowSize = UI->GetWindowSize();
 
     if (win) {
         audio->playSound("level_complete");
-        UI->makeLabel("Level complete!", 0, 0);
+        UI->MakeLabel("Level complete!", 0, 0);
     }
     else {
         audio->playSound("game_over");
-        UI->makeLabel("Game Over", 0, 0);
+        UI->MakeLabel("Game Over", 0, 0);
     }
 
-    UI->makeLabel("Retry", 0, windowSize.y * 0.17f);
+    UI->MakeLabel("Retry", 0, windowSize.y * 0.17f);
 
     if (playerScore >= highscore) {
-        UI->makeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.34f);
+        UI->MakeLabel("New Highscore!!!!!!!!", 0, windowSize.y * 0.34f);
     }
     else {
-        UI->makeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.34f);
+        UI->MakeLabel("The highscore is: " + std::to_string(highscore), 0, windowSize.y * 0.34f);
     }
 
-    UI->makeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.52f);
+    UI->MakeLabel("Your score is: " + std::to_string(playerScore), 0, windowSize.y * 0.52f);
 
 
-    UI->makeLabel("Select level", 0, windowSize.y * 0.68f);
-    UI->makeLabel("Main Menu", 0, windowSize.y * 0.85f);
+    UI->MakeLabel("Select level", 0, windowSize.y * 0.68f);
+    UI->MakeLabel("Main Menu", 0, windowSize.y * 0.85f);
 }
 
 MenuCode EndOfLevelHandler::updateState(sf::Time elapsed) {

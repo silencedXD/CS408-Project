@@ -4,8 +4,8 @@
 GameHandler::GameHandler(UIUnit* UI_, AudioUnit* audio_, MenuCode levelCode_) : InputHandler(UI_, audio_) 
 {
 	centre = 200;
-	graphics = new GraphicsUnit(UI_->getWindow());
-	graphics->setBackgroundColour(sf::Color::Red);
+	graphics = new GraphicsUnit(UI_->GetWindow());
+	graphics->SetBackgroundColour(sf::Color::Red);
 	paused = false;
 	levelCode = levelCode_;
 	hearingRange = 40;
@@ -42,7 +42,7 @@ GameHandler::GameHandler(UIUnit* UI_, AudioUnit* audio_, MenuCode levelCode_) : 
 		break;
 	}
 
-	player = new Player(centre, 10,200,"player1", graphics->loadTexture("player"));
+	player = new Player(centre, 10,200,"player1", graphics->LoadTexture("player"));
 	player->scoreMultiplier = level;			//The higher the level the higher the score
 	hearingRange = 45 - (5 * (level % 10));	//The hearing range is smaller the higher the level
 	generateLevel();						//Level 1 is the same as practise level 1 ect
@@ -58,7 +58,7 @@ GameHandler::~GameHandler() {
 
 void GameHandler::generateLevel() {
 
-	sf::Texture* texture = graphics->loadTexture("obstacle");
+	sf::Texture* texture = graphics->LoadTexture("obstacle");
 
 	if (level < 10) {
 		int obstacleCount = level * 5;
@@ -106,15 +106,15 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	}
 
 	updateKeys();						//Check player input
-	player->update();					//Then update player state
+	player->Update();					//Then update player state
 	checkCollisions();					//Then check if new player state is affected by the world (ie obstacles)
 
-	graphics->setupFrame();
-	graphics->draw(player->getSprite());
+	graphics->SetupFrame();
+	graphics->Draw(player->getSprite());
 	for (Obstacle* obstacle : obstacles) {
-		graphics->draw(obstacle->getSprite());
+		graphics->Draw(obstacle->getSprite());
 	}
-	graphics->display();
+	graphics->Display();
 
 	if (checkLoseCondition()) {
 		sf::sleep(sf::milliseconds(500));//Slight pause to allow a smoother transition
@@ -155,8 +155,12 @@ bool GameHandler::checkLoseCondition() {
 }
 
 void GameHandler::updateKeys() {			//The keyPressed event isn't responsive enough so instead each frame we check the current state the keyboard is in since we don't care what happens inbetween frames
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(UP))) { player->Move(UP); }
-	if (sf::Keyboard::isKeyPressed(keyMappings.at(DOWN))) { player->Move(DOWN); }
+	bool upPressed = sf::Keyboard::isKeyPressed(keyMappings.at(UP));
+	bool downPressed = sf::Keyboard::isKeyPressed(keyMappings.at(DOWN));
+	if (upPressed) { player->Move(UP); }
+	if (downPressed) { player->Move(DOWN); }
+	if (!upPressed && !downPressed) { player->StopMomentum(); }
+
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(LEFT))) { player->Move(LEFT); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(RIGHT))) { player->Move(RIGHT); }
 	if (sf::Keyboard::isKeyPressed(keyMappings.at(ENTER))) { player->Move(ENTER); }
@@ -168,31 +172,11 @@ void GameHandler::checkCollisions() {
 
 	while (it != obstacles.end()) {
 		Obstacle* currentObstacle = *it;
-		sf::Vector2f obstaclePos = currentObstacle->getPos();
-		sf::Vector2f playerPos = player->getPos();
 
 		if (isNearPlayer(currentObstacle)) {
-		
-			int playerDistanceToObstacle = std::abs(obstaclePos.y - playerPos.y);
-			int centreDistanceToObstacle = std::abs(obstaclePos.y - centre);
-
-			if (playerDistanceToObstacle > centreDistanceToObstacle)	//If the player is near to the obstacle and reacts correctly, they pass it successfully
-			{
-				int xDif = obstaclePos.x - playerPos.x;		
-				delete currentObstacle;
-				it = obstacles.erase(it);
-				player->scorePoint(xDif);
-			}
-			else 
-			{
-				if (obstaclePos.x <= playerPos.x)
-				{
-					player->isHit = true;
-					audio->playSound("fail");
-					return;
-				}
-				else { it++; }
-			}
+			delete currentObstacle;
+			it = obstacles.erase(it);
+			player->ScorePoint(500);
 		}
 		else {	it++; }														//If the player isn't near to the obstacle then move to the n/ext
 	}
@@ -202,7 +186,8 @@ bool GameHandler::isNearPlayer(Obstacle* obstacle) {
 	sf::Vector2f obstaclePos = obstacle->getPos();
 	sf::Vector2f playerPos = player->getPos();
 	int xDif = obstaclePos.x - playerPos.x;
-	if (xDif < hearingRange) {
+	int yDif = obstaclePos.y - playerPos.y;
+	if (xDif < hearingRange && yDif < hearingRange) {
 		return true;
 	}
 	else {

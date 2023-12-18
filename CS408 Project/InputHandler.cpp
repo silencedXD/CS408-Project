@@ -39,7 +39,7 @@ void InputHandler::keyPressed(sf::Event event) {
 }
 
 void InputHandler::updateArrow() {
-    sf::Vector2f windowSize = sf::Vector2f(UI->getWindowSize().x, UI->getWindowSize().y);
+    sf::Vector2f windowSize = sf::Vector2f(UI->GetWindowSize().x, UI->GetWindowSize().y);
     UI->arrow->setPos(windowSize.x / 2.0, (selector / 10) * (windowSize.y / totalMenuItems));
 }
 
