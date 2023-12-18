@@ -109,7 +109,8 @@ MenuCode GameHandler::updateState(sf::Time elapsed) {
 	player->Update();					//Then update player state
 	checkCollisions();					//Then check if new player state is affected by the world (ie obstacles)
 
-	graphics->SetupFrame();
+	graphics->SetupFrame(player->getPos());
+	
 	graphics->Draw(player->getSprite());
 	for (Obstacle* obstacle : obstacles) {
 		graphics->Draw(obstacle->getSprite());

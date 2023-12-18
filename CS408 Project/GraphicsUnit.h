@@ -9,7 +9,7 @@ public:
 
 	void CloseWindow();
 	void ClearWindow();
-	void SetupFrame();
+	void SetupFrame(sf::Vector2f pos);
 	void Draw(sf::Sprite* sprite);
 	void Display();
 	sf::Texture* LoadTexture(std::string objectName);

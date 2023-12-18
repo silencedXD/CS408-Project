@@ -66,7 +66,8 @@ void GraphicsUnit::ClearWindow() {
     window->clear(backgroundColour);
 }
 
-void GraphicsUnit::SetupFrame()
+void GraphicsUnit::SetupFrame(sf::Vector2f pos)
 {
     ClearWindow();
+    window->setView(sf::View(sf::Vector2f(pos.x, pos.y), sf::Vector2f(window->getSize())));
 }
