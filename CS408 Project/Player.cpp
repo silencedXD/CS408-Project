@@ -89,14 +89,13 @@ void Player::Move(KeyCode command) {
 }
 
 void Player::Rotate(bool left) {
-	sf::FloatRect bounds = sprite.getGlobalBounds();
+	sf::FloatRect bounds = sprite.getLocalBounds();
 	
 	sprite.setOrigin(bounds.width / 2, bounds.height / 2);
 
 	if (left) { sprite.rotate(-rotationFactor); }
 	else	  { sprite.rotate( rotationFactor); }
-
-	sprite.setOrigin(0, 0);
+	
 }
 
 void Player::StopMomentum(){
