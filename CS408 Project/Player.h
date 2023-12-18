@@ -14,6 +14,7 @@ public:
 	void UpdatePosition();
 	void DecaySpeed();
 	void StopMomentum();
+	void Rotate(bool left);
 
 	int decayRate;
 	int zeroAtValue;

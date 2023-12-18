@@ -68,11 +68,11 @@ void Player::Move(KeyCode command) {
 	float rotation = sprite.getRotation();
 	switch (command) {
 	case LEFT:
-		sprite.rotate(-rotationFactor);
+		Rotate(true);
 		break;
 
 	case RIGHT:
-		sprite.rotate(rotationFactor);
+		Rotate(false);
 		break;
 
 	case UP:
@@ -88,7 +88,17 @@ void Player::Move(KeyCode command) {
 	}
 }
 
-void Player::StopMomentum()
-{
+void Player::Rotate(bool left) {
+	sf::FloatRect bounds = sprite.getGlobalBounds();
+	
+	sprite.setOrigin(bounds.width / 2, bounds.height / 2);
+
+	if (left) { sprite.rotate(-rotationFactor); }
+	else	  { sprite.rotate( rotationFactor); }
+
+	sprite.setOrigin(0, 0);
+}
+
+void Player::StopMomentum(){
 	momentum = 0;
 }
