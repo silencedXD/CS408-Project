@@ -68,23 +68,11 @@ void Player::Move(KeyCode command) {
 	float rotation = sprite.getRotation();
 	switch (command) {
 	case LEFT:
-		if (rotation > rotationFactor)
-		{
-			sprite.setRotation(rotation - rotationFactor);
-		}
-		else {
-			sprite.setRotation(360 + rotation - rotationFactor);
-		}
+		sprite.rotate(-rotationFactor);
 		break;
 
 	case RIGHT:
-		if (rotation < 360 - rotationFactor)
-		{
-			sprite.setRotation(rotation +rotationFactor);
-		}
-		else {
-			sprite.setRotation(rotation + rotationFactor - 360);
-		}
+		sprite.rotate(rotationFactor);
 		break;
 
 	case UP:
